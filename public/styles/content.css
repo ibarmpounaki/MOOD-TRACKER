@@ -1,0 +1,171 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-header{
+    display: flex;
+    align-items: center;
+    padding: 25px;
+}
+
+#welcomeMsg{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard {
+    display: flex;
+    gap: 30px;
+    padding: 25px;
+    padding-top: 0px;
+    justify-content: center;
+    align-items: stretch;   
+    height: 90vh; /* viewport height */
+}
+
+.card {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.question-card {
+    display: flex;
+    flex: 3;
+    flex-direction: column;
+    /* justify-content: center;  horizontal */
+    align-items: stretch;      /* vertical */
+}
+
+#moodQuestion{
+    text-align: center;  
+    margin-top: 20px;
+}
+
+#moodContainer {
+    display: flex;
+    gap: 40px;
+    margin-top: 60px;
+    margin-bottom: 70px;
+    flex-wrap: wrap;   /* allows wrap on small screens */
+    justify-content: center;
+}
+
+.mood {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.mood-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    transition: 0.15s;
+}
+
+.happy   { background: #4CAF50; }
+.sad     { background: #2196F3; }
+.neutral { background: #000; }
+.anxious { background: #9C27B0; }
+.excited { background: #FF9800; }
+.tired   { background: #607D8B; }
+.angry   { background: #F44336; }
+
+.mood:hover .mood-box {
+  transform: scale(1.12);
+  border-color: #333;
+}
+
+#MoodNotes{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+#notes {
+    width: 100%;
+    height: 500px;          /* fixed height */
+    margin-top: 18px;
+    padding: 12px;
+
+    border-radius: 10px;
+    border: 1px solid #ccc;
+
+    font-size: 14px;
+    font-family: inherit;
+
+    resize: none;           /* prevent drag resize */
+    overflow-y: auto;       /* enable scroll */
+}
+
+#curYear {
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+.calendar-card {
+    flex: 1;
+    display:flex;
+    align-items: center;
+    justify-content: end;  
+}
+
+.calendar-grid {
+    display: grid;
+
+    /* 1 column for day labels + 12 for months */
+    grid-template-columns: 20px repeat(12, 21px);
+    row-gap: 5px;
+    column-gap: 5px;
+    margin: 0 0 10px 0;
+}
+
+.month-label {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.day-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.day {
+    aspect-ratio: 1;
+    background: #eee;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.emptyDay{
+    aspect-ratio: 1;
+    background: #ffffff;
+    transition: 0.15s;
+}
+
+.today{
+    outline: 2px solid red;
+    background: #ffeaea;
+}
+
+.day:hover {
+    background: #d0d0d0;
+}
