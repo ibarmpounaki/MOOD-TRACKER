@@ -1,78 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
-    <link rel="stylesheet" href="/styles/content.css">
-    <!-- <link rel="stylesheet" href="/styles/content.css"> -->
-    <title>Mood Tracker</title>
-</head>
-<body>
-
-  <!-- Top welcome section -->
-  <header class="page-header">
-    <h1 id = "welcomeMsg">Welcome back, Alex!</h1>
-  </header>
+<%-include("partials/header.ejs")%>
 
   <!-- Main content area -->
   <main class="dashboard">
 
     <!-- Left big box -->
     <section class="card question-card">
-        <h1 id="moodQuestion">How are you feeling today?</h1>
+        <form action="/addMood" method="POST">
+            <h1 id="moodQuestion">How are you feeling today?</h1>
 
-        <div id="moodContainer">
-            <div class="mood">
-                <div class="mood-box happy"></div>
-                <span>Happy</span>
+            <input type="hidden" name="selectedMood" id="selectedMoodInput">
+
+            <div id="moodContainer">
+                <div class="mood" data-mood="happy">
+                    <div class="mood-box happy" ></div>
+                    <span>Happy</span>
+                </div>
+
+                <div class="mood" data-mood="sad">
+                    <div class="mood-box sad" ></div>
+                    <span>Sad</span>
+                </div>
+
+                <div class="mood" data-mood="neutral">
+                    <div class="mood-box neutral"></div>
+                    <span>Neutral</span>
+                </div>
+
+                <div class="mood" data-mood="anxious">
+                    <div class="mood-box anxious"></div>
+                    <span>Anxious</span>
+                </div>
+
+                <div class="mood" data-mood="excited">
+                    <div class="mood-box excited"></div>
+                    <span>Excited</span>
+                </div>
+
+                <div class="mood" data-mood="tired">
+                    <div class="mood-box tired"></div>
+                    <span>Tired</span>
+                </div>
+
+                <div class="mood" data-mood="angry">
+                    <div class="mood-box angry"></div>
+                    <span>Angry</span>
+                </div>
             </div>
 
-            <div class="mood">
-                <div class="mood-box sad"></div>
-                <span>Sad</span>
+            <div id="MoodNotes"> 
+                <!-- Notes input -->
+                <textarea
+                    name = "notes"
+                    id = "notes"
+                    placeholder="Write about your day..."
+                ></textarea>
+
+                <button type="submit" class="ok">
+                    OK
+                </button>
             </div>
-
-            <div class="mood">
-                <div class="mood-box neutral"></div>
-                <span>Neutral</span>
-            </div>
-
-            <div class="mood">
-                <div class="mood-box anxious"></div>
-                <span>Anxious</span>
-            </div>
-
-            <div class="mood">
-                <div class="mood-box excited"></div>
-                <span>Excited</span>
-            </div>
-
-            <div class="mood">
-                <div class="mood-box tired"></div>
-                <span>Tired</span>
-            </div>
-
-            <div class="mood">
-                <div class="mood-box angry"></div>
-                <span>Angry</span>
-            </div>
-        </div>
-
-        <div id="MoodNotes"> 
-            <!-- Notes input -->
-            <textarea
-                id = "notes"
-                placeholder="Write about your day..."
-            ></textarea>
-
-            <button>
-                OK
-            </button>
-        </div>
+        </form>
     </section>
 
+    
     <!-- Right big box -->
     <section class="card calendar-card">
         <div>
@@ -106,6 +96,10 @@
                         <div class="day today"
                             data-day="<%= day %>"
                             data-month="<%= month %>">
+
+                            <div class="day-popup">
+                                Day <%= day %> / <%= month %>
+                            </div>
                         </div>
 
                     <% } else { %>
@@ -114,6 +108,10 @@
                             <div class="day"
                                 data-day="<%= day %>"
                                 data-month="<%= month %>">
+
+                                <div class="day-popup">
+                                    Day <%= day %> / <%= month %>
+                                </div>
                             </div>
 
                         <% } else { %>
@@ -137,12 +135,4 @@
 
   </main>
 
-  <!-- Footer -->
-  <footer class="page-footer">
-    <p>Made with ❤️</p>
-  </footer>
-
-</body>
-
-
-</html>
+<%-include("partials/footer.ejs")%>

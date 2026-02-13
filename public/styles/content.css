@@ -10,11 +10,12 @@ body {
 
 .page-header{
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 25px;
 }
 
-#welcomeMsg{
+.page-header > * {
     text-align: center;
     margin: 0;
     padding: 0;
@@ -89,6 +90,11 @@ body {
   border-color: #333;
 }
 
+.mood.selected .mood-box {
+  border: 3px solid black;
+  transform: scale(1.12);
+}
+
 #MoodNotes{
     display: flex;
     flex-direction: column;
@@ -153,6 +159,8 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: 0.15s;
+
+    position: relative;   /* REQUIRED */
 }
 
 .emptyDay{
@@ -168,4 +176,42 @@ body {
 
 .day:hover {
     background: #d0d0d0;
+}
+
+.day-popup {
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: #222;
+    color: white;
+
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+
+    white-space: nowrap;
+
+    opacity: 0;     /* hidden */
+    pointer-events: none;
+    transition: 0.15s;
+
+    z-index: 100;
+}
+
+.day:hover .day-popup {
+  opacity: 1;
+}
+
+/* Pop Up arrow */
+.day-popup::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border: 6px solid transparent;
+    border-top-color: #222;
 }
