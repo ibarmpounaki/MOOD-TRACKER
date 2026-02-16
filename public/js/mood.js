@@ -8,12 +8,15 @@ $(".mood").click(function () {
     selectedMood = $(this);
 });
 
-
 $(".ok").click(function () {
     if (selectedMood) {
         selectedMood.removeClass("selected");
     }
     selectedMood = null;
+
+    // check if values have neen assigned (mood or/and journal)
+    // save mood to DB
+
 });
 
 $(".day").click(function () {
