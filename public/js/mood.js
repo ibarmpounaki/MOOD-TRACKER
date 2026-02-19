@@ -5,6 +5,7 @@ $(".mood").click(function () {
 
     $(this).addClass("selected");
     $("#selectedMoodInput").val($(this).data("mood"));
+    $("#selectedColorInput").val($(this).data("color"));
     selectedMood = $(this);
 });
 
@@ -14,8 +15,8 @@ $(".ok").click(function () {
     }
     selectedMood = null;
 
-    // check if values have neen assigned (mood or/and journal)
-    // save mood to DB
+    // check if values have been assigned (mood or/and journal)
+
 
 });
 

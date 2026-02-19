@@ -147,6 +147,13 @@ app.get("/dashboard", requireLogin, async (req, res) => {
         [userId]
     );
 
+    const moods = await db.query(
+        "SELECT mood_color, mood_date FROM moods WHERE user_id = $1",
+        [userId]
+    );
+
+    const moodData = moods.rows;
+
     const userName = result.rows[0].name;
 
     const date = new Date();
@@ -164,12 +171,40 @@ app.get("/dashboard", requireLogin, async (req, res) => {
         todayYear: year,
         todayMonth: month + 1,
         todayDay: day,
-        DaysOfMonths
+        DaysOfMonths,
+        moods: moodData
     });
+
+
 });
 
-app.post("/addMood", (req, res) => {
-    const test = req.body.selectedMood;
+app.post("/addMood", requireLogin, async (req, res) => {
+
+    const userId = req.session.userId;
+    const color = req.body.selectedcolor;
+    const mood = req.body.selectedMood;
+    const note = req.body.notes;
+
+    try {
+
+        await db.query(
+            `INSERT INTO moods (user_id, mood_color, mood_name, note, mood_date)
+            VALUES ($1,$2,$3,$4,CURRENT_DATE)
+            ON CONFLICT (user_id, mood_date)
+            DO UPDATE SET
+                mood_color = EXCLUDED.mood_color,
+                mood_name  = EXCLUDED.mood_name,
+                note       = EXCLUDED.note,
+                created_at = CURRENT_TIMESTAMP`,
+            [userId, color, mood, note]
+        );
+
+        res.redirect("/dashboard");
+
+    } catch (err) {
+        console.error(err);
+        res.send("Error saving mood");
+    }
 });
 
 app.get("/logout", (req, res) => {
