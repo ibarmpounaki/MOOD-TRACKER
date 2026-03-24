@@ -5,167 +5,78 @@
 
     <!-- Left big box -->
     <section class="card question-card">
-        <form action="/addMood" method="POST">
-            <h1 id="moodQuestion">How are you feeling today?</h1>
-
-            <input type="hidden" name="selectedcolor" id="selectedColorInput">
-            <input type="hidden" name="selectedMood" id="selectedMoodInput">
-
-            <div id="moodContainer">
-
-                <div class="mood" data-mood="happy" data-color="#4CAF50">
-                    <div class="mood-box happy"></div>
-                    <span>Happy</span>
-                </div>
-
-                <div class="mood" data-mood="sad" data-color="#2196F3">
-                    <div class="mood-box sad"></div>
-                    <span>Sad</span>
-                </div>
-
-                <div class="mood" data-mood="neutral" data-color="#9E9E9E">
-                    <div class="mood-box neutral"></div>
-                    <span>Neutral</span>
-                </div>
-
-                <div class="mood" data-mood="anxious" data-color="#9C27B0">
-                    <div class="mood-box anxious"></div>
-                    <span>Anxious</span>
-                </div>
-
-                <div class="mood" data-mood="excited" data-color="#FF9800">
-                    <div class="mood-box excited"></div>
-                    <span>Excited</span>
-                </div>
-
-                <div class="mood" data-mood="tired" data-color="#607D8B">
-                    <div class="mood-box tired"></div>
-                    <span>Tired</span>
-                </div>
-
-                <div class="mood" data-mood="angry" data-color="#F44336">
-                    <div class="mood-box angry"></div>
-                    <span>Angry</span>
-                </div>
-
+        <section class="part menu-bar">
+            <div class="menu user-info">
+            
             </div>
-
-
-            <div id="MoodNotes"> 
-                <!-- Notes input -->
-                <textarea
-                    name = "notes"
-                    id = "notes"
-                    placeholder="Write about your day..."
-                ></textarea>
-
-                <button type="submit" class="ok">
-                    OK
-                </button>
+            <div class="menu categories">
+            
             </div>
-        </form>
-    </section>
+            <div class="menu categories">
+            
+            </div>
+            <div class="menu categories">
+            
+            </div>
+            <div class="menu categories">
+            
+            </div>
+        </section>
 
-    <%
-        const moodMap = {};
+        <section class="part main-section">
 
-        moods.forEach(m => {
-            const d = new Date(m.mood_date);
-            const key = `${d.getDate()}-${d.getMonth()+1}`;
-            moodMap[key] = m.mood_color;
-        });
-    %>
+            <% [
+                { label: 'Morning',   time: '06:00 AM' },
+                { label: 'Afternoon', time: '12:00 PM' },
+                { label: 'Evening',   time: '06:00 PM' }
+            ].forEach(part => { %>
 
-    <!-- Right big box -->
-    <section class="card calendar-card">
-        <div>
-            <h2 id="curYear"> <%= todayYear %> </h2>
-        </div>
+                <div class="day-parts">
+                    <div class="DayPartText">
+                        <h4><%= part.label %></h4>
+                        <h6><%= part.time %></h6>
+                    </div>
 
-        <!-- Month header row -->
-        <div class="calendar-grid">
+                    <form action="/addMood" method="POST">
+                        <div class="textarea-wrapper">
 
-            <!-- top-left empty corner. in order to keep an empty position before January -->
-            <div></div>
-
-            <% const months = ["J","F","M","A","M","J","J","A","S","O","N","D"]; %>
-
-            <% months.forEach(m => { %>
-                <div class="month-label"><%= m %></div>
-            <% }) %>
-
-            <!-- Day rows -->
-            <% for (let day = 1; day <= 31; day++) { %>
-
-                <!-- left day label -->
-                <div class="day-label"><%= day %></div>
-
-                <!-- 12 month cells -->
-                <% for (let month = 1; month <= 12; month++) { %>
-                    
-                    <% if (day === todayDay && month === todayMonth) { %>
-                        
-                        <!-- check if the mood exists, aka if there is any color related to the combination day-month -->
-                        <%
-                            const key = `${day}-${month}`;
-                            const color = moodMap[key];
-                        %>
-
-                        <div class="day today"
-                            data-day="<%= day %>"
-                            data-month="<%= month %>"
-                        
-                            <% <!-- mood exists --> %>
-                            <% if (moodMap[key]) { %>
-                                style="background:<%= color ? color : '#eee' %>"
-                            <% } %>
-                            >
-                            <div class="day-popup">
-                                Day <%= day %> / <%= month %>
+                            <div class="MoodNotes">
+                                <textarea name="notes" id="notes" placeholder="Write about your day..."></textarea>
                             </div>
-                        </div>
 
+                            <input type="hidden" name="selectedcolor" class="selectedColorInput">
+                            <input type="hidden" name="selectedMood" class="selectedMoodInput">
+                            <input type="hidden" name="period" value="<%= part.label.toLowerCase() %>">
 
-                    <% } else { %>
-                        <% if (day <= DaysOfMonths[month-1] ) { %>
-
-                            <%
-                                const key = `${day}-${month}`;
-                                const color = moodMap[key];
-                            %>
-
-                            <div class="day"
-                                data-day="<%= day %>"
-                                data-month="<%= month %>"
-                                
-                                <% <!-- mood exists --> %>
-                                <% if (moodMap[key]) { %>
-                                    style="background:<%= color ? color : '#eee' %>"
-                                <% } %>
-                                >
-                                <div class="day-popup">
-                                    Day <%= day %> / <%= month %>
+                            <div class="moodContainer">
+                                <h6>MOOD </h6>
+                                <% [
+                                { mood: 'happy',   color: '#4CAF50' },
+                                { mood: 'sad',     color: '#2196F3' },
+                                { mood: 'neutral', color: '#9E9E9E' },
+                                { mood: 'anxious', color: '#9C27B0' },
+                                { mood: 'excited', color: '#FF9800' },
+                                { mood: 'tired',   color: '#607D8B' },
+                                { mood: 'angry',   color: '#F44336' }
+                                ].forEach(m => { %>
+                                <div class="mood" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
+                                    <div class="mood-box <%= m.mood %>"></div>
+                                    <!-- <span><%= m.mood.charAt(0).toUpperCase() + m.mood.slice(1) %></span> -->
                                 </div>
+                                <% }) %>
                             </div>
 
-                        <% } else { %>
+                        </div>   
+                    </form>
+                </div>
 
-                            <div class="emptyDay"
-                                data-day="<%= day %>"
-                                data-month="<%= month %>">
-                            </div>
-
-                        <% } %>
-                        
-                    <% } %>
-
-                <% } %>
-
-            <% } %>
-
-        </div>
+            <% }) %>
+                <button type="submit" class="ok">OK</button>
+            </section>
 
     </section>
+
+    <%-include("partials/calendar.ejs")%>
 
     <a href="/logout">Logout</a>
 

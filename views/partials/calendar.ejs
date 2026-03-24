@@ -1,0 +1,100 @@
+<%
+    const moodMap = {};
+
+    moods.forEach(m => {
+        const d = new Date(m.mood_date);
+        const key = `${d.getDate()}-${d.getMonth()+1}`;
+        moodMap[key] = m.mood_color;
+    });
+%>
+
+<!-- Right big box -->
+<section class="card calendar-card">
+    <div>
+        <h2 id="curYear"> <%= todayYear %> </h2>
+    </div>
+
+    <!-- Month header row -->
+    <div class="calendar-grid">
+
+        <!-- top-left empty corner. in order to keep an empty position before January -->
+        <div></div>
+
+        <% const months = ["J","F","M","A","M","J","J","A","S","O","N","D"]; %>
+
+        <% months.forEach(m => { %>
+            <div class="month-label"><%= m %></div>
+        <% }) %>
+
+        <!-- Day rows -->
+        <% for (let day = 1; day <= 31; day++) { %>
+
+            <!-- left day label -->
+            <div class="day-label"><%= day %></div>
+
+            <!-- 12 month cells -->
+            <% for (let month = 1; month <= 12; month++) { %>
+                
+                <% if (day === todayDay && month === todayMonth) { %>
+                    
+                    <!-- check if the mood exists, aka if there is any color related to the combination day-month -->
+                    <%
+                        const key = `${day}-${month}`;
+                        const color = moodMap[key];
+                    %>
+
+                    <div class="day today"
+                        data-day="<%= day %>"
+                        data-month="<%= month %>"
+                    
+                        <% <!-- mood exists --> %>
+                        <% if (moodMap[key]) { %>
+                            style="background:<%= color ? color : '#eee' %>"
+                        <% } %>
+                        >
+                        <div class="day-popup">
+                            Day <%= day %> / <%= month %>
+                        </div>
+                    </div>
+
+
+                <% } else { %>
+                    <% if (day <= DaysOfMonths[month-1] ) { %>
+
+                        <%
+                            const key = `${day}-${month}`;
+                            const color = moodMap[key];
+                        %>
+
+                        <div class="day"
+                            data-day="<%= day %>"
+                            data-month="<%= month %>"
+                            
+                            <% <!-- mood exists --> %>
+                            <% if (moodMap[key]) { %>
+                                style="background:<%= color ? color : '#eee' %>"
+                            <% } %>
+                            >
+                            <div class="day-popup">
+                                Day <%= day %> / <%= month %>
+                            </div>
+                        </div>
+
+                    <% } else { %>
+
+                        <div class="emptyDay"
+                            data-day="<%= day %>"
+                            data-month="<%= month %>">
+                        </div>
+
+                    <% } %>
+                    
+                <% } %>
+
+            <% } %>
+
+        <% } %>
+
+    </div>
+
+</section>

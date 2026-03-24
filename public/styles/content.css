@@ -1,89 +1,151 @@
-html, body {
-    height: 100%;
-    margin: 0;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #e8eaf6;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.page-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px;
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
 }
 
 .page-header > * {
-    text-align: center;
-    margin: 0;
-    padding: 0;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 .dashboard {
-    display: flex;
-    gap: 30px;
-    padding: 25px;
-    padding-top: 0px;
-    justify-content: center;
-    align-items: stretch;   
-    height: 90vh; /* viewport height */
+  display: flex;
+  gap: 30px;
+  padding: 25px;
+  padding-top: 0px;
+  justify-content: center;
+  align-items: stretch;
+  height: 90vh; /* viewport height */
+}
+
+#welcomeMsg {
+  color: #1e2a45;
 }
 
 .card {
-    flex: 1;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 20px;
-    background: white;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.part {
+  flex: 1;
+  border: 1px solid red;
+}
+
+.menu {
+  border: 1px solid black;
+  flex-direction: column;
+}
+
+.user-info {
+  padding: 60px;
+}
+
+.categories {
+  padding: 30px;
+}
+
+.main-section {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  /* align-items: stretch; */
+}
+
+.day-parts {
+  flex: 1; /* each section takes equal share of the height */
+  border: 1px solid green;
+  padding: 30px;
+  align-items: center;
+}
+
+.DayPartText {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .question-card {
-    display: flex;
-    flex: 3;
-    flex-direction: column;
-    /* justify-content: center;  horizontal */
-    align-items: stretch;      /* vertical */
+  display: flex;
+  flex: 3;
+  flex-direction: row;
+  /* justify-content: center;  horizontal */
+  align-items: stretch; /* vertical */
 }
 
-#moodQuestion{
-    text-align: center;  
-    margin-top: 20px;
+#moodQuestion {
+  text-align: center;
+  margin-top: 20px;
 }
 
-#moodContainer {
-    display: flex;
-    gap: 40px;
-    margin-top: 60px;
-    margin-bottom: 70px;
-    flex-wrap: wrap;   /* allows wrap on small screens */
-    justify-content: center;
+.moodContainer {
+  position: absolute;
+  bottom: 14px;
+  right: 12px;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap; /* allows wrap on small screens */
+  flex-direction: row;
+
+  justify-content: center;
 }
 
 .mood {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
 }
 
 .mood-box {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    border: 2px solid #ddd;
-    transition: 0.15s;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  transition: 0.15s;
 }
 
-.happy   { background: #4CAF50; }
-.sad     { background: #2196F3; }
-.neutral { background: #000; }
-.anxious { background: #9C27B0; }
-.excited { background: #FF9800; }
-.tired   { background: #607D8B; }
-.angry   { background: #F44336; }
+.happy {
+  background: #4caf50;
+}
+.sad {
+  background: #2196f3;
+}
+.neutral {
+  background: #000;
+}
+.anxious {
+  background: #9c27b0;
+}
+.excited {
+  background: #ff9800;
+}
+.tired {
+  background: #607d8b;
+}
+.angry {
+  background: #f44336;
+}
 
 .mood:hover .mood-box {
   transform: scale(1.12);
@@ -95,109 +157,114 @@ body {
   transform: scale(1.12);
 }
 
-#MoodNotes{
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
+.textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+#MoodNotes {
+  display: flex;
+  flex-direction: column;
 }
 
 #notes {
-    width: 100%;
-    height: 500px;          /* fixed height */
-    margin-top: 18px;
-    padding: 12px;
+  width: 100%;
+  height: 180px; /* fixed height */
+  margin-top: 18px;
 
-    border-radius: 10px;
-    border: 1px solid #ccc;
+  padding: 12px;
 
-    font-size: 14px;
-    font-family: inherit;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 
-    resize: none;           /* prevent drag resize */
-    overflow-y: auto;       /* enable scroll */
+  font-size: 14px;
+  font-family: inherit;
+
+  resize: none; /* prevent drag resize */
+  overflow-y: auto; /* enable scroll */
 }
 
 #curYear {
-    margin: 0 0 15px 0;
-    text-align: center;
+  margin: 0 0 15px 0;
+  text-align: center;
 }
 
 .calendar-card {
-    flex: 1;
-    display:flex;
-    align-items: center;
-    justify-content: end;  
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 
 .calendar-grid {
-    display: grid;
+  display: grid;
 
-    /* 1 column for day labels + 12 for months */
-    grid-template-columns: 20px repeat(12, 21px);
-    row-gap: 5px;
-    column-gap: 5px;
-    margin: 0 0 10px 0;
+  /* 1 column for day labels + 12 for months */
+  grid-template-columns: 20px repeat(12, 21px);
+  row-gap: 5px;
+  column-gap: 5px;
+  margin: 0 0 10px 0;
 }
 
 .month-label {
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .day-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #666;
 }
 
 .day {
-    aspect-ratio: 1;
-    background: #eee;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 0.15s;
+  aspect-ratio: 1;
+  background: #eee;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.15s;
 
-    position: relative;   /* REQUIRED */
+  position: relative; /* REQUIRED */
 }
 
-.emptyDay{
-    aspect-ratio: 1;
-    background: #ffffff;
-    transition: 0.15s;
+.emptyDay {
+  aspect-ratio: 1;
+  background: #ffffff;
+  transition: 0.15s;
 }
 
-.today{
-    outline: 2px solid red;
-    background: #ffeaea;
+.today {
+  outline: 2px solid red;
+  background: #ffeaea;
 }
 
 .day:hover {
-    background: #d0d0d0;
+  background: #d0d0d0;
 }
 
 .day-popup {
-    position: absolute;
-    bottom: 130%;
-    left: 50%;
-    transform: translateX(-50%);
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
 
-    background: #222;
-    color: white;
+  background: #222;
+  color: white;
 
-    padding: 6px 8px;
-    border-radius: 6px;
-    font-size: 14px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 14px;
 
-    white-space: nowrap;
+  white-space: nowrap;
 
-    opacity: 0;     /* hidden */
-    pointer-events: none;
-    transition: 0.15s;
+  opacity: 0; /* hidden */
+  pointer-events: none;
+  transition: 0.15s;
 
-    z-index: 100;
+  z-index: 100;
 }
 
 .day:hover .day-popup {
@@ -206,12 +273,12 @@ body {
 
 /* Pop Up arrow */
 .day-popup::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
 
-    border: 6px solid transparent;
-    border-top-color: #222;
+  border: 6px solid transparent;
+  border-top-color: #222;
 }
