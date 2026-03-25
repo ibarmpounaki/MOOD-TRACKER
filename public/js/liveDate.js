@@ -3,22 +3,22 @@ let lastDay = null;
 function updateDateTime() {
   const now = new Date();
 
-  const formatted = now.toLocaleString("en-GB", {
-    weekday: "long",
-    day: "numeric",
+  const date = now.toLocaleString("en-GB", {
     month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
+    day: "numeric",
   });
 
-  document.getElementById("curDate").textContent = formatted;
+  const time = now.toLocaleString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 
-  updateTodayHighlight();
+  document.getElementById("curDate").textContent = "Today, " + date;
+  document.getElementById("curTime").textContent = time;
 }
 
-updateDateTime();                  // run immediately
+updateDateTime(); // run immediately
 setInterval(updateDateTime, 1000); // update every second
 
 function updateTodayHighlight() {
@@ -26,15 +26,16 @@ function updateTodayHighlight() {
   const d = now.getDate();
   const m = now.getMonth() + 1;
 
-  if (d === lastDay) return;   // no change will be made
+  if (d === lastDay) return; // no change will be made
 
   lastDay = d;
 
-  document.querySelectorAll(".day.today")
-    .forEach(el => el.classList.remove("today"));
+  document
+    .querySelectorAll(".day.today")
+    .forEach((el) => el.classList.remove("today"));
 
   const newToday = document.querySelector(
-    `.day[data-day="${d}"][data-month="${m}"]`
+    `.day[data-day="${d}"][data-month="${m}"]`,
   );
 
   if (newToday) newToday.classList.add("today");

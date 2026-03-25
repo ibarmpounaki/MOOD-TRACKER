@@ -15,6 +15,8 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 25px;
+  padding-bottom: 15px;
+  padding-top: 15px;
 }
 
 .page-header > * {
@@ -37,6 +39,27 @@ body {
   color: #1e2a45;
 }
 
+.TodayDate {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: right;
+}
+
+#curDate {
+  font-size: 18px;
+  color: #7080a8;
+}
+
+#curTime {
+  font-size: 30px;
+  width: 100%;
+  font-weight: 700;
+  color: #1e2140;
+}
+
 .card {
   flex: 1;
   border: 1px solid #ddd;
@@ -49,6 +72,12 @@ body {
 .part {
   flex: 1;
   border: 1px solid red;
+}
+
+.menu-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .menu {
