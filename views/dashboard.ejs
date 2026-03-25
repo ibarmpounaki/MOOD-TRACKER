@@ -23,56 +23,57 @@
             </div>
         </section>
 
-        <section class="part main-section">
-
+       <section class="part main-section">
             <% [
                 { label: 'Morning',   time: '06:00 AM' },
                 { label: 'Afternoon', time: '12:00 PM' },
                 { label: 'Evening',   time: '06:00 PM' }
-            ].forEach(part => { %>
+            ].forEach((part, index) => { %>
+                
+                <div class="timeline-column"></div>
 
-                <div class="day-parts">
-                    <div class="DayPartText">
-                        <h4><%= part.label %></h4>
-                        <h6><%= part.time %></h6>
+                <div class="day-row">
+
+                    <div class="timeline-vertical-line">
+                        <div class="dot"></div>
                     </div>
 
-                    <form action="/addMood" method="POST">
-                        <div class="textarea-wrapper">
-
-                            <div class="MoodNotes">
-                                <textarea name="notes" id="notes" placeholder="Write about your day..."></textarea>
-                            </div>
-
-                            <input type="hidden" name="selectedcolor" class="selectedColorInput">
-                            <input type="hidden" name="selectedMood" class="selectedMoodInput">
-                            <input type="hidden" name="period" value="<%= part.label.toLowerCase() %>">
-
-                            <div class="moodContainer">
-                                <h6>MOOD </h6>
-                                <% [
-                                { mood: 'happy',   color: '#4CAF50' },
-                                { mood: 'sad',     color: '#2196F3' },
-                                { mood: 'neutral', color: '#9E9E9E' },
-                                { mood: 'anxious', color: '#9C27B0' },
-                                { mood: 'excited', color: '#FF9800' },
-                                { mood: 'tired',   color: '#607D8B' },
-                                { mood: 'angry',   color: '#F44336' }
-                                ].forEach(m => { %>
-                                <div class="mood" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
-                                    <div class="mood-box <%= m.mood %>"></div>
-                                    <!-- <span><%= m.mood.charAt(0).toUpperCase() + m.mood.slice(1) %></span> -->
+                    <div class="day-parts">
+                        <div class="DayPartText">
+                            <h4><%= part.label %></h4>
+                            <h6><%= part.time %></h6>
+                        </div>
+                        <form action="/addMood" method="POST">
+                            <div class="textarea-wrapper">
+                                <div class="MoodNotes">
+                                    <textarea name="notes" class="notes" placeholder="Write about your day..."></textarea>
                                 </div>
-                                <% }) %>
+                                <input type="hidden" name="selectedcolor" class="selectedColorInput">
+                                <input type="hidden" name="selectedMood" class="selectedMoodInput">
+                                <input type="hidden" name="period" value="<%= part.label.toLowerCase() %>">
+                                <div class="moodContainer">
+                                    <h6>MOOD</h6>
+                                    <% [
+                                        { mood: 'happy',   color: '#4CAF50' },
+                                        { mood: 'sad',     color: '#2196F3' },
+                                        { mood: 'neutral', color: '#9E9E9E' },
+                                        { mood: 'anxious', color: '#9C27B0' },
+                                        { mood: 'excited', color: '#FF9800' },
+                                        { mood: 'tired',   color: '#607D8B' },
+                                        { mood: 'angry',   color: '#F44336' }
+                                        ].forEach(m => { %>
+                                            <div class="mood" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
+                                                <div class="mood-box <%= m.mood %>"></div>
+                                            </div>
+                                        <% }) %>
+                                </div>
                             </div>
-
-                        </div>   
-                    </form>
+                        </form>
+                    </div>
                 </div>
-
             <% }) %>
-                <button type="submit" class="ok">OK</button>
-            </section>
+            <button type="submit" class="ok">Save Day</button>
+        </section>
 
     </section>
 
