@@ -340,3 +340,26 @@ body {
   border: 6px solid transparent;
   border-top-color: #222;
 }
+
+.ok {
+  display: block;
+  margin: 16px auto 0;
+  padding: 14px 48px;
+  background: linear-gradient(135deg, #5870c0, #9878c8);
+  color: #fff;
+  border: none;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.ok:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(88, 112, 192, 0.35);
+}
