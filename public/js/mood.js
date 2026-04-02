@@ -1,9 +1,14 @@
 let selectedMood = null;
 
-$(".mood").click(function () {
-  $(".mood").removeClass("selected");
+$(".mood").click(function (e) {
+  //if we clicked on a NOT already selected mood, remove the selected class from the mood that had been selected last
+  if (!$(this).hasClass("selected")) {
+    $(".mood").removeClass("selected");
+  }
 
-  $(this).addClass("selected");
+  $(this).toggleClass("selected");
+
+  // $(this).addClass("selected");
   $("#selectedMoodInput").val($(this).data("mood"));
   $("#selectedColorInput").val($(this).data("color"));
   selectedMood = $(this);

@@ -71,7 +71,7 @@ body {
 
 .part {
   flex: 1;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .menu-bar {
@@ -81,16 +81,70 @@ body {
 }
 
 .menu {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   flex-direction: column;
 }
 
 .user-info {
-  padding: 60px;
+  display: flex;
+  justify-content: flex-start;
+  padding: 30px;
+}
+
+.rounded-profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  border: 1.5px solid #5870c086;
+  background-color: #5870c023;
+  display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center; /* vertical */
+}
+
+.user-name {
+  margin-top: 6px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #2e3d64;
+}
+
+.firstUsrLetter {
+  font-size: 45px;
+  color: #3848a0;
+}
+
+.UserStreakDays {
+  font-size: 17px;
+  color: #5870c0a0;
 }
 
 .categories {
   padding: 30px;
+  font-size: 19px;
+  font-weight: 600;
+  /* color: #1e2d6b; */
+  color: #5870c06e;
+  text-decoration: none;
+}
+
+a:link,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+.menu-image {
+  width: 26px;
+  height: 26px;
+  margin-right: 10px;
+  /* background-color: red; */
 }
 
 .main-section {
@@ -156,10 +210,10 @@ body {
 
 .moodContainer {
   position: absolute;
-  bottom: 14px;
+  bottom: 4px;
   right: 12px;
   display: flex;
-  gap: 5px;
+  gap: 8px;
   flex-wrap: wrap; /* allows wrap on small screens */
   flex-direction: row;
 
@@ -171,42 +225,63 @@ body {
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  opacity: 90%;
 }
 
 .mood-box {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+  width: 17px;
+  height: 17px;
+  border-radius: 100%;
   cursor: pointer;
-  border: 2px solid #ddd;
   transition: 0.15s;
 }
 
-.happy {
-  background: #4caf50;
+.bad {
+  background: #c8d4f0;
 }
-.sad {
-  background: #2196f3;
+.okay {
+  background: #92a8e0;
 }
-.neutral {
-  background: #000;
+.good {
+  background: #6080c8;
 }
-.anxious {
-  background: #9c27b0;
+.great {
+  background: #4a9e80;
 }
-.excited {
-  background: #ff9800;
-}
-.tired {
-  background: #607d8b;
-}
-.angry {
-  background: #f44336;
+.excellent {
+  background: #3db878;
 }
 
 .mood:hover .mood-box {
   transform: scale(1.12);
   border-color: #333;
+}
+
+.mood-popup {
+  position: absolute;
+  bottom: 130%;
+  transform: translateX(-50%);
+
+  background: #e8eaf6;
+  color: #4665ba;
+
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+
+  white-space: nowrap;
+
+  opacity: 0; /* hidden */
+  pointer-events: none;
+  transition: 0.15s;
+
+  z-index: 100;
+}
+
+.mood:hover .mood-popup {
+  transform: scale(1.12);
+  border-color: #333;
+  opacity: 1;
 }
 
 .mood.selected .mood-box {
@@ -258,7 +333,7 @@ body {
   display: grid;
 
   /* 1 column for day labels + 12 for months */
-  grid-template-columns: 20px repeat(12, 21px);
+  grid-template-columns: 20px repeat(12, 20px);
   row-gap: 5px;
   column-gap: 5px;
   margin: 0 0 10px 0;
@@ -280,7 +355,8 @@ body {
 
 .day {
   aspect-ratio: 1;
-  background: #eee;
+  background: #e6eaf694;
+
   border-radius: 4px;
   cursor: pointer;
   transition: 0.15s;

@@ -3,30 +3,10 @@
   <!-- Main content area -->
   <main class="dashboard">
 
-    <!-- Left big box -->
     <section class="card question-card">
-        <section class="part menu-bar">
-            <div class="categories-top">
-                <div class="menu user-info">
-                    <%=userName%>              
-                </div>
-                <div class="menu categories">
-                    Journal
-                </div>
-                <div class="menu categories">
-                    Statistics
-                </div>
-            </div>
-            <div class="categories-bottom">
-                <div class="menu categories">
-                    Settings
-                </div>
-                <div class="menu categories">
-                    <a href="/logout">Logout</a>                
-                </div>
-            </div>
-            
-        </section>
+
+        <!-- Left big box -->
+        <%-include("partials/leftMenu.ejs")%>
 
        <section class="part main-section">
             <% [
@@ -59,16 +39,15 @@
                                 <div class="moodContainer">
                                     <h6>MOOD</h6>
                                     <% [
-                                        { mood: 'happy',   color: '#4CAF50' },
-                                        { mood: 'sad',     color: '#2196F3' },
-                                        { mood: 'neutral', color: '#9E9E9E' },
-                                        { mood: 'anxious', color: '#9C27B0' },
-                                        { mood: 'excited', color: '#FF9800' },
-                                        { mood: 'tired',   color: '#607D8B' },
-                                        { mood: 'angry',   color: '#F44336' }
+                                        { mood: 'bad',       color: '#7898d8' },
+                                        { mood: 'okay',      color: '#5070c0' },
+                                        { mood: 'good',      color: '#38a880' },
+                                        { mood: 'great',     color: '#28c068' },
+                                        { mood: 'excellent', color: '#1da855' }
                                         ].forEach(m => { %>
                                             <div class="mood" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
                                                 <div class="mood-box <%= m.mood %>"></div>
+                                                <div class="mood-popup"> <%= m.mood %> </div>
                                             </div>
                                         <% }) %>
                                 </div>
