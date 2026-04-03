@@ -88,7 +88,8 @@ body {
 .user-info {
   display: flex;
   justify-content: flex-start;
-  padding: 30px;
+  padding: 20px;
+  padding-top: 10px;
 }
 
 .rounded-profile-pic {
@@ -102,9 +103,15 @@ body {
   align-items: center; /* vertical */
 }
 
+.leftMenu-divider {
+  height: 1px;
+  background-color: #dcdfe6; /* slightly softer gray */
+  margin: 0px 0; /* more spacing */
+}
+
 .user-name {
   margin-top: 6px;
-  font-size: 25px;
+  font-size: 28px;
   font-weight: 600;
   color: #2e3d64;
 }
@@ -117,15 +124,37 @@ body {
 .UserStreakDays {
   font-size: 17px;
   color: #5870c0a0;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.first-cat {
+  margin-top: 15px;
 }
 
 .categories {
-  padding: 30px;
+  padding: 20px;
+  padding-top: 18px;
+  padding-bottom: 18px;
   font-size: 19px;
   font-weight: 600;
   /* color: #1e2d6b; */
   color: #5870c06e;
+  gap: 10px;
   text-decoration: none;
+  /* background-image: url("/images/Rectangle.png"); */
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.categories.active {
+  border-radius: 15px;
+  background: #5870c023;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 8px rgba(0, 0, 0, 0.06);
+  font-weight: 600;
+  color: #2e3d64;
 }
 
 a:link,
