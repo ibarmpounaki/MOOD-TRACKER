@@ -62,22 +62,29 @@ body {
 
 .card {
   flex: 1;
-  border: 1px solid #ddd;
+  border: 1px solid #f6f6f6;
   border-radius: 12px;
   padding: 20px;
-  background: white;
+  background: #ffffff54;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .part {
-  flex: 1;
-  /* border: 1px solid red; */
+  flex: 0.8;
 }
 
 .menu-bar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: #ffffffc1;
+
+  /* pull it out of the parent's padding on all sides */
+  margin: -20px;
+  padding: 20px;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-right: 2px solid #dcdfe6;
 }
 
 .menu {
@@ -106,7 +113,7 @@ body {
 .leftMenu-divider {
   height: 1px;
   background-color: #dcdfe6; /* slightly softer gray */
-  margin: 0px 0; /* more spacing */
+  margin: 0px 0;
 }
 
 .user-name {
@@ -182,6 +189,9 @@ a:active {
   flex-direction: column;
   /* align-items: stretch; */
   position: relative;
+  /* background-color: red; */
+  margin: -20px;
+  margin-left: 20px;
 }
 
 .day-row {
@@ -226,7 +236,7 @@ a:active {
 
 .question-card {
   display: flex;
-  flex: 3;
+  flex: 4;
   flex-direction: row;
   /* justify-content: center;  horizontal */
   align-items: stretch; /* vertical */
@@ -384,8 +394,7 @@ a:active {
 
 .day {
   aspect-ratio: 1;
-  background: #e6eaf694;
-
+  background: #dbe1f380;
   border-radius: 4px;
   cursor: pointer;
   transition: 0.15s;
@@ -395,7 +404,7 @@ a:active {
 
 .emptyDay {
   aspect-ratio: 1;
-  background: #ffffff;
+  background: transparent;
   transition: 0.15s;
 }
 
