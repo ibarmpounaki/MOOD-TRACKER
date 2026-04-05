@@ -220,18 +220,51 @@ a:active {
   width: 14px;
   height: 14px;
   border-radius: 60%;
-  background: blue;
+  z-index: 1;
+  position: relative;
   margin-top: 39px; /* aligns with the section title height */
+}
+
+.dot-0 {
+  /* Morning orange */
+  background: #d4831a;
+}
+.dot-1 {
+  /* Afternoon blue */
+  background: #5b77c4;
+}
+.dot-2 {
+  /* Evening purple */
+  background: #7b5ea8;
+}
+
+/* Morning */
+.day-part-0 h4,
+.day-part-0 h6 {
+  color: #d4831a;
+}
+
+/* Afternoon */
+.day-part-1 h4,
+.day-part-1 h6 {
+  color: #5b77c4;
+}
+
+/* Evening */
+.day-part-2 h4,
+.day-part-2 h6 {
+  color: #7b5ea8;
 }
 
 .timeline-column {
   flex: 1;
   top: 39px;
   bottom: 55px;
-  width: 1px;
+  width: 2.2px;
   position: absolute;
-  left: 29.5px;
-  background-color: blue;
+  left: 29px;
+  background-color: #5b77c429;
+  z-index: 0;
 }
 
 .question-card {
