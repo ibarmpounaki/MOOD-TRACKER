@@ -1,5 +1,11 @@
 let selectedMood = null;
 
+document.querySelectorAll(".tag").forEach((tg) => {
+  tg.addEventListener("click", function () {
+    this.classList.toggle("selected");
+  });
+});
+
 $(".mood").click(function (e) {
   //if we clicked on a NOT already selected mood, remove the selected class from the mood that had been selected last
   if (!$(this).hasClass("selected")) {

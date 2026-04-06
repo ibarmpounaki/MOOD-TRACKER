@@ -40,3 +40,16 @@ function updateTodayHighlight() {
 
   if (newToday) newToday.classList.add("today");
 }
+
+//Get current hour
+const hour = new Date().getHours();
+const dotInners = document.querySelectorAll(".greyTodayDot");
+
+// 0 = Morning (0-11), 1 = Afternoon (12-17), 2 = Evening (18-23)
+if (hour >= 0 && hour < 12) {
+  dotInners[0].classList.add("greyTodayDot-active");
+} else if (hour >= 12 && hour < 18) {
+  dotInners[1].classList.add("greyTodayDot-active");
+} else if (hour >= 18) {
+  dotInners[2].classList.add("greyTodayDot-active");
+}

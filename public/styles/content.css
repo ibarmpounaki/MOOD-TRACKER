@@ -54,7 +54,7 @@ body {
 }
 
 #curTime {
-  font-size: 30px;
+  font-size: 35px;
   width: 100%;
   font-weight: 700;
   color: #1e2140;
@@ -111,8 +111,8 @@ body {
 }
 
 .leftMenu-divider {
-  height: 1px;
-  background-color: #dcdfe6; /* slightly softer gray */
+  height: 1.3px;
+  background-color: #5870c01a;
   margin: 0px 0;
 }
 
@@ -180,16 +180,13 @@ a:active {
   width: 26px;
   height: 26px;
   margin-right: 10px;
-  /* background-color: red; */
 }
 
 .main-section {
   flex: 5;
   display: flex;
   flex-direction: column;
-  /* align-items: stretch; */
   position: relative;
-  /* background-color: red; */
   margin: -20px;
   margin-left: 20px;
 }
@@ -202,11 +199,16 @@ a:active {
 
 .day-parts {
   flex: 1; /* each section takes equal share of the height */
-  /* border: 1px solid orange; */
   padding: 30px;
+  padding-bottom: 0px;
   padding-left: 20px;
   align-items: center;
 }
+
+/* .day-part-1,
+.day-part-2 {
+  padding-top: 0px;
+} */
 
 .timeline-vertical-line {
   display: flex;
@@ -214,6 +216,12 @@ a:active {
   align-items: center;
   width: 40px;
   padding-left: 20px;
+}
+
+.DayPartText {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .dot {
@@ -239,31 +247,63 @@ a:active {
 }
 
 /* Morning */
-.day-part-0 h4,
-.day-part-0 h6 {
+.day-part-text-0 h4 {
   color: #d4831a;
 }
 
 /* Afternoon */
-.day-part-1 h4,
-.day-part-1 h6 {
+.day-part-text-1 h4 {
   color: #5b77c4;
 }
 
 /* Evening */
-.day-part-2 h4,
-.day-part-2 h6 {
+.day-part-text-2 h4 {
   color: #7b5ea8;
+}
+
+.day-part-text-2 h6,
+.day-part-text-1 h6,
+.day-part-text-0 h6 {
+  color: #7a8fc4cc;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.greyTodayDot {
+  width: 40px;
+  height: 40px;
+  margin: 0px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%); /* centers it */
+  top: 50%;
+  left: 50%;
+  position: absolute;
+}
+
+.greyTodayDot-active {
+  background: #5b77c41c;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.7);
+  }
 }
 
 .timeline-column {
   flex: 1;
   top: 39px;
   bottom: 55px;
-  width: 2.2px;
+  width: 2.5px;
   position: absolute;
-  left: 29px;
-  background-color: #5b77c429;
+  left: 28.5px;
+  background-color: #5b77c41f;
   z-index: 0;
 }
 
@@ -281,15 +321,23 @@ a:active {
 }
 
 .moodContainer {
-  position: absolute;
+  /* position: absolute; */
   bottom: 4px;
   right: 12px;
   display: flex;
   gap: 8px;
   flex-wrap: wrap; /* allows wrap on small screens */
   flex-direction: row;
+  align-items: center;
+}
 
-  justify-content: center;
+.moodContainer > h6 {
+  color: #bbbbbb;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  margin-right: 12px;
+  /* margin-bottom: 10px; */
 }
 
 .mood {
@@ -333,20 +381,15 @@ a:active {
   position: absolute;
   bottom: 130%;
   transform: translateX(-50%);
-
   background: #e8eaf6;
   color: #4665ba;
-
   padding: 6px 8px;
   border-radius: 6px;
   font-size: 14px;
-
   white-space: nowrap;
-
   opacity: 0; /* hidden */
   pointer-events: none;
   transition: 0.15s;
-
   z-index: 100;
 }
 
@@ -357,14 +400,15 @@ a:active {
 }
 
 .mood.selected .mood-box {
-  border: 3px solid black;
+  border: 2px solid black;
   transform: scale(1.12);
 }
 
 .textarea-wrapper {
   position: relative;
-
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .MoodNotes {
@@ -373,20 +417,96 @@ a:active {
 }
 
 .notes {
-  width: 100%;
-  margin-top: 18px;
-  height: 100%;
-  min-height: 180px;
-  padding: 12px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-bottom: 0;
 
-  border-radius: 10px;
-  border: 1px solid #ccc;
-
-  font-size: 14px;
+  position: relative;
+  font-size: 17px;
   font-family: inherit;
+
+  width: 100%;
+  margin-top: 5px;
+
+  /* height: 100%; */
+  min-height: 220px;
+  padding: 20px;
+
+  border-radius: 25px;
+  border: none;
+
+  box-shadow:
+    /* outer drop shadow */
+    0 8px 32px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+    inset 2px 0 0 rgba(255, 255, 255, 0.4),
+    inset -2px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 4px 12px rgba(0, 0, 0, 0.03); /* inner depth shadow */
 
   resize: none; /* prevent drag resize */
   overflow-y: auto; /* enable scroll */
+}
+
+/* morning */
+.notes-0 {
+  background: linear-gradient(to left, #f5edd8 0%, #fff8e052 90%);
+}
+/* afternoon */
+.notes-1 {
+  background: linear-gradient(to left, #dde3f5 0%, #eceff9 90%);
+}
+/* evening */
+.notes-2 {
+  background: linear-gradient(to left, #e0dcef 0%, #f0eef8 90%);
+}
+
+.notes-0::placeholder,
+.notes-1::placeholder,
+.notes-2::placeholder {
+  color: #bdbdbd;
+  font-style: italic;
+}
+
+.bottomTextareaContent {
+  width: inherit;
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  top: 84%;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top: none;
+}
+
+.tagsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.tag {
+  white-space: nowrap; /* prevents text wrapping */
+  padding: 5.5px 14px;
+  border-radius: 20px;
+  background-color: white;
+  border: 1px solid #224ba740;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  color: #1e2a45a0;
+}
+
+.tag:hover {
+  transform: scale(1.05);
+  border-color: #224aa77d;
+}
+
+.tag.selected {
+  background-color: #1e2d6bcc;
+  color: #ffffffcc;
 }
 
 #curYear {

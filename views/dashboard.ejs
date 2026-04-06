@@ -9,10 +9,10 @@
         <%-include("partials/leftMenu.ejs")%>
 
         <section class="part main-section">
-            <% [
-                { label: 'Morning',   time: '06:00 AM' },
-                { label: 'Afternoon', time: '12:00 PM' },
-                { label: 'Evening',   time: '06:00 PM' }
+           <% [
+                { label: 'Morning',   time: '06:00 AM', placeholder: 'How did your morning unfold...', tags: ["exercised", "ate healthy", "meditated", "slept well"] },
+                { label: 'Afternoon', time: '12:00 PM', placeholder: 'The shape of your afternoon...', tags: ["productive", "ate healthy", "deep work", "walked"]},
+                { label: 'Evening',   time: '06:00 PM', placeholder: 'Reflections as the day quiets...', tags: ["no screens", "ate healthy", "meditated", "read"] }
             ].forEach((part, index) => { %>
                 
                 <div class="timeline-column"></div>
@@ -20,36 +20,46 @@
                 <div class="day-row">
 
                     <div class="timeline-vertical-line">
-                        <div class="dot dot-<%= index %>"></div>
+
+                        <div class="dot dot-<%= index %>">
+                            <div class="greyTodayDot"></div>
+                        </div>
                     </div>
 
-                    <div class="day-parts">
-                        <div class="DayPartText day-part-<%= index %>">                           
+                    <div class="day-parts day-part-<%= index %>" >
+                        <div class="DayPartText day-part-text-<%= index %>">                           
                             <h4><%= part.label %></h4>
                             <h6><%= part.time %></h6>
                         </div>
                         <form action="/addMood" method="POST">
                             <div class="textarea-wrapper">
                                 <div class="MoodNotes">
-                                    <textarea name="notes" class="notes" placeholder="Write about your day..."></textarea>
+                                    <textarea name="notes" class="notes notes-<%= index %>" placeholder= '<%=part.placeholder%>'></textarea>
                                 </div>
                                 <input type="hidden" name="selectedcolor" class="selectedColorInput">
                                 <input type="hidden" name="selectedMood" class="selectedMoodInput">
                                 <input type="hidden" name="period" value="<%= part.label.toLowerCase() %>">
-                                <div class="moodContainer">
-                                    <h6>MOOD</h6>
-                                    <% [
-                                        { mood: 'bad',       color: '#7898d8' },
-                                        { mood: 'okay',      color: '#5070c0' },
-                                        { mood: 'good',      color: '#38a880' },
-                                        { mood: 'great',     color: '#28c068' },
-                                        { mood: 'excellent', color: '#1da855' }
-                                        ].forEach(m => { %>
-                                            <div class="mood" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
-                                                <div class="mood-box <%= m.mood %>"></div>
-                                                <div class="mood-popup"> <%= m.mood %> </div>
-                                            </div>
+                                <div class="bottomTextareaContent">
+                                       <div class="tagsContainer tagContainer-<%=index%>">
+                                        <% part.tags.forEach(t => { %>
+                                            <div class="tag"><%= t.toUpperCase() %></div>
                                         <% }) %>
+                                        </div>
+                                    <div class="moodContainer">
+                                        <h6>MOOD</h6>
+                                        <% [
+                                            { mood: 'bad',       color: '#7898d8' },
+                                            { mood: 'okay',      color: '#5070c0' },
+                                            { mood: 'good',      color: '#38a880' },
+                                            { mood: 'great',     color: '#28c068' },
+                                            { mood: 'excellent', color: '#1da855' }
+                                            ].forEach(m => { %>
+                                                <div class="mood" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
+                                                    <div class="mood-box <%= m.mood %>"></div>
+                                                    <div class="mood-popup"> <%= m.mood %> </div>
+                                                </div>
+                                            <% }) %>
+                                    </div>
                                 </div>
                             </div>
                         </form>
