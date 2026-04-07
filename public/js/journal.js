@@ -6,18 +6,26 @@ document.querySelectorAll(".tag").forEach((tg) => {
   });
 });
 
-$(".mood").click(function (e) {
-  //if we clicked on a NOT already selected mood, remove the selected class from the mood that had been selected last
-  if (!$(this).hasClass("selected")) {
-    $(".mood").removeClass("selected");
-  }
+document.querySelectorAll(".mood").forEach((md) => {
+  md.addEventListener("click", function () {
+    const moodClass = [...this.classList].find((c) => c.startsWith("mood-")); //string
+    const PartOfTheDay_MoodIndex = moodClass.replace("mood-", ""); //string
 
-  $(this).toggleClass("selected");
+    //if we clicked on a NOT already selected mood, remove the selected class from the mood that had been selected last
+    if (!$(this).hasClass("selected")) {
+      document
+        .querySelectorAll(".mood-" + PartOfTheDay_MoodIndex)
+        .forEach((tg) => {
+          tg.classList.remove("selected");
+        });
+    }
 
-  // $(this).addClass("selected");
-  $("#selectedMoodInput").val($(this).data("mood"));
-  $("#selectedColorInput").val($(this).data("color"));
-  selectedMood = $(this);
+    $(this).toggleClass("selected");
+
+    $("#selectedMoodInput").val($(this).data("mood"));
+    $("#selectedColorInput").val($(this).data("color"));
+    selectedMood = $(this);
+  });
 });
 
 $(".ok").click(function () {

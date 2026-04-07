@@ -54,7 +54,7 @@
                                             { mood: 'great',     color: '#28c068' },
                                             { mood: 'excellent', color: '#1da855' }
                                             ].forEach(m => { %>
-                                                <div class="mood" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
+                                                <div class="mood mood-<%=index%>" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
                                                     <div class="mood-box <%= m.mood %>"></div>
                                                     <div class="mood-popup"> <%= m.mood %> </div>
                                                 </div>
