@@ -1,11 +1,35 @@
 <%
     const moodMap = {};
+    const MoodIndexMap = { bad: 0, okay: 1, good: 2, great: 3, excellent: 4 };
+    const moodColors = ["#c8d4f0", "#92a8e0", "#6080c8", "#4a9e80", "#3db878"];
 
-    moods.forEach(m => {
-        const d = new Date(m.mood_date);
-        const key = `${d.getDate()}-${d.getMonth()+1}`;
-        moodMap[key] = m.mood_color;
-    });
+        const d = new Date(moods[0].mood_date);
+        const key = `${d.getDate()}-${d.getMonth() + 1}`;
+
+        if (moodMap[key]) return; // already processed this date, skip
+
+        const DayJournalOccurences = moods.filter(entry => {
+            const d2 = new Date(entry.mood_date);
+            const entryKey = `${d2.getDate()}-${d2.getMonth() + 1}`;
+
+            return entryKey === key;
+        });
+
+        console.log(DayJournalOccurences);
+
+        let sumMood = 0;
+
+        DayJournalOccurences.forEach(entry => {
+            sumMood += MoodIndexMap[entry.mood_name];
+            }
+        );
+
+        console.log("sum: " + sumMood);
+
+        const averageIndex = Math.round(sumMood / 3);
+        console.log("averageIndex: " + averageIndex);
+
+        moodMap[key] = moodColors[averageIndex];
 %>
 
 <!-- Right big box -->

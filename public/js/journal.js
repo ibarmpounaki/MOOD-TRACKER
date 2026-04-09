@@ -3,6 +3,17 @@ let selectedMood = null;
 document.querySelectorAll(".tag").forEach((tg) => {
   tg.addEventListener("click", function () {
     this.classList.toggle("selected");
+
+    //collect all the selected tags
+    const selectedTags = [];
+    const index = this.dataset.index;
+
+    document
+      .querySelectorAll(`.tagContainer-${index} .selected`)
+      .forEach((t) => selectedTags.push(t.dataset.tag)); //get the data-tag from the element
+
+    document.querySelector(`input[name='selectedTags-${index}']`).value =
+      selectedTags.join(",");
   });
 });
 
@@ -22,9 +33,15 @@ document.querySelectorAll(".mood").forEach((md) => {
 
     $(this).toggleClass("selected");
 
-    $("#selectedMoodInput").val($(this).data("mood"));
-    $("#selectedColorInput").val($(this).data("color"));
-    selectedMood = $(this);
+    // update the hidden inputs for this specific section
+    document.querySelector(
+      `input[name='selectedMood-${PartOfTheDay_MoodIndex}']`,
+    ).value = this.dataset.mood;
+    document.querySelector(
+      `input[name='selectedcolor-${PartOfTheDay_MoodIndex}']`,
+    ).value = this.dataset.color;
+
+    //selectedMood = $(this);
   });
 });
 

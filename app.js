@@ -19,7 +19,7 @@ const db = new pg.Client({
 
 db.connect();
 
-app.set("view engine", "ejs"); ///Tell Express to use EJS as the template engine for rendering views. In order not to use '.ejs' in the render functionality.
+app.set("view engine", "ejs"); //Tell Express to use EJS as the template engine for rendering views. In order not to use '.ejs' in the render functionality.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -145,7 +145,7 @@ app.get("/dashboard", requireLogin, async (req, res) => {
   ]);
 
   const moods = await db.query(
-    "SELECT mood_color, mood_date FROM moods WHERE user_id = $1",
+    "SELECT mood_color, mood_date, mood_name FROM moods WHERE user_id = $1",
     [userId],
   );
 
@@ -175,27 +175,52 @@ app.get("/dashboard", requireLogin, async (req, res) => {
 
 app.post("/addMood", requireLogin, async (req, res) => {
   const userId = req.session.userId;
-  const color = req.body.selectedcolor;
-  const mood = req.body.selectedMood;
-  const note = req.body.notes;
+
+  const colors = [];
+  const moods = [];
+  const notes = [];
+  const tags = [];
+
+  for (let i = 0; i < 3; i++) {
+    colors.push(req.body["selectedcolor-" + i]);
+    moods.push(req.body["selectedMood-" + i]);
+    notes.push(req.body["notes-" + i]);
+    tags.push(req.body["selectedTags-" + i]);
+  }
+
+  const periods = ["morning", "afternoon", "evening"];
 
   try {
-    await db.query(
-      `INSERT INTO moods (user_id, mood_color, mood_name, note, mood_date)
-            VALUES ($1,$2,$3,$4,CURRENT_DATE)
-            ON CONFLICT (user_id, mood_date)
-            DO UPDATE SET
-                mood_color = EXCLUDED.mood_color,
-                mood_name  = EXCLUDED.mood_name,
-                note       = EXCLUDED.note,
-                created_at = CURRENT_TIMESTAMP`,
-      [userId, color, mood, note],
-    );
+    for (let i = 0; i < 3; i++) {
+      const tagsArray = tags[i] ? tags[i].split(",") : []; // convert string to array
+
+      await db.query(
+        `INSERT INTO moods (user_id, mood_color, mood_name, note, tags, period, mood_date)
+         VALUES ($1, $2, $3, $4, $5, $6, CURRENT_DATE)
+         ON CONFLICT (user_id, mood_date, period) -- if a rows already exists for this user & date & period
+         DO UPDATE SET  -- update only the data columns that follow
+           mood_color = EXCLUDED.mood_color,
+           mood_name  = EXCLUDED.mood_name,
+           note       = EXCLUDED.note,
+           tags       = EXCLUDED.tags,
+           created_at = CURRENT_TIMESTAMP`,
+        [userId, colors[i], moods[i], notes[i], tagsArray, periods[i]],
+      );
+    }
 
     res.redirect("/dashboard");
   } catch (err) {
-    console.error(err);
-    res.send("Error saving mood");
+    console.error("Error details:", err.message);
+    console.error("Stack:", err.stack);
+    console.error("Data sent:", {
+      userId,
+      colors,
+      moods,
+      notes,
+      tags,
+      periods,
+    });
+    res.send("Error saving mood: " + err.message);
   }
 });
 

@@ -45,12 +45,12 @@ body {
 }
 
 #curDate {
-  font-size: 18px;
+  font-size: clamp(8px, 2vw, 18px); /* min, preferred, max */
   color: #7080a8;
 }
 
 #curTime {
-  font-size: 35px;
+  font-size: clamp(28px, 2vw, 35px); /* min, preferred, max */
   width: 100%;
   font-weight: 700;
   color: #1e2140;
@@ -87,6 +87,26 @@ body {
   flex: 4;
   flex-direction: row;
   align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+  }
+
+  .question-card {
+    flex-direction: column;
+  }
+
+  .menu-bar {
+    flex-direction: row;
+    margin: 0;
+    border-radius: 12px;
+    border-right: none;
+    border-bottom: 2px solid #dcdfe6;
+  }
 }
 
 /* ================================
@@ -242,11 +262,12 @@ a:active {
   border-radius: 60%;
   z-index: 1;
   position: relative;
-  margin-top: 39px;
+  margin-top: 34px;
 }
 
 .dot-0 {
   background: #d4831a;
+  margin-top: 39px;
 } /* Morning  */
 .dot-1 {
   background: #5b77c4;
@@ -298,6 +319,11 @@ a:active {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.day-part-1,
+.day-part-2 {
+  padding-top: 25px;
 }
 
 .day-part-text-0 h4 {
@@ -508,7 +534,7 @@ a:active {
 .ok {
   display: block;
   margin: 10px auto 0;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   padding: 10px 35px;
   background: linear-gradient(135deg, #5870c0, #9878c8);
   color: #fff;

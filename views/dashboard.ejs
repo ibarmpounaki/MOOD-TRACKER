@@ -7,8 +7,9 @@
 
         <!-- Left big box -->
         <%-include("partials/leftMenu.ejs")%>
-
         <section class="part main-section">
+            <form action="/addMood" method="POST">
+
            <% [
                 { label: 'Morning',   time: '06:00 AM', placeholder: 'How did your morning unfold...', tags: ["exercised", "ate healthy", "meditated", "slept well"] },
                 { label: 'Afternoon', time: '12:00 PM', placeholder: 'The shape of your afternoon...', tags: ["productive", "ate healthy", "deep work", "walked"]},
@@ -31,28 +32,29 @@
                             <h4><%= part.label %></h4>
                             <h6><%= part.time %></h6>
                         </div>
-                        <form action="/addMood" method="POST">
+                        <!-- <form action="/addMood" method="POST"> -->
                             <div class="textarea-wrapper">
                                 <div class="MoodNotes">
-                                    <textarea name="notes" class="notes notes-<%= index %>" placeholder= '<%=part.placeholder%>'></textarea>
+                                    <textarea name="notes-<%= index %>" class="notes notes-<%= index %>" placeholder= '<%=part.placeholder%>'></textarea>
                                 </div>
-                                <input type="hidden" name="selectedcolor" class="selectedColorInput">
-                                <input type="hidden" name="selectedMood" class="selectedMoodInput">
-                                <input type="hidden" name="period" value="<%= part.label.toLowerCase() %>">
+                                <input type="hidden" name="selectedcolor-<%=index%>" class="selectedColorInput">
+                                <input type="hidden" name="selectedMood-<%=index%>" class="selectedMoodInput">
+                                <input type="hidden" name="selectedTags-<%=index%>" class="selectedTagsInput">
+                                <input type="hidden" name="period-<%=index%>" value="<%= part.label.toLowerCase() %>">
                                 <div class="bottomTextareaContent">
                                        <div class="tagsContainer tagContainer-<%=index%>">
                                         <% part.tags.forEach(t => { %>
-                                            <div class="tag"><%= t.toUpperCase() %></div>
+                                            <div class="tag" data-index="<%=index%>" data-tag="<%=t%>"><%= t.toUpperCase() %></div>
                                         <% }) %>
                                         </div>
                                     <div class="moodContainer">
                                         <h6>MOOD</h6>
                                         <% [
-                                            { mood: 'bad',       color: '#7898d8' },
-                                            { mood: 'okay',      color: '#5070c0' },
-                                            { mood: 'good',      color: '#38a880' },
-                                            { mood: 'great',     color: '#28c068' },
-                                            { mood: 'excellent', color: '#1da855' }
+                                            { mood: 'bad',       color: '#c8d4f0' },
+                                            { mood: 'okay',      color: '#92a8e0' },
+                                            { mood: 'good',      color: '#6080c8' },
+                                            { mood: 'great',     color: '#4a9e80' },
+                                            { mood: 'excellent', color: '#3db878' }
                                             ].forEach(m => { %>
                                                 <div class="mood mood-<%=index%>" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
                                                     <div class="mood-box <%= m.mood %>"></div>
@@ -62,12 +64,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        <!-- </form> -->
                     </div>
                 </div>
             <% }) %>
             <button type="submit" class="ok">Save Day</button>
         </section>
+        </form>
 
     </section>
 
