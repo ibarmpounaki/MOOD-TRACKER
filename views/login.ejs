@@ -1,8 +1,63 @@
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css"
+      />
+      <link rel="stylesheet" href="/styles/login.css" />
+      <!-- <link rel="stylesheet" href="/styles/content.css"> -->
+      <title>Daily Tracker</title>
+    </head>
+  </head>
+  <body>
+    <div class="main-big-container">
+      <div class="left-container">
+        <div class="brand">
+          <div class="brand-name">Daily Tracker<br /></div>
+          <p class="brand-sub">
+            Your personal space to reflect,<br />track, and grow.
+          </p>
+        </div>
+        <div class="left-bottom">
+          <div class="testimonial">
+            <p class="t-text">
+              "Writing about my day changed how I see it. This app made it a
+              habit."
+            </p>
+            <p class="t-author">— Justin</p>
+          </div>
+        </div>
+      </div>
 
-<form method="POST" action="/login">
-  <input name="email">
-  <input name="password" type="password">
-  <button>Login</button>
-</form>
-<a href="/signup">Signup</a>
+      <div class="right-container">
+        <div class="form-wrapper">
+          <div class="login-titles">
+            <h4>WELCOME BACK</h4>
+            <h1>Sign in to your journal</h1>
+          </div>
+
+          <div class="login-form-container">
+            <form method="POST" action="/login" class="login-fillin-boxes">
+              USERNAME<input name="email" class="email-container" />
+              PASSWORD<input
+                name="password"
+                type="password"
+                class="password-container"
+              />
+              <button>Login</button>
+            </form>
+            <a href="/signup">Signup</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
