@@ -80,10 +80,32 @@ body {
   gap: 40px;
 }
 
+.login-titles h4 {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: #a0a4cc;
+  margin-bottom: 8px;
+}
+
+.login-titles h1 {
+  font-size: 43px;
+  color: #1e2140;
+  line-height: 1.15;
+}
+
 .login-fillin-boxes {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.journalTxt {
+  background: linear-gradient(135deg, #5870c0, #9878c8);
+  font-style: italic;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .email-container {
