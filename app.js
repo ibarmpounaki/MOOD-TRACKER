@@ -163,6 +163,11 @@ app.get("/dashboard", requireLogin, async (req, res) => {
     DaysOfMonths.push(new Date(year, i + 1, 0).getDate());
   }
 
+  console.log("Moods:");
+  moodData.forEach((mood, index) => {
+    console.log(`${index + 1}.`, mood);
+  });
+
   res.render("dashboard", {
     userName,
     todayYear: year,

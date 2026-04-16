@@ -16,30 +16,20 @@ function updateDateTime() {
 
   document.getElementById("curDate").textContent = "Today, " + date;
   document.getElementById("curTime").textContent = time;
+
+  // if current hour is 00:00:01
+  if (
+    new Date().getHours() === 0 &&
+    new Date().getMinutes() === 0 &&
+    new Date().getSeconds() === 1
+  ) {
+    //console.log("It's 00:00:01");
+    updateTodayHighlight();
+  }
 }
 
 updateDateTime(); // run immediately
 setInterval(updateDateTime, 1000); // update every second
-
-function updateTodayHighlight() {
-  const now = new Date();
-  const d = now.getDate();
-  const m = now.getMonth() + 1;
-
-  if (d === lastDay) return; // no change will be made
-
-  lastDay = d;
-
-  document
-    .querySelectorAll(".day.today")
-    .forEach((el) => el.classList.remove("today"));
-
-  const newToday = document.querySelector(
-    `.day[data-day="${d}"][data-month="${m}"]`,
-  );
-
-  if (newToday) newToday.classList.add("today");
-}
 
 //Get current hour
 const hour = new Date().getHours();

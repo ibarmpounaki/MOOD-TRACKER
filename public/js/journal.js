@@ -53,5 +53,3 @@ $(".ok").click(function () {
 
   // check if values have been assigned (mood or/and journal)
 });
-
-$(".day").click(function () {});
