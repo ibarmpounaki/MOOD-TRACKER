@@ -2,13 +2,17 @@
     const moodMap = {};
     const MoodIndexMap = { bad: 0, okay: 1, good: 2, great: 3, excellent: 4 };
     const moodColors = ["#c8d4f0", "#92a8e0", "#6080c8", "#4a9e80", "#3db878"];
- 
-    console.log(moods);
-    
+     
     moods.forEach(entry => {
         const d = new Date(entry.mood_date);
         console.log(d);
+        
         const key = `${d.getDate()}-${d.getMonth() + 1}`; //sth like 8-4
+
+        console.log("GIA NA DOUME:");
+        console.log(entry.mood_date);
+        
+        console.log(d.getDate());
 
         if (moodMap[key]) return; // already processed this date, skip
 
@@ -20,7 +24,7 @@
             return entryKey === key;
         });
 
-        console.log(DayJournalOccurences);
+        console.log(DayJournalOccurences); 
 
         let sumMood = 0;
 

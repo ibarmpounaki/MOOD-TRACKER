@@ -145,7 +145,7 @@ app.get("/dashboard", requireLogin, async (req, res) => {
   ]);
 
   const moods = await db.query(
-    "SELECT mood_color, mood_date, mood_name FROM moods WHERE user_id = $1",
+    "SELECT mood_color, mood_date, mood_name, period, tags, note FROM moods WHERE user_id = $1",
     [userId],
   );
 
@@ -162,11 +162,6 @@ app.get("/dashboard", requireLogin, async (req, res) => {
   for (let i = 0; i < 12; i++) {
     DaysOfMonths.push(new Date(year, i + 1, 0).getDate());
   }
-
-  console.log("Moods:");
-  moodData.forEach((mood, index) => {
-    console.log(`${index + 1}.`, mood);
-  });
 
   res.render("dashboard", {
     userName,
