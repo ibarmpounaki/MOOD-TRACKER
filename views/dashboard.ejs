@@ -42,6 +42,9 @@
                                 <input type="hidden" name="selectedMood-<%=index%>" class="selectedMoodInput">
                                 <input type="hidden" name="selectedTags-<%=index%>" class="selectedTagsInput">
                                 <input type="hidden" name="period-<%=index%>" value="<%= part.label.toLowerCase() %>">
+                                
+                                <input type="hidden" name="selectedDate" id="selectedDate" />
+
                                 <div class="bottomTextareaContent">
                                        <div class="tagsContainer tagContainer-<%=index%>">
                                         <% part.tags.forEach(t => { %>

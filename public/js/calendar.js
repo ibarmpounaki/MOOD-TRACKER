@@ -70,7 +70,7 @@ document.querySelectorAll(".day").forEach((d) => {
       });
 
       // select the saved tags for each period (if any exist)
-      document.querySelectorAll(".tag").forEach((t) => {
+      document.querySelectorAll(`.tag[data-index="${index}"]`).forEach((t) => {
         t.classList.remove("selected");
 
         if (periodMoodEntry?.tags?.length > 0) {
@@ -81,6 +81,16 @@ document.querySelectorAll(".day").forEach((d) => {
           });
         }
       });
+
+      // update the hidden inputs
+      document.querySelector(`input[name='selectedTags-${index}']`).value =
+        periodMoodEntry?.tags?.join(",") || "";
     });
+
+    const day = String(e.currentTarget.dataset.day).padStart(2, "0");
+    const month = String(e.currentTarget.dataset.month).padStart(2, "0");
+    const year = document.querySelector("#curYear").textContent.trim();
+
+    document.querySelector("#selectedDate").value = `${year}-${month}-${day}`;
   });
 });

@@ -189,6 +189,7 @@ app.post("/addMood", requireLogin, async (req, res) => {
   }
 
   const periods = ["morning", "afternoon", "evening"];
+  const selectedDate = req.body.selectedDate;
 
   try {
     for (let i = 0; i < 3; i++) {
@@ -196,7 +197,7 @@ app.post("/addMood", requireLogin, async (req, res) => {
 
       await db.query(
         `INSERT INTO moods (user_id, mood_color, mood_name, note, tags, period, mood_date)
-         VALUES ($1, $2, $3, $4, $5, $6, CURRENT_DATE)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)
          ON CONFLICT (user_id, mood_date, period) -- if a rows already exists for this user & date & period
          DO UPDATE SET  -- update only the data columns that follow
            mood_color = EXCLUDED.mood_color,
@@ -204,7 +205,15 @@ app.post("/addMood", requireLogin, async (req, res) => {
            note       = EXCLUDED.note,
            tags       = EXCLUDED.tags,
            created_at = CURRENT_TIMESTAMP`,
-        [userId, colors[i], moods[i], notes[i], tagsArray, periods[i]],
+        [
+          userId,
+          colors[i],
+          moods[i],
+          notes[i],
+          tagsArray,
+          periods[i],
+          selectedDate,
+        ],
       );
     }
 

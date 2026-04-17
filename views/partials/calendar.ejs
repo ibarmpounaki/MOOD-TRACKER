@@ -11,7 +11,7 @@
 
         console.log("GIA NA DOUME:");
         console.log(entry.mood_date);
-        
+
         console.log(d.getDate());
 
         if (moodMap[key]) return; // already processed this date, skip
@@ -80,7 +80,7 @@
                     <button type="button" class="day today"
                         data-day="<%= day %>"
                         data-month="<%= month %>"
-                    
+
                         <% <!-- mood exists --> %>
                         <% if (moodMap[key]) { %>
 
