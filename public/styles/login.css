@@ -20,7 +20,7 @@ body {
     rgba(152, 120, 200, 1) 100%
   );
   flex: 2.5;
-  width: 340px;
+  /* width: 340px; */
   flex-shrink: 0;
   padding: 60px;
   display: flex;
