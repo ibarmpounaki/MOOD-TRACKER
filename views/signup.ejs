@@ -60,75 +60,86 @@
 
       <!-- RIGHT -->
       <div class="right-panel">
-        <p class="login-title">Get started</p>
-        <h1 class="login-heading">Create your<br /><em>account</em></h1>
-
-        <form method="POST" action="/signup">
-          <div class="form-row-2">
-            <div class="form-group no-mb">
-              <label class="form-label">First Name</label>
-              <input
-                class="form-input"
-                type="text"
-                name="firstName"
-                placeholder="Charlie…"
-              />
-            </div>
-            <div class="form-group no-mb">
-              <label class="form-label">Last Name</label>
-              <input
-                class="form-input"
-                type="text"
-                name="lastName"
-                placeholder="Smith…"
-              />
-            </div>
+        <div class="form-wrapper">
+          <!-- Titles -->
+          <div class="login-title">
+            <h4>GET STARTED</h4>
+            <h1>
+              Create your
+              <span class="journalTxt">account</span>
+            </h1>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Username</label>
-            <input
-              class="form-input"
-              type="text"
-              name="username"
-              placeholder="Your unique name…"
-              autocomplete="username"
-            />
-          </div>
+          <!-- Form -->
+          <div class="login-form-container">
+            <form method="POST" action="/signup" class="login-fillin-boxes">
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">First Name</label>
+                  <input
+                    class="form-input"
+                    type="text"
+                    name="firstName"
+                    placeholder="Charlie…"
+                  />
+                </div>
 
-          <div class="form-group">
-            <label class="form-label">Password</label>
-            <input
-              class="form-input"
-              type="password"
-              name="password"
-              id="passwordInput"
-              placeholder="••••••••"
-              autocomplete="new-password"
-            />
-            <div class="strength-bar">
-              <div class="strength-seg" id="seg1"></div>
-              <div class="strength-seg" id="seg2"></div>
-              <div class="strength-seg" id="seg3"></div>
-              <div class="strength-seg" id="seg4"></div>
-            </div>
-            <div class="strength-label" id="strengthLabel"></div>
-          </div>
+                <div class="form-group">
+                  <label class="form-label">Last Name</label>
+                  <input
+                    class="form-input"
+                    type="text"
+                    name="lastName"
+                    placeholder="Smith…"
+                  />
+                </div>
+              </div>
 
-          <div class="form-group">
-            <label class="form-label">Confirm Password</label>
-            <input
-              class="form-input"
-              type="password"
-              name="confirmPassword"
-              id="confirmInput"
-              placeholder="••••••••"
-              autocomplete="new-password"
-            />
-          </div>
+              <div class="form-group">
+                <label class="form-label">Username</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  name="username"
+                  placeholder="Your unique name…"
+                />
+              </div>
 
-          <button type="submit" class="signup-btn">Create Account</button>
-        </form>
+              <div class="form-group">
+                <label class="form-label">Password</label>
+                <input
+                  class="form-input"
+                  type="password"
+                  name="password"
+                  id="passwordInput"
+                  placeholder="••••••••"
+                />
+
+                <div class="strength-bar">
+                  <div class="strength-seg" id="seg1"></div>
+                  <div class="strength-seg" id="seg2"></div>
+                  <div class="strength-seg" id="seg3"></div>
+                  <div class="strength-seg" id="seg4"></div>
+                </div>
+
+                <div class="strength-label" id="strengthLabel"></div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Confirm Password</label>
+                <input
+                  class="form-input"
+                  type="password"
+                  name="confirmPassword"
+                  id="confirmInput"
+                  placeholder="••••••••"
+                />
+              </div>
+
+              <button type="submit" class="login-btn">Create Account</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
 
