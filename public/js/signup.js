@@ -40,16 +40,31 @@ const okBtn = document.querySelector(".login-btn");
 // Keep the button disabled until both password fields match
 okBtn.disabled = true;
 
+const message = document.getElementById("passwordMessage");
+
 function validatePasswords() {
   const password = input.value.trim();
   const confirmPassword = confirmInput.value.trim();
 
-  // Passwords are valid only if both fields are filled and identical
-  const matches =
-    password !== "" && confirmPassword !== "" && password === confirmPassword;
+  if (confirmPassword === "") {
+    confirmInput.classList.remove("error", "success");
+    message.textContent = "";
+    return;
+  }
 
-  confirmInput.classList.toggle("error", confirmPassword !== "" && !matches);
-  okBtn.disabled = !matches;
+  if (password === confirmPassword) {
+    confirmInput.classList.remove("error");
+    confirmInput.classList.add("success");
+    message.textContent = "Passwords match";
+    message.className = "password-message success-text";
+    okBtn.disabled = false;
+  } else {
+    confirmInput.classList.remove("success");
+    confirmInput.classList.add("error");
+    message.textContent = "Passwords do not match";
+    message.className = "password-message error-text";
+    okBtn.disabled = true;
+  }
 }
 
 // Re-check validation whenever either password field change

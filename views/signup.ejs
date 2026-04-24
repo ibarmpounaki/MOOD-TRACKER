@@ -77,44 +77,48 @@
             <form method="POST" action="/signup" class="login-fillin-boxes">
               <div class="form-row-2">
                 <div class="form-group">
-                  <label class="form-label">First Name</label>
+                  <label class="form-label">First Name *</label>
                   <input
                     class="form-input"
                     type="text"
                     name="name"
                     placeholder="Charlie…"
+                    required
                   />
                 </div>
 
                 <div class="form-group">
-                  <label class="form-label">Last Name</label>
+                  <label class="form-label">Last Name *</label>
                   <input
                     class="form-input"
                     type="text"
                     name="lastName"
                     placeholder="Smith…"
+                    required
                   />
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="form-label">Email</label>
+                <label class="form-label">Email *</label>
                 <input
                   class="form-input"
                   type="text"
                   name="email"
                   placeholder="Your email…"
+                  required
                 />
               </div>
 
               <div class="form-group">
-                <label class="form-label">Password</label>
+                <label class="form-label">Password *</label>
                 <input
                   class="form-input"
                   type="password"
                   name="password"
                   id="passwordInput"
                   placeholder="••••••••"
+                  required
                 />
 
                 <div class="strength-bar">
@@ -128,16 +132,17 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label">Confirm Password</label>
+                <label class="form-label">Confirm Password *</label>
                 <input
                   class="form-input"
                   type="password"
                   name="confirmPassword"
                   id="confirmInput"
                   placeholder="••••••••"
+                  required
                 />
               </div>
-
+              <p id="passwordMessage" class="password-message"></p>
               <button type="submit" class="login-btn">Create Account</button>
             </form>
           </div>

@@ -245,7 +245,7 @@ body {
 .strength-bar {
   display: flex;
   gap: 4px;
-  margin-top: 6px;
+  margin-top: 12px;
 }
 
 .strength-seg {
@@ -254,6 +254,10 @@ body {
   border-radius: 99px;
   background: rgba(88, 112, 192, 0.1);
   transition: background 0.3s;
+}
+
+#strengthLabel {
+  font-size: 1.2rem;
 }
 
 .strength-seg.weak {
@@ -266,14 +270,28 @@ body {
   background: #38c070;
 }
 
-.strength-label {
-  font-size: 14px;
-  color: #b0b4d0;
-  margin-top: 4px;
-  letter-spacing: 0.5px;
-  min-height: 14px;
-  transition: color 0.3s;
+/* message for when the passwords match or not on the signup page */
+.success {
+  border: 1px solid #28a745;
 }
+
+.error {
+  border: 1px solid #d9534f;
+}
+
+.password-message {
+  margin-top: 6px;
+  font-size: 1.2rem;
+}
+
+.success-text {
+  color: #28a745;
+}
+
+.error-text {
+  color: #d9534f;
+}
+/* ****** */
 
 /* button */
 .login-btn {
