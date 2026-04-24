@@ -39,32 +39,48 @@ function requireLogin(req, res, next) {
   next();
 }
 
+function renderLogin(res, options = {}) {
+  return res.render("login", {
+    error: null,
+    email: "",
+    ...options,
+  });
+}
+
+function renderSignup(res, options = {}) {
+  return res.render("signup", {
+    error: null,
+    name: "",
+    email: "",
+    ...options,
+  });
+}
+
 app.get("/", (req, res) => {
   //res.send("Mood Tracker Running");
-  res.render("login");
+  return renderLogin(res);
 });
 
 // get signup page
 app.get("/signup", (req, res) => {
-  res.render("signup");
+  return renderSignup(res);
 });
 
 // on sumbit click on singup page
 app.post("/signup", async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
   try {
-    // // Server-side password confirmation check
-    // if (password !== confirmPassword) {
-    //   return res.send("Passwords do not match");
-    // }
-
     // check if user already exists
     const existing = await db.query("SELECT * FROM users WHERE email = $1", [
       email,
     ]);
 
     if (existing.rows.length > 0) {
-      return res.send("Email already registered");
+      return renderSignup(res, {
+        error: "Email already registered.",
+        name,
+        email,
+      });
     }
 
     // hash password
@@ -83,12 +99,27 @@ app.post("/signup", async (req, res) => {
     res.redirect("/login");
   } catch (err) {
     console.error(err);
-    res.send("Signup error");
+    return renderSignup(res, {
+      error: "Signup error. Please try again.",
+      name,
+      email,
+    });
   }
 });
 
+// app.get("/login", (req, res) => {
+//   return renderLogin(res);
+// });
+
 app.get("/login", (req, res) => {
-  res.render("login");
+  // Read the current login error from the session, if one exists
+  const error = req.session.loginError || null;
+
+  // Render the login page and pass the error message to EJS
+  res.render("login", {
+    error,
+    email: "",
+  });
 });
 
 // when logging in
@@ -106,7 +137,9 @@ app.post("/login", async (req, res) => {
 
     // if no user found
     if (result.rows.length === 0) {
-      return res.send("user not found!");
+      // Store the error in session so it can be shown after redirect
+      req.session.loginError = "Invalid email or password.";
+      return res.redirect("/login");
     }
 
     const user = result.rows[0];
@@ -117,7 +150,9 @@ app.post("/login", async (req, res) => {
     const valid = await bcrypt.compare(pswrd, user.password_hash);
 
     if (!valid) {
-      return res.send("Incorrect password");
+      // Store the error in session so it can be shown after redirect
+      req.session.loginError = "Invalid email or password.";
+      return res.redirect("/login");
     }
 
     req.session.userId = userId;
@@ -133,12 +168,18 @@ app.post("/login", async (req, res) => {
       DaysOfMonths.push(numOfdays);
     }
 
-    res.redirect("/dashboard");
+    // Login succeeded, so clear any old login error from the session
+    delete req.session.loginError;
+
+    req.session.userId = user.id;
+    return res.redirect("/dashboard");
 
     // res.render("dashboard", {userName: userName, todayYear: year, todayMonth: month + 1, todayDay: day, DaysOfMonths: DaysOfMonths});
   } catch (err) {
     console.error(err);
-    res.send("Server error");
+    // Store a generic error message for unexpected failures
+    req.session.loginError = "Something went wrong. Please try again.";
+    return res.redirect("/login");
   }
 });
 

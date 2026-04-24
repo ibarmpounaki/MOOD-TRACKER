@@ -175,6 +175,16 @@ body {
   gap: 25px;
 }
 
+.error-message {
+  color: #d9534f;
+  background: #fdeaea;
+  border: 1px solid #f5c2c2;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-size: 1.1rem;
+}
+
 .form-row-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;

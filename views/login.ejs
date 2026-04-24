@@ -50,13 +50,17 @@
           </div>
 
           <div class="login-form-container">
+            <% if (error) { %>
+              <p class="error-message"><%= error %></p>
+            <% } %>
             <form method="POST" action="/login" class="login-fillin-boxes">
               <div class="form-group">
-                <label class="form-label">Username</label>
+                <label class="form-label">Email</label>
                 <input
                   name="email"
+                  id="email"
                   class="form-input"
-                  placeholder="Enter username"
+                  placeholder="Enter email"
                 />
               </div>
 
@@ -65,12 +69,13 @@
                 <input
                   name="password"
                   type="password"
+                  id="password"
                   class="form-input"
                   placeholder="Enter password"
                 />
               </div>
 
-              <button class="login-btn">Sign In</button>
+              <button type="submit" class="login-btn">Sign In</button>
             </form>
             <div class="divider">
               <div class="divider-line"></div>
@@ -85,4 +90,5 @@
       </div>
     </div>
   </body>
+  <script src="/js/login.js"></script>
 </html>
