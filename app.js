@@ -51,8 +51,13 @@ app.get("/signup", (req, res) => {
 
 // on sumbit click on singup page
 app.post("/signup", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, confirmPassword } = req.body;
   try {
+    // // Server-side password confirmation check
+    // if (password !== confirmPassword) {
+    //   return res.send("Passwords do not match");
+    // }
+
     // check if user already exists
     const existing = await db.query("SELECT * FROM users WHERE email = $1", [
       email,
@@ -69,7 +74,7 @@ app.post("/signup", async (req, res) => {
     const result = await db.query(
       ` INSERT INTO users (name, email, password_hash)
         VALUES ($1,$2,$3)
-        ETURNING id `,
+        RETURNING id `,
       [name, email, hash],
     );
 

@@ -34,11 +34,24 @@ input.addEventListener("input", () => {
 });
 
 // confirm password match
-const confirm = document.getElementById("confirmInput");
-confirm.addEventListener("input", () => {
-  if (confirm.value && confirm.value !== input.value) {
-    confirm.classList.add("error");
-  } else {
-    confirm.classList.remove("error");
-  }
-});
+const confirmInput = document.getElementById("confirmInput");
+const okBtn = document.querySelector(".login-btn");
+
+// Keep the button disabled until both password fields match
+okBtn.disabled = true;
+
+function validatePasswords() {
+  const password = input.value.trim();
+  const confirmPassword = confirmInput.value.trim();
+
+  // Passwords are valid only if both fields are filled and identical
+  const matches =
+    password !== "" && confirmPassword !== "" && password === confirmPassword;
+
+  confirmInput.classList.toggle("error", confirmPassword !== "" && !matches);
+  okBtn.disabled = !matches;
+}
+
+// Re-check validation whenever either password field change
+input.addEventListener("input", validatePasswords);
+confirmInput.addEventListener("input", validatePasswords);
