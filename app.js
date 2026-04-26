@@ -39,36 +39,73 @@ function requireLogin(req, res, next) {
   next();
 }
 
-function renderLogin(res, options = {}) {
-  return res.render("login", {
-    error: null,
-    email: "",
-    ...options,
-  });
-}
-
-function renderSignup(res, options = {}) {
-  return res.render("signup", {
-    error: null,
-    name: "",
-    email: "",
-    ...options,
-  });
-}
+// it helps make /login and /signup load fresh instead of showing an old saved version.
+app.use((req, res, next) => {
+  if (req.path === "/login" || req.path === "/signup") {
+    res.set({
+      "Cache-Control": "no-store, no-cache, must-revalidate, private",
+      Pragma: "no-cache",
+      Expires: "0",
+    });
+  }
+  next();
+});
 
 app.get("/", (req, res) => {
   //res.send("Mood Tracker Running");
-  return renderLogin(res);
+  // return renderLogin(res);
+  return res.redirect("/login");
+});
+
+// get login page
+app.get("/login", (req, res) => {
+  // If the user is already logged in, send them to the dashboard
+  if (req.session.userId) {
+    return res.redirect("/dashboard");
+  }
+
+  const error = req.session.loginError || null;
+  const email = req.session.loginEmail || "";
+
+  // Clear them so they do not stay for the next request
+  delete req.session.loginError;
+  delete req.session.loginEmail;
+
+  return res.render("login", {
+    error,
+    email, // Preserve the user's email so they do not have to type it again after an error
+  });
 });
 
 // get signup page
 app.get("/signup", (req, res) => {
-  return renderSignup(res);
+  if (req.session.userId) {
+    return res.redirect("/dashboard");
+  }
+
+  const error = req.session.signupError || null;
+  const name = req.session.signupName || ""; // Get the previously entered name from the session, or use an empty string
+  const surname = req.session.signupSurname || "";
+
+  const email = req.session.signupEmail || "";
+
+  delete req.session.signupError;
+  delete req.session.signupName;
+  delete req.session.signupSurname;
+
+  delete req.session.signupEmail;
+
+  return res.render("signup", {
+    error,
+    name,
+    surname,
+    email,
+  });
 });
 
 // on sumbit click on singup page
 app.post("/signup", async (req, res) => {
-  const { name, email, password, confirmPassword } = req.body;
+  const { name, lastName, email, password, confirmPassword } = req.body;
   try {
     // check if user already exists
     const existing = await db.query("SELECT * FROM users WHERE email = $1", [
@@ -76,11 +113,11 @@ app.post("/signup", async (req, res) => {
     ]);
 
     if (existing.rows.length > 0) {
-      return renderSignup(res, {
-        error: "Email already registered.",
-        name,
-        email,
-      });
+      req.session.signupError = "Email already registered.";
+      req.session.signupName = name;
+      req.session.signupSurname = lastName;
+      req.session.signupEmail = email;
+      return res.redirect("/signup");
     }
 
     // hash password
@@ -88,39 +125,34 @@ app.post("/signup", async (req, res) => {
 
     // insert user
     const result = await db.query(
-      ` INSERT INTO users (name, email, password_hash)
-        VALUES ($1,$2,$3)
+      ` INSERT INTO users (name, surname, email, password_hash)
+        VALUES ($1,$2,$3, $4)
         RETURNING id `,
-      [name, email, hash],
+      [name, lastName, email, hash],
     );
 
     const userId = result.rows[0].id;
 
-    res.redirect("/login");
+    delete req.session.signupError;
+    delete req.session.signupName;
+    delete req.session.signupSurname;
+
+    delete req.session.signupEmail;
+
+    return res.redirect("/login");
   } catch (err) {
     console.error(err);
-    return renderSignup(res, {
-      error: "Signup error. Please try again.",
-      name,
-      email,
-    });
+    req.session.signupError = "Signup error. Please try again.";
+    req.session.signupName = name;
+    req.session.signupSurname = lastName;
+    req.session.signupEmail = email;
+    return res.redirect("/signup");
   }
 });
 
 // app.get("/login", (req, res) => {
 //   return renderLogin(res);
 // });
-
-app.get("/login", (req, res) => {
-  // Read the current login error from the session, if one exists
-  const error = req.session.loginError || null;
-
-  // Render the login page and pass the error message to EJS
-  res.render("login", {
-    error,
-    email: "",
-  });
-});
 
 // when logging in
 app.post("/login", async (req, res) => {
@@ -137,8 +169,9 @@ app.post("/login", async (req, res) => {
 
     // if no user found
     if (result.rows.length === 0) {
-      // Store the error in session so it can be shown after redirect
+      // Store the error and email in session so it can be shown after redirect
       req.session.loginError = "Invalid email or password.";
+      req.session.loginEmail = email;
       return res.redirect("/login");
     }
 
@@ -150,8 +183,9 @@ app.post("/login", async (req, res) => {
     const valid = await bcrypt.compare(pswrd, user.password_hash);
 
     if (!valid) {
-      // Store the error in session so it can be shown after redirect
+      // Store the error&email in session so it can be shown after redirect
       req.session.loginError = "Invalid email or password.";
+      req.session.loginEmail = email;
       return res.redirect("/login");
     }
 
@@ -170,6 +204,7 @@ app.post("/login", async (req, res) => {
 
     // Login succeeded, so clear any old login error from the session
     delete req.session.loginError;
+    delete req.session.loginEmail;
 
     req.session.userId = user.id;
     return res.redirect("/dashboard");
@@ -179,6 +214,7 @@ app.post("/login", async (req, res) => {
     console.error(err);
     // Store a generic error message for unexpected failures
     req.session.loginError = "Something went wrong. Please try again.";
+    req.session.loginEmail = email;
     return res.redirect("/login");
   }
 });

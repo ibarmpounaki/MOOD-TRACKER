@@ -1,6 +1,4 @@
 // password strength
-
-console.log("bikamee");
 const input = document.getElementById("passwordInput");
 const segs = [
   document.getElementById("seg1"),

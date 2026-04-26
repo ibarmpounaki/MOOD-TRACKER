@@ -82,6 +82,7 @@
                     class="form-input"
                     type="text"
                     name="name"
+                    value="<%= name || '' %>"
                     placeholder="Charlie…"
                     required
                   />
@@ -93,6 +94,7 @@
                     class="form-input"
                     type="text"
                     name="lastName"
+                    value="<%= surname || '' %>"
                     placeholder="Smith…"
                     required
                   />
@@ -105,10 +107,15 @@
                   class="form-input"
                   type="text"
                   name="email"
+                  value="<%= email || '' %>"
                   placeholder="Your email…"
                   required
                 />
               </div>
+
+              <% if (error) { %>
+                <p class="error-message"><%= error %></p>
+              <% } %>
 
               <div class="form-group">
                 <label class="form-label">Password *</label>
