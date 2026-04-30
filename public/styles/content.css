@@ -682,3 +682,17 @@ a:active {
   border: 6px solid transparent;
   border-top-color: #222;
 }
+
+.viewing-banner {
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #5870c0, #9878c8);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}

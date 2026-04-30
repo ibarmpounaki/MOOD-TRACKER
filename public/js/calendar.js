@@ -92,5 +92,17 @@ document.querySelectorAll(".day").forEach((d) => {
     const year = document.querySelector("#curYear").textContent.trim();
 
     document.querySelector("#selectedDate").value = `${year}-${month}-${day}`;
+
+    openPastDay("January 2, 2026");
   });
 });
+
+function openPastDay(date) {
+  const banner = document.getElementById("viewingBanner");
+  document.getElementById("viewingDate").textContent = date;
+  banner.style.display = "block";
+}
+
+function returnToToday() {
+  document.getElementById("viewingBanner").style.display = "none";
+}

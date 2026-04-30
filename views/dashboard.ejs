@@ -9,6 +9,11 @@
         <%-include("partials/leftMenu.ejs")%>
         
         <section class="part main-section">
+
+            <div class="viewing-banner" id="viewingBanner" style="display:none;">
+            VIEWING: <span id="viewingDate"></span>
+            </div>
+
             <form action="/addMood" method="POST">
 
            <% [
