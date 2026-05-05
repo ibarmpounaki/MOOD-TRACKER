@@ -22,6 +22,21 @@ function updateTodayHighlight() {
 
 const moods = window.moods || [];
 
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 // remove/add the '.selected' class whenever a day on the calendar is clicked
 document.querySelectorAll(".day").forEach((d) => {
   d.addEventListener("click", (e) => {
@@ -93,7 +108,7 @@ document.querySelectorAll(".day").forEach((d) => {
 
     document.querySelector("#selectedDate").value = `${year}-${month}-${day}`;
 
-    openPastDay("January 2, 2026");
+    openPastDay(`${monthNames[month - 1]} ${day}, ${year}`);
   });
 });
 
