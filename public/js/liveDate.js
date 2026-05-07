@@ -43,3 +43,16 @@ if (hour >= 0 && hour < 12) {
 } else if (hour >= 18) {
   dotInners[2].classList.add("greyTodayDot-active");
 }
+
+// add the "today's" css to the today's calendar cell. Aka add the black boerder
+const now = new Date();
+const d = now.getDate();
+const m = now.getMonth() + 1;
+
+const today = document.querySelector(
+  `.day[data-day="${d}"][data-month="${m}"]`,
+);
+
+if (today) {
+  today.classList.add("selected");
+}

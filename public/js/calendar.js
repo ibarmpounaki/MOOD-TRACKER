@@ -17,7 +17,10 @@ function updateTodayHighlight() {
     `.day[data-day="${d}"][data-month="${m}"]`,
   );
 
-  if (newToday) newToday.classList.add("today");
+  if (newToday) {
+    newToday.classList.add("today");
+    newToday.classList.add("selected");
+  }
 }
 
 const moods = window.moods || [];
@@ -108,16 +111,26 @@ document.querySelectorAll(".day").forEach((d) => {
 
     document.querySelector("#selectedDate").value = `${year}-${month}-${day}`;
 
-    openPastDay(`${monthNames[month - 1]} ${day}, ${year}`);
+    const now = new Date();
+    const dt = String(now.getDate()).padStart(2, "0");
+    const m = String(now.getMonth() + 1).padStart(2, "0");
+    const y = String(now.getFullYear());
+
+    // if the clicked day is today, display "VIEWING: TODAY" on the banner
+    if (dt === day && m === month && y === year) {
+      openTodayDay();
+    } else {
+      openPastDay(`${monthNames[month - 1]} ${day}, ${year}`);
+    }
   });
 });
 
 function openPastDay(date) {
   const banner = document.getElementById("viewingBanner");
   document.getElementById("viewingDate").textContent = date;
-  banner.style.display = "block";
 }
 
-function returnToToday() {
-  document.getElementById("viewingBanner").style.display = "none";
+function openTodayDay() {
+  const banner = document.getElementById("viewingBanner");
+  document.getElementById("viewingDate").textContent = "Today";
 }

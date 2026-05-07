@@ -2,7 +2,8 @@
     const moodMap = {};
     const MoodIndexMap = { bad: 0, okay: 1, good: 2, great: 3, excellent: 4 };
     const moodColors = ["#c8d4f0", "#92a8e0", "#6080c8", "#4a9e80", "#3db878"];
-     
+    const colorsToMoods = { "#c8d4f0": "bad", "#92a8e0": "okay", "#6080c8": "good", "#4a9e80": "great", "#3db878": "excellent" };
+
     moods.forEach(entry => {
         const d = new Date(entry.mood_date);
         console.log(d);
@@ -83,15 +84,16 @@
 
                         <% <!-- mood exists --> %>
                         <% if (moodMap[key]) { %>
-
                             style="background: <%= color %>;"
                         <% } else { %>
                             style="background: #dbe1f380;"
                         <% } %>
                         >
-                        <div class="day-popup">
-                            Day <%= day %> / <%= month %>
-                        </div>
+                        <% if (moodMap[key]) { %>
+                            <div class="day-popup">
+                                Mood: <%= colorsToMoods[color] %>
+                            </div>
+                        <% } %>
                     </button>
 
 
@@ -110,9 +112,11 @@
                             <% <!-- if mood exists, apply its color. If not, apply default --> %>
                             style="background: <%= moodMap[key] || '#dbe1f380' %>;"
                             >
-                            <div class="day-popup">
-                                Day <%= day %> / <%= month %>
-                            </div>
+                            <% if (moodMap[key]) { %>
+                                <div class="day-popup">
+                                    Mood: <%= colorsToMoods[color] %>
+                                </div>
+                            <% } %>
                         </div>
 
                     <% } else { %>
