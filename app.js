@@ -315,8 +315,15 @@ app.post("/addMood", requireLogin, async (req, res) => {
   }
 });
 
-app.get("/logout", (req, res) => {
-  req.session.destroy(() => {
+app.post("/logout", (req, res) => {
+  console.log("bikame");
+
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Logout failed");
+    }
+
+    res.clearCookie("connect.sid"); // important
     res.redirect("/login");
   });
 });
