@@ -250,6 +250,8 @@ app.get("/dashboard", requireLogin, async (req, res) => {
     DaysOfMonths.push(new Date(year, i + 1, 0).getDate());
   }
 
+  // console.log(moodData);
+
   res.render("dashboard", {
     userName,
     todayYear: year,
@@ -257,10 +259,11 @@ app.get("/dashboard", requireLogin, async (req, res) => {
     todayDay: day,
     DaysOfMonths,
     moods: moodData,
+    saved: req.query.saved,
   });
 });
 
-app.post("/addMood", requireLogin, async (req, res) => {
+app.post("/addJournalEntry", requireLogin, async (req, res) => {
   const userId = req.session.userId;
 
   const colors = [];
@@ -276,7 +279,21 @@ app.post("/addMood", requireLogin, async (req, res) => {
   }
 
   const periods = ["morning", "afternoon", "evening"];
-  const selectedDate = req.body.selectedDate;
+  let selectedDate = req.body.selectedDate;
+
+  // it means that we are on the dashboard page when logged in and we haven't chosen a cell yet, but by default the "today's" cell is selected
+  if (
+    !selectedDate ||
+    selectedDate === "" ||
+    (Array.isArray(selectedDate) && selectedDate.every((d) => d === ""))
+  ) {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+
+    selectedDate = `${year}-${month}-${day}`;
+  }
 
   try {
     for (let i = 0; i < 3; i++) {
@@ -304,7 +321,7 @@ app.post("/addMood", requireLogin, async (req, res) => {
       );
     }
 
-    res.redirect("/dashboard");
+    res.redirect("/dashboard?saved=true");
   } catch (err) {
     console.error("Error details:", err.message);
     console.error("Stack:", err.stack);
@@ -321,8 +338,6 @@ app.post("/addMood", requireLogin, async (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-  console.log("bikame");
-
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).send("Logout failed");

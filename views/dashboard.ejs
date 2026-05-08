@@ -3,6 +3,30 @@
   <!-- Main content area -->
   <main class="dashboard">
 
+    <% if (saved) { %>
+        <div id="toast" class="toast">
+            Mood entry saved successfully!
+        </div>
+    <% } %>
+
+    <script>
+
+    const url = new URL(window.location);
+
+    // check if the URL contains ?saved=true
+    if (url.searchParams.get("saved")) {
+
+        // remove query param
+        url.searchParams.delete("saved");
+
+        // update the browser URL without refreshing the page
+        // this prevents the toast from appearing again on refresh
+        window.history.replaceState({}, document.title, url.pathname);
+    }
+
+    </script>
+
+
     <section class="card question-card">
 
         <!-- Left big box -->
@@ -14,13 +38,21 @@
             VIEWING: <span id="viewingDate">TODAY</span>
             </div>
 
-            <form action="/addMood" method="POST">
+            <form action="/addJournalEntry" method="POST">
 
-           <% [
+            <% [
                 { label: 'Morning',   time: '06:00 AM', placeholder: 'How did your morning unfold...', tags: ["exercised", "ate healthy", "meditated", "slept well"] },
                 { label: 'Afternoon', time: '12:00 PM', placeholder: 'The shape of your afternoon...', tags: ["productive", "ate healthy", "deep work", "walked"]},
                 { label: 'Evening',   time: '06:00 PM', placeholder: 'Reflections as the day quiets...', tags: ["no screens", "ate healthy", "meditated", "read"] }
-            ].forEach((part, index) => { %>
+            ].forEach((part, index) => { 
+                const now = new Date();
+                const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+                const sectionEntry = moods.find(e => {
+                    const d = new Date(e.mood_date);
+                    const localStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+                    return localStr === today && part.label.toLowerCase() === e.period;
+                });
+            %>
                 
                 <div class="timeline-column"></div>
 
@@ -38,24 +70,27 @@
                             <h4><%= part.label %></h4>
                             <h6><%= part.time %></h6>
                         </div>
-                        <!-- <form action="/addMood" method="POST"> -->
                             <div class="textarea-wrapper">
                                 <div class="MoodNotes">
-                                    <textarea name="notes-<%= index %>" class="notes notes-<%= index %>" placeholder= '<%=part.placeholder%>'></textarea>
+                                    <textarea name="notes-<%= index %>" class="notes notes-<%= index %>" placeholder="<%= part.placeholder %>"><%= sectionEntry ? sectionEntry.note : '' %></textarea>
                                 </div>
-                                <input type="hidden" name="selectedcolor-<%=index%>" class="selectedColorInput">
-                                <input type="hidden" name="selectedMood-<%=index%>" class="selectedMoodInput">
-                                <input type="hidden" name="selectedTags-<%=index%>" class="selectedTagsInput">
-                                <input type="hidden" name="period-<%=index%>" value="<%= part.label.toLowerCase() %>">
+                                
+                                <input type="hidden" name="selectedcolor-<%= index %>" class="selectedColorInput" value="<%= sectionEntry ? sectionEntry.mood_color : '' %>">
+                                <input type="hidden" name="selectedMood-<%= index %>" class="selectedMoodInput" value="<%= sectionEntry ? sectionEntry.mood_name : '' %>">
+                                <input type="hidden" name="selectedTags-<%= index %>" class="selectedTagsInput" value="<%= sectionEntry && sectionEntry.tags ? sectionEntry.tags.join(',') : '' %>">
+                                <input type="hidden" name="period-<%= index %>" value="<%= part.label.toLowerCase() %>">
                                 
                                 <input type="hidden" name="selectedDate" id="selectedDate" />
 
                                 <div class="bottomTextareaContent">
-                                       <div class="tagsContainer tagContainer-<%=index%>">
+                                    <div class="tagsContainer tagContainer-<%= index %>">
                                         <% part.tags.forEach(t => { %>
-                                            <div class="tag" data-index="<%=index%>" data-tag="<%=t%>"><%= t.toUpperCase() %></div>
-                                        <% }) %>
+                                        <div class="tag <%= sectionEntry && sectionEntry.tags && sectionEntry.tags.includes(t) ? 'selected' : '' %>" data-index="<%= index %>" data-tag="<%= t %>">
+                                            <%= t.toUpperCase() %>
                                         </div>
+                                        <% }) %>
+                                    </div>
+
                                     <div class="moodContainer">
                                         <h6>MOOD</h6>
                                         <% [
@@ -65,9 +100,9 @@
                                             { mood: 'great',     color: '#4a9e80' },
                                             { mood: 'excellent', color: '#3db878' }
                                             ].forEach(m => { %>
-                                                <div class="mood mood-<%=index%>" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
+                                                <div class="mood mood-<%= index %> <%= sectionEntry && sectionEntry.mood_name === m.mood ? 'selected' : '' %>" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
                                                     <div class="mood-box <%= m.mood %>"></div>
-                                                    <div class="mood-popup"> <%= m.mood %> </div>
+                                                    <div class="mood-popup"><%= m.mood %></div>
                                                 </div>
                                             <% }) %>
                                     </div>

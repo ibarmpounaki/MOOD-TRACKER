@@ -244,6 +244,7 @@ button {
   font: inherit;
   text-decoration: none;
 }
+
 /* ================================
    MAIN SECTION — TIMELINE
    ================================ */
@@ -565,7 +566,7 @@ button {
   display: block;
   margin: 12px auto 0;
   margin-bottom: 20px;
-  padding: 10px 35px;
+  padding: 10px 60px;
   background: linear-gradient(135deg, #5870c0, #9878c8);
   color: #fff;
   border: none;
@@ -698,7 +699,11 @@ button {
 .viewing-banner {
   width: 100%;
   padding: 11px 20px;
-  background: linear-gradient(135deg, #5870c0, #9878c8);
+  background: linear-gradient(
+    135deg,
+    rgba(88, 112, 192, 0.93),
+    rgba(152, 120, 200, 0.93)
+  );
   color: #fff;
   font-size: 16px;
   font-weight: 700;
@@ -706,4 +711,45 @@ button {
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 12px;
+}
+
+/* push notification msg for when saving a day entry is successfull */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  background: #3db878;
+  color: white;
+
+  padding: 14px 20px;
+  border-radius: 10px;
+
+  font-weight: 500;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  z-index: 9999;
+
+  animation: fadeInOut 3s forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }

@@ -50,6 +50,5 @@ $(".ok").click(function () {
     selectedMood.removeClass("selected");
   }
   selectedMood = null;
-
   // check if values have been assigned (mood or/and journal)
 });

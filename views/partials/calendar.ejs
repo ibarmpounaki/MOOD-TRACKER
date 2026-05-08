@@ -6,23 +6,17 @@
 
     moods.forEach(entry => {
         const d = new Date(entry.mood_date);
-        console.log(d);
         
         const key = `${d.getDate()}-${d.getMonth() + 1}`; //sth like 8-4
 
-        console.log("GIA NA DOUME:");
-        console.log(entry.mood_date);
-
-        console.log(d.getDate());
-
         if (moodMap[key]) return; // already processed this date, skip
 
-        // goes through moods and keeps only the ones that happened on the same date & month
+        // goes through moods and keeps only the ones that happened on the same date & month AND have mood assigned!
         const DayJournalOccurences = moods.filter(entry => {
             const d2 = new Date(entry.mood_date);
             const entryKey = `${d2.getDate()}-${d2.getMonth() + 1}`;
 
-            return entryKey === key;
+            return entryKey === key && entry.mood_name !== '' && entry.mood_name !== 'undefined';
         });
 
         console.log(DayJournalOccurences); 
@@ -30,11 +24,14 @@
         let sumMood = 0;
 
         DayJournalOccurences.forEach(entry => {
-            sumMood += MoodIndexMap[entry.mood_name];
+            if(entry.mood_name !== '' && entry.mood_name !== 'undefined'){
+                sumMood += MoodIndexMap[entry.mood_name];
             }
+        }
         );
 
         console.log("sum: " + sumMood);
+                    console.log(DayJournalOccurences.length);
 
         const averageIndex = Math.round(sumMood / DayJournalOccurences.length);
         console.log("averageIndex: " + averageIndex);
