@@ -139,7 +139,8 @@ app.post("/signup", async (req, res) => {
 
     delete req.session.signupEmail;
 
-    return res.redirect("/login");
+    // return res.redirect("/login");
+    return res.redirect("/successSignup");
   } catch (err) {
     console.error(err);
     req.session.signupError = "Signup error. Please try again.";
@@ -148,6 +149,10 @@ app.post("/signup", async (req, res) => {
     req.session.signupEmail = email;
     return res.redirect("/signup");
   }
+});
+
+app.get("/successSignup", (req, res) => {
+  return res.render("successSignup");
 });
 
 // app.get("/login", (req, res) => {
