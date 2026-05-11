@@ -709,8 +709,36 @@ button {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.banner-spacer {
+  flex: 1;
+}
+
+#viewingDate {
+  flex: 1;
   text-align: center;
-  margin-bottom: 12px;
+}
+
+.delete-btn {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-btn.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.delete-btn img {
+  width: 28px;
+  height: 28px;
 }
 
 /* push notification msg for when saving a day entry is successfull */

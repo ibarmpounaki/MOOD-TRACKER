@@ -52,3 +52,5 @@ $(".ok").click(function () {
   selectedMood = null;
   // check if values have been assigned (mood or/and journal)
 });
+
+document.querySelector(".delete-btn").addEventListener("click", function () {});

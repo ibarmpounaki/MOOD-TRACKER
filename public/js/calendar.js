@@ -48,7 +48,7 @@ document.querySelectorAll(".day").forEach((d) => {
     });
     d.classList.add("selected");
 
-    //find the mood entries from the DB that has the same data as the day that has been clicked from the calendar
+    //find the mood entries from the DB that has the same date as the day that has been clicked from the calendar
     const cur_Mood_Entry = moods.filter((entry) => {
       const d = new Date(entry.mood_date);
       const entryKey = `${d.getDate()}-${d.getMonth() + 1}`;
@@ -57,6 +57,14 @@ document.querySelectorAll(".day").forEach((d) => {
 
       return entryKey === clickedDate;
     });
+
+    // if there are no entries for the clicked day
+    if (cur_Mood_Entry.length !== 0) {
+      // display the delete btn on the banner (dashboard page)
+      document.querySelector(".delete-btn").classList.remove("hidden");
+    } else {
+      document.querySelector(".delete-btn").classList.add("hidden");
+    }
 
     const periods = ["morning", "afternoon", "evening"];
 

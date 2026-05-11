@@ -32,10 +32,25 @@
         <!-- Left big box -->
         <%-include("partials/leftMenu.ejs")%>
         
+        <!-- Right big box -->
         <section class="part main-section">
 
+             <% 
+                const now = new Date();
+                const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+                const sectionEntry = moods.find(e => {
+                    const d = new Date(e.mood_date);
+                    const localStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+                    return localStr === today;
+                });
+            %>
+
             <div class="viewing-banner" id="viewingBanner">
-            VIEWING: <span id="viewingDate">TODAY</span>
+                <div class="banner-spacer"></div>
+                <div>VIEWING: <span id="viewingDate">TODAY</span></div>
+                <button class="delete-btn <%= sectionEntry ? '' : 'hidden' %>" type="button" >
+                    <img src="/images/delete.png" class="delete-btn-img" alt="Delete">
+                </button>
             </div>
 
             <form action="/addJournalEntry" method="POST">
