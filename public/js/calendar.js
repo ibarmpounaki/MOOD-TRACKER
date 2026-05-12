@@ -13,6 +13,10 @@ function updateTodayHighlight() {
     .querySelectorAll(".day.today")
     .forEach((el) => el.classList.remove("today"));
 
+  document.querySelectorAll(".day.selected").forEach((ds) => {
+    ds.classList.remove("selected");
+  });
+
   const newToday = document.querySelector(
     `.day[data-day="${d}"][data-month="${m}"]`,
   );
@@ -40,6 +44,13 @@ const monthNames = [
   "December",
 ];
 
+const nowDate = new Date();
+const todayDate = `${nowDate.getFullYear()}-${String(nowDate.getMonth() + 1).padStart(2, "0")}-${String(nowDate.getDate()).padStart(2, "0")}`;
+// const todayDate = `${nowDate.getDate()}-${nowDate.getMonth() + 1}`;
+console.log(todayDate);
+
+let selectedDate = todayDate;
+
 // remove/add the '.selected' class whenever a day on the calendar is clicked
 document.querySelectorAll(".day").forEach((d) => {
   d.addEventListener("click", (e) => {
@@ -54,6 +65,9 @@ document.querySelectorAll(".day").forEach((d) => {
       const entryKey = `${d.getDate()}-${d.getMonth() + 1}`;
 
       const clickedDate = `${e.currentTarget.dataset.day}-${e.currentTarget.dataset.month}`;
+      selectedDate = `${e.currentTarget.dataset.year}-${e.currentTarget.dataset.month}-${e.currentTarget.dataset.day}`;
+
+      console.log(selectedDate);
 
       return entryKey === clickedDate;
     });
@@ -142,3 +156,10 @@ function openTodayDay() {
   const banner = document.getElementById("viewingBanner");
   document.getElementById("viewingDate").textContent = "Today";
 }
+
+const deleteForm = document.getElementById("deleteForm");
+
+deleteForm.addEventListener("submit", function () {
+  // selectedDate should be your currently viewed date
+  document.getElementById("deleteSelectedDate").value = selectedDate;
+});

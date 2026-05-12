@@ -78,6 +78,7 @@
                     <button type="button" class="day today"
                         data-day="<%= day %>"
                         data-month="<%= month %>"
+                        data-year="<%= todayYear %>"
 
                         <% <!-- mood exists --> %>
                         <% if (moodMap[key]) { %>
@@ -105,7 +106,8 @@
                         <div class="day"
                             data-day="<%= day %>"
                             data-month="<%= month %>"
-                            
+                            data-year="<%= todayYear %>"
+
                             <% <!-- if mood exists, apply its color. If not, apply default --> %>
                             style="background: <%= moodMap[key] || '#dbe1f380' %>;"
                             >
@@ -120,7 +122,9 @@
 
                         <div class="emptyDay"
                             data-day="<%= day %>"
-                            data-month="<%= month %>">
+                            data-month="<%= month %>"
+                            data-year="<%= todayYear %>">
+
                         </div>
 
                     <% } %>

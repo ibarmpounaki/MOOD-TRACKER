@@ -53,4 +53,11 @@ $(".ok").click(function () {
   // check if values have been assigned (mood or/and journal)
 });
 
-document.querySelector(".delete-btn").addEventListener("click", function () {});
+// document.querySelector(".delete-btn").addEventListener("click", function () {});
+
+// const deleteForm = document.getElementById("deleteForm");
+
+// deleteForm.addEventListener("submit", function () {
+//   // selectedDate should be your currently viewed date
+//   document.getElementById("deleteSelectedDate").value = selectedDate;
+// });

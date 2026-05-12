@@ -260,6 +260,7 @@ app.get("/dashboard", requireLogin, async (req, res) => {
     DaysOfMonths,
     moods: moodData,
     saved: req.query.saved,
+    deleted: req.query.deleted,
   });
 });
 
@@ -334,6 +335,25 @@ app.post("/addJournalEntry", requireLogin, async (req, res) => {
       periods,
     });
     res.send("Error saving mood: " + err.message);
+  }
+});
+
+app.post("/deleteJournalEntry", requireLogin, async (req, res) => {
+  const userId = req.session.userId;
+  const selectedDate = req.body.selectedDate;
+
+  try {
+    await db.query(
+      `DELETE FROM moods
+       WHERE user_id = $1
+       AND mood_date = $2`,
+      [userId, selectedDate],
+    );
+
+    res.redirect("/dashboard?deleted=true");
+  } catch (err) {
+    console.error(err);
+    res.send("Error deleting entry");
   }
 });
 
