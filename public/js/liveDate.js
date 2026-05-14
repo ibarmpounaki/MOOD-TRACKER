@@ -6,7 +6,7 @@ document.querySelectorAll(".day").forEach((d) => {
     seletedDay_localVar = selectedDay;
 
     // if the selected day is not "today", delete the glowing grey effect that appear on one part of the day
-    if (selectedDay !== todayDate) {
+    if (selectedDay < todayDate) {
       document
         .querySelectorAll(".greyTodayDot.greyTodayDot-active")
         .forEach((ds) => {
