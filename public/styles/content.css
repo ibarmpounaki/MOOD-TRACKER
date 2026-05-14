@@ -759,7 +759,11 @@ button {
 
   z-index: 9999;
 
-  animation: fadeInOut 3s forwards;
+  animation: fadeInOut 4s forwards;
+}
+
+.toast-error {
+  background: #e63946;
 }
 
 @keyframes fadeInOut {

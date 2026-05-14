@@ -109,8 +109,8 @@
                                     <textarea name="notes-<%= index %>" class="notes notes-<%= index %>" placeholder="<%= part.placeholder %>"><%= sectionEntry ? sectionEntry.note : '' %></textarea>
                                 </div>
                                 
-                                <input type="hidden" name="selectedcolor-<%= index %>" class="selectedColorInput" value="<%= sectionEntry ? sectionEntry.mood_color : '' %>">
-                                <input type="hidden" name="selectedMood-<%= index %>" class="selectedMoodInput" value="<%= sectionEntry ? sectionEntry.mood_name : '' %>">
+                                <input type="hidden" name="selectedcolor-<%= index %>" class="selectedColorInput" value="<%= sectionEntry ? sectionEntry.mood_color : '' %>" >
+                                <input type="hidden" name="selectedMood-<%= index %>" class="selectedMoodInput" value="<%= sectionEntry ? sectionEntry.mood_name : '' %>" >
                                 <input type="hidden" name="selectedTags-<%= index %>" class="selectedTagsInput" value="<%= sectionEntry && sectionEntry.tags ? sectionEntry.tags.join(',') : '' %>">
                                 <input type="hidden" name="period-<%= index %>" value="<%= part.label.toLowerCase() %>">
                                 

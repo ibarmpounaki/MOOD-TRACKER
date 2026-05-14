@@ -29,17 +29,26 @@ document.querySelectorAll(".mood").forEach((md) => {
         .forEach((tg) => {
           tg.classList.remove("selected");
         });
+
+      $(this).toggleClass("selected");
+
+      // update the hidden inputs for this specific section
+      document.querySelector(
+        `input[name='selectedMood-${PartOfTheDay_MoodIndex}']`,
+      ).value = this.dataset.mood;
+      document.querySelector(
+        `input[name='selectedcolor-${PartOfTheDay_MoodIndex}']`,
+      ).value = this.dataset.color;
+    } else {
+      $(this).toggleClass("selected");
+
+      document.querySelector(
+        `input[name='selectedMood-${PartOfTheDay_MoodIndex}']`,
+      ).value = "";
+      document.querySelector(
+        `input[name='selectedcolor-${PartOfTheDay_MoodIndex}']`,
+      ).value = "";
     }
-
-    $(this).toggleClass("selected");
-
-    // update the hidden inputs for this specific section
-    document.querySelector(
-      `input[name='selectedMood-${PartOfTheDay_MoodIndex}']`,
-    ).value = this.dataset.mood;
-    document.querySelector(
-      `input[name='selectedcolor-${PartOfTheDay_MoodIndex}']`,
-    ).value = this.dataset.color;
 
     //selectedMood = $(this);
   });
@@ -50,7 +59,42 @@ $(".ok").click(function () {
     selectedMood.removeClass("selected");
   }
   selectedMood = null;
-  // check if values have been assigned (mood or/and journal)
+
+  // check if values have been assigned (mood is required)
+});
+
+function showErrorToast(message) {
+  document.querySelector(".toast-error")?.remove();
+
+  const toast = document.createElement("div");
+  toast.className = "toast toast-error";
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  // remove from DOM after animation ends
+  toast.addEventListener("animationend", () => toast.remove());
+}
+
+document.querySelector("button.ok").addEventListener("click", function (e) {
+  const periods = ["Morning", "Afternoon", "Evening"];
+  let valid = true;
+
+  if (selectedMood) {
+    selectedMood.removeClass("selected");
+  }
+  selectedMood = null;
+
+  // check if values have been assigned for all the 3 parts of the day (mood is required)
+  for (let i = 0; i < 3; i++) {
+    const mood = document.querySelector(
+      `input[name='selectedMood-${i}']`,
+    ).value;
+    if (!mood) {
+      e.preventDefault();
+      showErrorToast(`Please select a mood for ${periods[i]} before saving.`);
+      return;
+    }
+  }
 });
 
 // document.querySelector(".delete-btn").addEventListener("click", function () {});
