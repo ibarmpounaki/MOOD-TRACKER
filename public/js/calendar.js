@@ -1,32 +1,3 @@
-// Keep the calendar highlight in sync when the day changes
-// global function
-function updateTodayHighlight() {
-  const now = new Date();
-  const d = now.getDate();
-  const m = now.getMonth() + 1;
-
-  if (d === lastDay) return; // no change will be made
-
-  lastDay = d;
-
-  document
-    .querySelectorAll(".day.today")
-    .forEach((el) => el.classList.remove("today"));
-
-  document.querySelectorAll(".day.selected").forEach((ds) => {
-    ds.classList.remove("selected");
-  });
-
-  const newToday = document.querySelector(
-    `.day[data-day="${d}"][data-month="${m}"]`,
-  );
-
-  if (newToday) {
-    newToday.classList.add("today");
-    newToday.classList.add("selected");
-  }
-}
-
 const moods = window.moods || [];
 
 const monthNames = [
@@ -47,9 +18,9 @@ const monthNames = [
 const nowDate = new Date();
 const todayDate = `${nowDate.getFullYear()}-${String(nowDate.getMonth() + 1).padStart(2, "0")}-${String(nowDate.getDate()).padStart(2, "0")}`;
 // const todayDate = `${nowDate.getDate()}-${nowDate.getMonth() + 1}`;
-console.log(todayDate);
 
-let selectedDate = todayDate;
+// in order to be accessible from other js files even when its value changes
+let selectedDay = todayDate;
 
 // remove/add the '.selected' class whenever a day on the calendar is clicked
 document.querySelectorAll(".day").forEach((d) => {
