@@ -1,0 +1,99 @@
+
+<% 
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    const sectionEntry = moods.find(e => {
+        const d = new Date(e.mood_date);
+        const localStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        return localStr === today;
+    });
+%>
+
+<form id="deleteForm" action="/deleteJournalEntry" method="POST">
+    <input type="hidden" name="selectedDate" id="deleteSelectedDate">
+    <div class="viewing-banner" id="viewingBanner">
+        <div class="banner-spacer"></div>
+        <div>VIEWING: <span id="viewingDate">TODAY</span></div>
+        <button class="delete-btn <%= sectionEntry ? '' : 'hidden' %>" type="submit" >
+            <img src="/images/delete.png" class="delete-btn-img" alt="Delete">
+        </button>
+    </div>
+</form>      
+
+<form action="/addJournalEntry" method="POST">
+
+<% [
+    { label: 'Morning',   time: '06:00 AM', placeholder: 'How did your morning unfold...', tags: ["exercised", "ate healthy", "meditated", "slept well"] },
+    { label: 'Afternoon', time: '12:00 PM', placeholder: 'The shape of your afternoon...', tags: ["productive", "ate healthy", "deep work", "walked"]},
+    { label: 'Evening',   time: '06:00 PM', placeholder: 'Reflections as the day quiets...', tags: ["no screens", "ate healthy", "meditated", "read"] }
+].forEach((part, index) => { 
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    const sectionEntry = moods.find(e => {
+        const d = new Date(e.mood_date);
+        const localStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        return localStr === today && part.label.toLowerCase() === e.period;
+    });
+%>
+    
+    <div class="timeline-column"></div>
+
+    <div class="day-row">
+
+        <div class="timeline-vertical-line">
+
+            <div class="dot dot-<%= index %>">
+                <div class="greyTodayDot"></div>
+            </div>
+        </div>
+
+        <div class="day-parts day-part-<%= index %>" >
+            <div class="DayPartText day-part-text-<%= index %>">                           
+                <h4><%= part.label %></h4>
+                <h6><%= part.time %></h6>
+            </div>
+                <div class="textarea-wrapper">
+                    <div class="MoodNotes">
+                        <textarea name="notes-<%= index %>" class="notes notes-<%= index %>" placeholder="<%= part.placeholder %>"><%= sectionEntry ? sectionEntry.note : '' %></textarea>
+                    </div>
+                    
+                    <input type="hidden" name="selectedcolor-<%= index %>" class="selectedColorInput" value="<%= sectionEntry ? sectionEntry.mood_color : '' %>" >
+                    <input type="hidden" name="selectedMood-<%= index %>" class="selectedMoodInput" value="<%= sectionEntry ? sectionEntry.mood_name : '' %>" >
+                    <input type="hidden" name="selectedTags-<%= index %>" class="selectedTagsInput" value="<%= sectionEntry && sectionEntry.tags ? sectionEntry.tags.join(',') : '' %>">
+                    <input type="hidden" name="period-<%= index %>" value="<%= part.label.toLowerCase() %>">
+                    
+                    <input type="hidden" name="selectedDate" id="selectedDate" />
+
+                    <div class="bottomTextareaContent">
+                        <div class="tagsContainer tagContainer-<%= index %>">
+                            <% part.tags.forEach(t => { %>
+                            <div class="tag <%= sectionEntry && sectionEntry.tags && sectionEntry.tags.includes(t) ? 'selected' : '' %>" data-index="<%= index %>" data-tag="<%= t %>">
+                                <%= t.toUpperCase() %>
+                            </div>
+                            <% }) %>
+                        </div>
+
+                        <div class="moodContainer">
+                            <h6>MOOD</h6>
+                            <% [
+                                { mood: 'bad',       color: '#c8d4f0' },
+                                { mood: 'okay',      color: '#92a8e0' },
+                                { mood: 'good',      color: '#6080c8' },
+                                { mood: 'great',     color: '#4a9e80' },
+                                { mood: 'excellent', color: '#3db878' }
+                                ].forEach(m => { %>
+                                    <div class="mood mood-<%= index %> <%= sectionEntry && sectionEntry.mood_name === m.mood ? 'selected' : '' %>" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
+                                        <div class="mood-box <%= m.mood %>"></div>
+                                        <div class="mood-popup"><%= m.mood %></div>
+                                    </div>
+                                <% }) %>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+<% }) %>
+
+<button type="submit" class="ok">Save Day</button>
+
+</form>

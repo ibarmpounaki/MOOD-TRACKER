@@ -1,0 +1,243 @@
+.stats-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem;
+}
+
+.stats-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stats-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.stats-filters {
+  display: flex;
+  gap: 6px;
+}
+
+.stats-pill {
+  font-size: 12px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  text-decoration: none;
+  color: #888;
+}
+
+.stats-pill.active {
+  background: #eeedfe;
+  border-color: #afa9ec;
+  color: #3c3489;
+  font-weight: 500;
+}
+
+.stats-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.stats-metric {
+  background: #fff;
+  /* border: 0.5px solid #e5e5e5; */
+  border-radius: 12px;
+  padding: 14px 16px;
+
+  border: 1px solid #f6f6f6;
+  background: #ffffff97;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+    inset 2px 0 0 rgba(255, 255, 255, 0.4),
+    inset -2px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.stats-metric-label {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.stats-metric-value {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.stats-metric-sub {
+  font-size: 10px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.stats-card {
+  /* background: #fff;
+  border: 0.5px solid #e5e5e5; */
+  border-radius: 12px;
+  padding: 16px;
+
+  border: 1px solid #f6f6f6;
+  background: #ffffff97;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+    inset 2px 0 0 rgba(255, 255, 255, 0.4),
+    inset -2px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.stats-card-title {
+  font-size: 11px;
+  font-weight: 500;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+
+.stats-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  font-size: 11px;
+  color: #888;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 2px;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.mood-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.mood-bar-label {
+  font-size: 11px;
+  color: #888;
+  width: 58px;
+  text-align: right;
+  flex-shrink: 0;
+  text-transform: capitalize;
+}
+
+.mood-bar-track {
+  flex: 1;
+  height: 8px;
+  /* background: #f1f1f1; */
+  border-radius: 4px;
+  overflow: hidden;
+
+  border: 1px solid #f6f6f6;
+  background: #ffffff97;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+    inset 2px 0 0 rgba(255, 255, 255, 0.4),
+    inset -2px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.mood-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.mood-bar-pct {
+  font-size: 11px;
+  color: #bbb;
+  width: 32px;
+}
+
+.period-stat-row {
+  display: flex;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 0.5px solid #f0f0f0;
+  gap: 8px;
+}
+
+.period-stat-row:last-child {
+  border: none;
+}
+
+.period-stat-label {
+  font-size: 12px;
+  flex: 1;
+}
+
+.period-stat-avg {
+  font-size: 12px;
+  font-weight: 500;
+  color: #534ab7;
+}
+
+.period-stat-entries {
+  font-size: 11px;
+  color: #bbb;
+  margin-left: auto;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.tag-item {
+  font-size: 11px;
+  padding: 4px 11px;
+  border-radius: 20px;
+  background: #f5f5f5;
+  color: #888;
+  border: 0.5px solid #e5e5e5;
+  text-transform: capitalize;
+}
+
+.tag-item.tag-lg {
+  background: #eeedfe;
+  color: #3c3489;
+  border-color: #afa9ec;
+  font-size: 13px;
+  padding: 6px 14px;
+}
+
+.tag-item.tag-md {
+  background: #e1f5ee;
+  color: #085041;
+  border-color: #9fe1cb;
+  font-size: 12px;
+  padding: 5px 12px;
+}
+
+.tag-count {
+  font-size: 10px;
+  opacity: 0.6;
+  margin-left: 3px;
+}

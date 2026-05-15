@@ -19,7 +19,7 @@
             return entryKey === key && entry.mood_name !== '' && entry.mood_name !== 'undefined';
         });
 
-        console.log(DayJournalOccurences); 
+        <!-- console.log(DayJournalOccurences);  -->
 
         let sumMood = 0;
 
@@ -30,11 +30,8 @@
         }
         );
 
-        console.log("sum: " + sumMood);
-                    console.log(DayJournalOccurences.length);
 
         const averageIndex = Math.round(sumMood / DayJournalOccurences.length);
-        console.log("averageIndex: " + averageIndex);
 
         moodMap[key] = moodColors[averageIndex];
     });

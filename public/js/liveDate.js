@@ -30,8 +30,10 @@ function updateDateTime() {
     second: "2-digit",
   });
 
-  document.getElementById("curDate").textContent = "Today, " + date;
-  document.getElementById("curTime").textContent = time;
+  const curDate = document.getElementById("curDate");
+  const curTime = document.getElementById("curTime");
+  if (curDate) curDate.textContent = "Today, " + date;
+  if (curTime) curTime.textContent = time;
 
   const hour = new Date().getHours();
 
@@ -41,11 +43,11 @@ function updateDateTime() {
     new Date().getMinutes() === 0 &&
     new Date().getSeconds() === 1
   ) {
-    //console.log("It's 00:00:01");
     updateTodayHighlight();
   }
 
   const dotInners = document.querySelectorAll(".greyTodayDot");
+  if (!dotInners.length) return; // exits here on any page without dots
 
   if (selectedDay === todayDate) {
     // 0 = Morning (0-11), 1 = Afternoon (12-17), 2 = Evening (18-23)
@@ -56,7 +58,6 @@ function updateDateTime() {
           .forEach((ds) => {
             ds.classList.remove("greyTodayDot-active");
           });
-
         dotInners[0].classList.add("greyTodayDot-active");
       }
     } else if (hour >= 12 && hour < 18) {
@@ -66,7 +67,6 @@ function updateDateTime() {
           .forEach((ds) => {
             ds.classList.remove("greyTodayDot-active");
           });
-
         dotInners[1].classList.add("greyTodayDot-active");
       }
     } else if (hour >= 18) {
@@ -76,7 +76,6 @@ function updateDateTime() {
           .forEach((ds) => {
             ds.classList.remove("greyTodayDot-active");
           });
-
         dotInners[2].classList.add("greyTodayDot-active");
       }
     }

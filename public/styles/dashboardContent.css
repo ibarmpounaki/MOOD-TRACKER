@@ -248,6 +248,12 @@ button {
 /* ================================
    MAIN SECTION — TIMELINE
    ================================ */
+
+/* for other pages like statistics or settings */
+.main-section.hidden {
+  display: none;
+}
+
 .main-section {
   flex: 5;
   display: flex;

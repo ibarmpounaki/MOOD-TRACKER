@@ -80,11 +80,11 @@ document.querySelectorAll(".day").forEach((d) => {
           document.querySelector(`input[name='selectedcolor-${index}']`).value =
             periodMoodEntry?.mood_color;
 
-          console.log(
-            "COLOR: " +
-              document.querySelector(`input[name='selectedcolor-${index}']`)
-                .value,
-          );
+          // console.log(
+          //   "COLOR: " +
+          //     document.querySelector(`input[name='selectedcolor-${index}']`)
+          //       .value,
+          // );
         });
 
         // select the saved tags for each period (if any exist)
@@ -143,7 +143,9 @@ function openTodayDay() {
 
 const deleteForm = document.getElementById("deleteForm");
 
-deleteForm.addEventListener("submit", function () {
-  // selectedDate should be your currently viewed date
-  document.getElementById("deleteSelectedDate").value = selectedDate;
-});
+if (deleteForm) {
+  deleteForm.addEventListener("submit", function () {
+    // selectedDate should be your currently viewed date
+    document.getElementById("deleteSelectedDate").value = selectedDay;
+  });
+}

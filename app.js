@@ -230,14 +230,6 @@ app.get("/dashboard", requireLogin, async (req, res) => {
   const result = await db.query("SELECT name FROM users WHERE id = $1", [
     userId,
   ]);
-
-  const moods = await db.query(
-    "SELECT mood_color, mood_date, mood_name, period, tags, note FROM moods WHERE user_id = $1",
-    [userId],
-  );
-
-  const moodData = moods.rows;
-
   const userName = result.rows[0].name;
 
   const date = new Date();
@@ -250,7 +242,169 @@ app.get("/dashboard", requireLogin, async (req, res) => {
     DaysOfMonths.push(new Date(year, i + 1, 0).getDate());
   }
 
-  // console.log(moodData);
+  const moods = await db.query(
+    "SELECT mood_color, mood_date, mood_name, period, tags, note FROM moods WHERE user_id = $1",
+    [userId],
+  );
+  const moodData = moods.rows;
+
+  // stats data
+  const days = 30;
+
+  // fetch all mood entries for this user within the last 30 days, oldest first
+  const statsMoods = await db.query(
+    `SELECT mood_date, period, mood_name, mood_color, note, tags
+     FROM moods
+     WHERE user_id = $1
+       AND mood_date >= CURRENT_DATE - INTERVAL '1 day' * $2
+     ORDER BY mood_date ASC`,
+    [userId, days],
+  );
+  const moodData_stats = statsMoods.rows;
+
+  // fetch every distinct day the user has logged anything (all time, newest first)
+  // Used to calculate the current streak
+  const streakResult = await db.query(
+    `SELECT DISTINCT DATE(mood_date) as d
+     FROM moods WHERE user_id = $1
+     ORDER BY d DESC`,
+    [userId],
+  );
+
+  // count consecutive days going backwards from today
+  let streak = 0;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  for (let i = 0; i < streakResult.rows.length; i++) {
+    const d = new Date(streakResult.rows[i].d);
+    const expected = new Date(today); // actual logged day
+
+    expected.setDate(today.getDate() - i); // what day we expect (today, yesterday, etc.)
+
+    if (d.toDateString() === expected.toDateString()) streak++;
+    else break; //streak ends
+  }
+
+  const moodScore = { bad: 1, okay: 2, good: 3, great: 4, excellent: 5 };
+  const moodName = {
+    1: "Bad",
+    2: "Okay",
+    3: "Good",
+    4: "Great",
+    5: "Excellent",
+  };
+
+  // Count how many times each mood appears across all entries
+  const moodCounts = { bad: 0, okay: 0, good: 0, great: 0, excellent: 0 };
+
+  moodData_stats.forEach((m) => {
+    if (moodCounts[m.mood_name] !== undefined) moodCounts[m.mood_name]++;
+  });
+
+  const total = moodData_stats.length || 1; // avoid division by zero
+
+  // Convert counts to percentages eg [{ name: "good", pct: 35 }, ..]
+  const moodBreakdown = Object.entries(moodCounts).map(([name, count]) => ({
+    name,
+    pct: Math.round((count / total) * 100),
+  }));
+
+  // for each time period, calculate the average mood score and how many entries exist
+  const periodStats = ["morning", "afternoon", "evening"].map((period) => {
+    const entries = moodData_stats.filter(
+      (m) => m.period === period && moodScore[m.mood_name],
+    );
+    const avg = entries.length
+      ? entries.reduce((sum, m) => sum + moodScore[m.mood_name], 0) /
+        entries.length
+      : 0;
+    return {
+      period,
+      avgName: moodName[Math.round(avg)] || "—",
+      entries: entries.length,
+    };
+  });
+
+  // overall average mood across all periods and days
+  const scored = moodData_stats.filter((m) => moodScore[m.mood_name]);
+  const overallAvg = scored.length
+    ? scored.reduce((s, m) => s + moodScore[m.mood_name], 0) / scored.length
+    : 0;
+  const averageMood = moodName[Math.round(overallAvg)] || "—";
+
+  // Group entries by date to find best day and count logged days
+  const byDay = {};
+
+  moodData_stats.forEach((m) => {
+    //keep only the date - read the date in local timezone
+    const raw = new Date(m.mood_date);
+    const d = `${raw.getFullYear()}-${String(raw.getMonth() + 1).padStart(2, "0")}-${String(raw.getDate()).padStart(2, "0")}`;
+
+    if (!byDay[d]) {
+      //if this date doesn't exist in byDay yet, create an empty array for it
+      byDay[d] = [];
+    }
+
+    byDay[d].push(moodScore[m.mood_name] || 0);
+  });
+
+  // Find the day with the highest average mood score
+  let bestDay = "",
+    bestScore = 0;
+
+  Object.entries(byDay).forEach(([date, scores]) => {
+    // add all scores together and divide by how many there are
+    const total = scores.reduce((a, b) => a + b, 0);
+    const avg = total / scores.length;
+
+    // if this day's average is better than the current best, update it
+    if (avg > bestScore) {
+      bestScore = avg;
+      bestDay = date;
+    }
+  });
+
+  // Format "2026-05-09" -> "9 May"
+  if (bestDay !== "") {
+    const d = new Date(bestDay);
+    bestDay = d.toLocaleDateString("en-GB", { month: "short", day: "numeric" });
+  }
+
+  // Total number of distinct days that have at least one entry
+  const daysLogged = Object.keys(byDay).length;
+
+  // Count how many times each tag appears across all entries
+  const tagCount = {};
+
+  moodData_stats.forEach((m) => {
+    if (m.tags)
+      m.tags.forEach((t) => {
+        tagCount[t] = (tagCount[t] || 0) + 1;
+      });
+  });
+
+  // Sort by frequency, take top 9
+  const topTags = Object.entries(tagCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 9)
+    .map(([tag, count]) => ({ tag, count }));
+
+  // Build chart data: one mood score per period per day
+  const chartData = {};
+
+  moodData_stats.forEach((m) => {
+    const d = new Date(m.mood_date).toISOString().split("T")[0];
+    if (!chartData[d]) chartData[d] = {};
+    chartData[d][m.period] = moodScore[m.mood_name] || 0;
+  });
+
+  // Separate into three parallel arrays for Chart.js (one value per day)
+  // null = no entry that day (Chart.js will leave a gap with spanGaps:true)
+  const chartLabels = Object.keys(chartData).sort(); // x-axis dates
+  const chartMorning = chartLabels.map((d) => chartData[d].morning ?? null); // y-axis morning
+  const chartAfternoon = chartLabels.map((d) => chartData[d].afternoon ?? null); // y-axis afternoon
+  const chartEvening = chartLabels.map((d) => chartData[d].evening ?? null); // y-axis evening
 
   res.render("dashboard", {
     userName,
@@ -261,10 +415,25 @@ app.get("/dashboard", requireLogin, async (req, res) => {
     moods: moodData,
     saved: req.query.saved,
     deleted: req.query.deleted,
+    // error: req.query.error,
+    // stats
+    days,
+    streak,
+    daysLogged,
+    averageMood,
+    bestDay,
+    moodBreakdown,
+    periodStats,
+    topTags,
+    chartLabels: JSON.stringify(chartLabels),
+    chartMorning: JSON.stringify(chartMorning),
+    chartAfternoon: JSON.stringify(chartAfternoon),
+    chartEvening: JSON.stringify(chartEvening),
   });
 });
 
 app.post("/addJournalEntry", requireLogin, async (req, res) => {
+  console.log("BIKA");
   const userId = req.session.userId;
 
   const colors = [];
@@ -280,20 +449,28 @@ app.post("/addJournalEntry", requireLogin, async (req, res) => {
   }
 
   const periods = ["morning", "afternoon", "evening"];
-  let selectedDate = req.body.selectedDate;
+
+  // for (let i = 0; i < 3; i++) {
+  //   console.log("MOOD: " + moods[i]);
+  //   if (!moods[i] || moods[i] === "" || moods[i] === "undefined") {
+  //     return res.redirect("/dashboard?error=true");
+  //   }
+  // }
+
+  let selectedDay = req.body.selectedDate;
 
   // it means that we are on the dashboard page when logged in and we haven't chosen a cell yet, but by default the "today's" cell is selected
   if (
-    !selectedDate ||
-    selectedDate === "" ||
-    (Array.isArray(selectedDate) && selectedDate.every((d) => d === ""))
+    !selectedDay ||
+    selectedDay === "" ||
+    (Array.isArray(selectedDay) && selectedDay.every((d) => d === ""))
   ) {
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, "0");
     const day = String(now.getDate()).padStart(2, "0");
 
-    selectedDate = `${year}-${month}-${day}`;
+    selectedDay = `${year}-${month}-${day}`;
   }
 
   try {
@@ -317,7 +494,7 @@ app.post("/addJournalEntry", requireLogin, async (req, res) => {
           notes[i],
           tagsArray,
           periods[i],
-          selectedDate,
+          selectedDay,
         ],
       );
     }
@@ -340,14 +517,16 @@ app.post("/addJournalEntry", requireLogin, async (req, res) => {
 
 app.post("/deleteJournalEntry", requireLogin, async (req, res) => {
   const userId = req.session.userId;
-  const selectedDate = req.body.selectedDate;
+  const selectedDay = req.body.selectedDate;
+
+  // console.log("DAY TO BE DELETED: " + selectedDay);
 
   try {
     await db.query(
       `DELETE FROM moods
        WHERE user_id = $1
        AND mood_date = $2`,
-      [userId, selectedDate],
+      [userId, selectedDay],
     );
 
     res.redirect("/dashboard?deleted=true");

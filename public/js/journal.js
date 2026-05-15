@@ -54,14 +54,12 @@ document.querySelectorAll(".mood").forEach((md) => {
   });
 });
 
-$(".ok").click(function () {
-  if (selectedMood) {
-    selectedMood.removeClass("selected");
-  }
-  selectedMood = null;
-
-  // check if values have been assigned (mood is required)
-});
+// $(".ok").click(function () {
+//   if (selectedMood) {
+//     selectedMood.removeClass("selected");
+//   }
+//   selectedMood = null;
+// });
 
 function showErrorToast(message) {
   document.querySelector(".toast-error")?.remove();
@@ -75,33 +73,26 @@ function showErrorToast(message) {
   toast.addEventListener("animationend", () => toast.remove());
 }
 
+const saveBtn = document.querySelector("button.ok");
+console.log(saveBtn);
+
 document.querySelector("button.ok").addEventListener("click", function (e) {
+  e.preventDefault();
+
   const periods = ["Morning", "Afternoon", "Evening"];
   let valid = true;
-
-  if (selectedMood) {
-    selectedMood.removeClass("selected");
-  }
-  selectedMood = null;
 
   // check if values have been assigned for all the 3 parts of the day (mood is required)
   for (let i = 0; i < 3; i++) {
     const mood = document.querySelector(
       `input[name='selectedMood-${i}']`,
     ).value;
-    if (!mood) {
-      e.preventDefault();
+    if (!mood || mood === "" || mood === "undefined") {
       showErrorToast(`Please select a mood for ${periods[i]} before saving.`);
       return;
     }
   }
+
+  // all moods valid — submit manually
+  document.querySelector("form[action='/addJournalEntry']").submit();
 });
-
-// document.querySelector(".delete-btn").addEventListener("click", function () {});
-
-// const deleteForm = document.getElementById("deleteForm");
-
-// deleteForm.addEventListener("submit", function () {
-//   // selectedDate should be your currently viewed date
-//   document.getElementById("deleteSelectedDate").value = selectedDate;
-// });
