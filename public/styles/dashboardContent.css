@@ -458,11 +458,11 @@ button {
 
 .tag {
   white-space: nowrap;
-  padding: 5.5px 14px;
+  padding: 6px 14px;
   border-radius: 20px;
   background-color: white;
   border: 1px solid #224ba740;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   cursor: pointer;
   color: #1e2a45a0;

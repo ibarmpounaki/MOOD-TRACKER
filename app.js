@@ -394,7 +394,9 @@ app.get("/dashboard", requireLogin, async (req, res) => {
   const chartData = {};
 
   moodData_stats.forEach((m) => {
-    const d = new Date(m.mood_date).toISOString().split("T")[0];
+    const raw = new Date(m.mood_date);
+    const d = `${raw.getFullYear()}-${String(raw.getMonth() + 1).padStart(2, "0")}-${String(raw.getDate()).padStart(2, "0")}`;
+
     if (!chartData[d]) chartData[d] = {};
     chartData[d][m.period] = moodScore[m.mood_name] || 0;
   });

@@ -23,9 +23,9 @@
 <form action="/addJournalEntry" method="POST">
 
 <% [
-    { label: 'Morning',   time: '06:00 AM', placeholder: 'How did your morning unfold...', tags: ["exercised", "ate healthy", "meditated", "slept well"] },
-    { label: 'Afternoon', time: '12:00 PM', placeholder: 'The shape of your afternoon...', tags: ["productive", "ate healthy", "deep work", "walked"]},
-    { label: 'Evening',   time: '06:00 PM', placeholder: 'Reflections as the day quiets...', tags: ["no screens", "ate healthy", "meditated", "read"] }
+    { label: 'Morning',   time: '06:00 AM', placeholder: 'How did your morning unfold...', tags: ["Exercised", "Ate Healthy", "Meditated", "Slept Well"] },
+    { label: 'Afternoon', time: '12:00 PM', placeholder: 'The shape of your afternoon...', tags: ["Productive", "Ate Healthy", "Deep Work", "Walked"]},
+    { label: 'Evening',   time: '06:00 PM', placeholder: 'Reflections as the day quiets...', tags: ["No Screens", "Ate Healthy", "Meditated", "Read"] }
 ].forEach((part, index) => { 
     const now = new Date();
     const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
@@ -68,7 +68,7 @@
                         <div class="tagsContainer tagContainer-<%= index %>">
                             <% part.tags.forEach(t => { %>
                             <div class="tag <%= sectionEntry && sectionEntry.tags && sectionEntry.tags.includes(t) ? 'selected' : '' %>" data-index="<%= index %>" data-tag="<%= t %>">
-                                <%= t.toUpperCase() %>
+                                <%= t %>
                             </div>
                             <% }) %>
                         </div>
