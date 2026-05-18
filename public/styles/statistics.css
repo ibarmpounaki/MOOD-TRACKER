@@ -1,8 +1,21 @@
 .stats-section {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 1.5rem;
+  gap: 1.8rem;
+  /* padding: 1.5rem; */
+}
+
+.stats-section > * {
+  margin-left: 1.5rem; /* indent all direct children */
+  margin-right: 1.5rem;
+}
+
+.stats-section > *:first-child {
+  margin-top: 1.5rem;
+}
+
+.stats-section > *:last-child {
+  margin-bottom: 1.5rem;
 }
 
 .stats-topbar {
@@ -43,7 +56,7 @@
 .stats-metrics {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 25px;
 }
 
 .stats-metric {
@@ -109,7 +122,7 @@
 .stats-row-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 25px;
 }
 
 .chart-legend {

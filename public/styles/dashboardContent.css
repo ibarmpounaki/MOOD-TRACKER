@@ -30,8 +30,8 @@ body {
   flex-wrap: wrap;
   gap: 12px;
   padding: clamp(15px, 4vw, 25px); /* min, preferred, max */
-  padding-top: clamp(10px, 4vw, 15px);
-  padding-bottom: clamp(10px, 4vw, 15px);
+  padding-top: clamp(9px, 4vw, 8px);
+  padding-bottom: clamp(9px, 4vw, 8px);
 }
 
 .page-header > * {
@@ -505,9 +505,9 @@ button {
 }
 
 .moodContainer > h6 {
-  color: #bbbbbb;
+  color: #a9a9a9;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   margin: 0;
   margin-right: 12px;
 }

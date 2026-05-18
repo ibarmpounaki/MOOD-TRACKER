@@ -8,7 +8,9 @@
         >
       </div>
       <div class="user-name"><%=userName%></div>
-      <div class="UserStreakDays">12 day streak!</div>
+      <div class="UserStreakDays">
+        <%= streak > 0 ? streak + ' day streak!' : '' %>
+      </div>
     </div>
     <div class="leftMenu-divider"></div>
     <div class="menu categories first-cat active">

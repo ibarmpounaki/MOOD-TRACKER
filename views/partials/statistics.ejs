@@ -2,10 +2,9 @@
     <h2 class="stats-title">Your statistics</h2>
     <div class="stats-filters">
       <% [7, 30].forEach(d => { %>
-        <a href="/statistics?days=<%= d %>"
-            class="stats-pill <%= days === d ? 'active' : '' %>">
-          <%= d === 90 ? '3 months' : d + ' days' %>
-        </a>
+        <span class="stats-pill <%= days === d ? 'active' : '' %>" data-days="<%= d %>">
+          <%= d + ' days' %>
+        </span>
       <% }) %>
     </div>
   </div>
@@ -14,22 +13,22 @@
   <div class="stats-metrics">
     <div class="stats-metric">
       <div class="stats-metric-label">Current streak</div>
-      <div class="stats-metric-value"><%= streak %></div>
+      <div class="stats-metric-value streak-value"><%= streak %></div>
       <div class="stats-metric-sub">days in a row</div>
     </div>
     <div class="stats-metric">
       <div class="stats-metric-label">Days logged</div>
-      <div class="stats-metric-value"><%= daysLogged %></div>
+      <div class="stats-metric-value daysLogged-value"><%= daysLogged %></div>
       <div class="stats-metric-sub">in the last <%= days %> days</div>
     </div>
     <div class="stats-metric">
       <div class="stats-metric-label">Average mood</div>
-      <div class="stats-metric-value"><%= averageMood %></div>
+      <div class="stats-metric-value avgMood-value"><%= averageMood %></div>
       <div class="stats-metric-sub">across all periods</div>
     </div>
     <div class="stats-metric">
       <div class="stats-metric-label">Best day</div>
-      <div class="stats-metric-value"><%= bestDay %></div>
+      <div class="stats-metric-value bestDay-value"><%= bestDay %></div>
       <div class="stats-metric-sub">highest mood across all periods</div>
     </div>
   </div>
@@ -122,7 +121,7 @@
   const evening    = <%- chartEvening %>;
   const moodNames  = ['','Bad','Okay','Good','Great','Excellent'];
 
-  new Chart(document.getElementById('moodChart'), {
+  const moodChart = new Chart(document.getElementById('moodChart'), {
     type: 'line',
     data: {
       labels,

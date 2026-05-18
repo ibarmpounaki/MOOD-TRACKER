@@ -249,7 +249,10 @@ app.get("/dashboard", requireLogin, async (req, res) => {
   const moodData = moods.rows;
 
   // stats data
-  const days = 30;
+  // const days = 30;
+  // const DAYS = req.session.days;
+  const days = parseInt(req.query.days) || 30;
+  console.log("DAYS: " + days);
 
   // fetch all mood entries for this user within the last 30 days, oldest first
   const statsMoods = await db.query(
@@ -440,6 +443,147 @@ app.get("/dashboard", requireLogin, async (req, res) => {
     chartMorning: JSON.stringify(chartMorning),
     chartAfternoon: JSON.stringify(chartAfternoon),
     chartEvening: JSON.stringify(chartEvening),
+    consistentMood,
+  });
+});
+
+app.get("/statistics/data", requireLogin, async (req, res) => {
+  const days = parseInt(req.query.days) || 30;
+  const userId = req.session.userId;
+
+  const statsMoods = await db.query(
+    `SELECT mood_date, period, mood_name, mood_color, note, tags
+     FROM moods
+     WHERE user_id = $1
+       AND mood_date >= CURRENT_DATE - INTERVAL '1 day' * $2
+     ORDER BY mood_date ASC`,
+    [userId, days],
+  );
+  const moodData_stats = statsMoods.rows;
+
+  const streakResult = await db.query(
+    `SELECT DISTINCT DATE(mood_date) as d
+     FROM moods WHERE user_id = $1
+     ORDER BY d DESC`,
+    [userId],
+  );
+
+  let streak = 0;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  for (let i = 0; i < streakResult.rows.length; i++) {
+    const d = new Date(streakResult.rows[i].d);
+    const expected = new Date(today);
+    expected.setDate(today.getDate() - i);
+    if (d.toDateString() === expected.toDateString()) streak++;
+    else break;
+  }
+
+  const moodScore = { bad: 1, okay: 2, good: 3, great: 4, excellent: 5 };
+  const moodName = {
+    1: "Bad",
+    2: "Okay",
+    3: "Good",
+    4: "Great",
+    5: "Excellent",
+  };
+
+  const moodCounts = { bad: 0, okay: 0, good: 0, great: 0, excellent: 0 };
+  moodData_stats.forEach((m) => {
+    if (moodCounts[m.mood_name] !== undefined) moodCounts[m.mood_name]++;
+  });
+  const total = moodData_stats.length || 1;
+  const moodBreakdown = Object.entries(moodCounts)
+    .map(([name, count]) => ({ name, pct: Math.round((count / total) * 100) }))
+    .reverse();
+
+  const periodStats = ["morning", "afternoon", "evening"].map((period) => {
+    const entries = moodData_stats.filter(
+      (m) => m.period === period && moodScore[m.mood_name],
+    );
+    const avg = entries.length
+      ? entries.reduce((sum, m) => sum + moodScore[m.mood_name], 0) /
+        entries.length
+      : 0;
+    return {
+      period,
+      avgName: moodName[Math.round(avg)] || "—",
+      entries: entries.length,
+    };
+  });
+
+  const scored = moodData_stats.filter((m) => moodScore[m.mood_name]);
+  const overallAvg = scored.length
+    ? scored.reduce((s, m) => s + moodScore[m.mood_name], 0) / scored.length
+    : 0;
+  const averageMood = moodName[Math.round(overallAvg)] || "—";
+
+  const byDay = {};
+  moodData_stats.forEach((m) => {
+    const raw = new Date(m.mood_date);
+    const d = `${raw.getFullYear()}-${String(raw.getMonth() + 1).padStart(2, "0")}-${String(raw.getDate()).padStart(2, "0")}`;
+    if (!byDay[d]) byDay[d] = [];
+    byDay[d].push(moodScore[m.mood_name] || 0);
+  });
+
+  let bestDay = "",
+    bestScore = 0;
+  Object.entries(byDay).forEach(([date, scores]) => {
+    const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+    if (avg > bestScore) {
+      bestScore = avg;
+      bestDay = date;
+    }
+  });
+  if (bestDay !== "") {
+    const d = new Date(bestDay);
+    bestDay = d.toLocaleDateString("en-GB", { month: "short", day: "numeric" });
+  }
+
+  const daysLogged = Object.keys(byDay).length;
+
+  const tagCount = {};
+  moodData_stats.forEach((m) => {
+    if (m.tags)
+      m.tags.forEach((t) => {
+        tagCount[t] = (tagCount[t] || 0) + 1;
+      });
+  });
+  const topTags = Object.entries(tagCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 9)
+    .map(([tag, count]) => ({ tag, count }));
+
+  const chartData = {};
+  moodData_stats.forEach((m) => {
+    const raw = new Date(m.mood_date);
+    const d = `${raw.getFullYear()}-${String(raw.getMonth() + 1).padStart(2, "0")}-${String(raw.getDate()).padStart(2, "0")}`;
+    if (!chartData[d]) chartData[d] = {};
+    chartData[d][m.period] = moodScore[m.mood_name] || 0;
+  });
+
+  const chartLabels = Object.keys(chartData).sort();
+  const chartMorning = chartLabels.map((d) => chartData[d].morning ?? null);
+  const chartAfternoon = chartLabels.map((d) => chartData[d].afternoon ?? null);
+  const chartEvening = chartLabels.map((d) => chartData[d].evening ?? null);
+
+  const consistentMood = chartMorning.every(
+    (v, i) => v === chartAfternoon[i] && v === chartEvening[i],
+  );
+
+  res.json({
+    days,
+    streak,
+    daysLogged,
+    averageMood,
+    bestDay,
+    moodBreakdown,
+    periodStats,
+    topTags,
+    chartLabels,
+    chartMorning,
+    chartAfternoon,
+    chartEvening,
     consistentMood,
   });
 });
