@@ -27,6 +27,39 @@ document.querySelectorAll(".day").forEach((d) => {
   d.addEventListener("click", (e) => {
     selectedDay = `${e.currentTarget.dataset.year}-${String(e.currentTarget.dataset.month).padStart(2, "0")}-${String(e.currentTarget.dataset.day).padStart(2, "0")}`;
 
+    // if user is on stats page, switch to journal first
+    const journalSection = document.getElementById("journalSection");
+    const statsSection = document.getElementById("statsSection");
+
+    if (journalSection.classList.contains("hidden")) {
+      journalSection.classList.remove("hidden");
+      statsSection.classList.add("hidden");
+
+      // update left menu active state
+      document
+        .querySelectorAll(".menu.categories")
+        .forEach((btn) => btn.classList.remove("active"));
+      document
+        .querySelector("a.journal")
+        ?.closest(".menu.categories")
+        .classList.add("active");
+
+      // update icons
+      document.querySelectorAll(".menu-image").forEach((img) => {
+        img.src = img.src.replace("-selected", "-unselected");
+      });
+      const journalImg = document.querySelector("a.journal .menu-image");
+      if (journalImg)
+        journalImg.src = journalImg.src.replace("-unselected", "-selected");
+
+      // update text colors
+      document.querySelectorAll("a").forEach((a) => {
+        a.style.color = "#5870c06e";
+      });
+      const journalLink = document.querySelector("a.journal");
+      if (journalLink) journalLink.style.color = "#2e3d64";
+    }
+
     if (selectedDay <= todayDate) {
       document.querySelectorAll(".day.selected").forEach((ds) => {
         ds.classList.remove("selected");
