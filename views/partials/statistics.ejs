@@ -50,6 +50,12 @@
     </div>
   </div>
 
+  <% if (consistentMood) { %>
+    <div class="chart-notice">
+      Your mood was consistent across all periods of the day.
+    </div>
+  <% } %>
+  
   <div class="stats-row-2">
     <!-- mood breakdown -->
     <div class="stats-card">
@@ -67,7 +73,7 @@
       <% }) %>
     </div>
 
-    <!-- by time of day -->
+    <!-- By time of day -->
     <div class="stats-card">
       <div class="stats-card-title">By time of day</div>
       <% periodStats.forEach(p => { %>
@@ -80,13 +86,28 @@
     </div>
   </div>
 
+  <%
+    const statsTagIcons = {
+        'Exercised':       'ti-run',
+        'Ate Healthy':     'ti-apple',
+        'Meditated':       'ti-heart',
+        'Slept Well':      'ti-moon',
+        'Productive':      'ti-check',
+        'Deep Work':       'ti-target',
+        'Walked':          'ti-walk',
+        'No Screens':      'ti-device-mobile-off',
+        'Read':            'ti-book',
+    };
+  %>
+
   <!--Top tags -->
   <div class="stats-card">
     <div class="stats-card-title">Top tags</div>
     <div class="tag-cloud">
       <% topTags.forEach((t, i) => { %>
-        <span class="tag-item <%= i < 2 ? 'tag-lg' : 'tag-md' %>">
-          <%= t.tag %> <span class="tag-count"><%= t.count %></span>
+        <span class="tag-item <%= i < 2 ? 'tag-lg' : 'tag-md' %>">  <!-- top 3 -->
+          <i class="ti <%= statsTagIcons[t.tag] || 'ti-tag' %>" aria-hidden="true"></i>
+          <%= t.tag.toUpperCase() %> <span class="tag-count"><%= t.count %></span>
         </span>
       <% }) %>
     </div>
@@ -106,20 +127,41 @@
     data: {
       labels,
       datasets: [
-        { label:'Morning',   data:morning,   borderColor:'#534AB7', backgroundColor:'rgba(83,74,183,.07)', tension:.4, pointRadius:2, borderWidth:1.8, fill:true,  spanGaps:true },
-        { label:'Afternoon', data:afternoon, borderColor:'#1D9E75', backgroundColor:'transparent',          tension:.4, pointRadius:2, borderWidth:1.8, fill:false, spanGaps:true },
-        { label:'Evening',   data:evening,   borderColor:'#EF9F27', backgroundColor:'transparent',          tension:.4, pointRadius:2, borderWidth:1.8, fill:false, spanGaps:true },
+        { label:'Morning',   data:morning,   borderColor:'#d4831a', backgroundColor:'transparent', pointBackgroundColor: '#d4831a', tension:.4, pointRadius:2, borderWidth:1.8, fill:true,  spanGaps:true },
+        { label:'Afternoon', data:afternoon, borderColor:'#5b77c4', backgroundColor:'transparent', pointBackgroundColor: '#5b77c4', tension:.4, pointRadius:2, borderWidth:1.8, fill:false, spanGaps:true },
+        { label:'Evening',   data:evening,   borderColor:'#7b5ea8', backgroundColor:'transparent', pointBackgroundColor: '#7b5ea8', tension:.4, pointRadius:2, borderWidth:1.8, fill:false, spanGaps:true },
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
-        tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${moodNames[ctx.raw] || ''}` }}
+        tooltip: { 
+            usePointStyle: true, // changes box to a circle matching the line dot
+            boxWidth: 5,
+            boxHeight: 5,
+            callbacks: {
+              title: ctx => {
+                const date = new Date(labels[ctx[0].dataIndex]);
+                return date.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
+              },
+              label: ctx => `${ctx.dataset.label}: ${moodNames[ctx.raw] || ''}`
+          }
+        }
       },
       scales: {
-        y: { min:0.5, max:5.6, ticks:{ stepSize:1, callback: v => moodNames[v]||'', font:{size:9} }, grid:{ color:'rgba(128,128,128,.08)' }},
-        x: { ticks:{ maxTicksLimit:10, font:{size:9} }, grid:{ display:false }}
+        y: { min:0.5, max:5.6, ticks:{ stepSize:1, callback: v => moodNames[v]||'', font:{size:10} }, grid:{ color:'rgba(128,128,128,.08)' }},
+        x: { 
+          ticks: { 
+            maxTicksLimit:10, 
+            font:{size:10},
+            callback: function(value, index) {
+              const date = new Date(labels[index]);
+              return date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+            }
+          }, 
+          grid:{ display:false }
+        }
       }
     }
   });

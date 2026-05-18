@@ -305,10 +305,12 @@ app.get("/dashboard", requireLogin, async (req, res) => {
   const total = moodData_stats.length || 1; // avoid division by zero
 
   // Convert counts to percentages eg [{ name: "good", pct: 35 }, ..]
-  const moodBreakdown = Object.entries(moodCounts).map(([name, count]) => ({
-    name,
-    pct: Math.round((count / total) * 100),
-  }));
+  const moodBreakdown = Object.entries(moodCounts)
+    .map(([name, count]) => ({
+      name,
+      pct: Math.round((count / total) * 100),
+    }))
+    .reverse();
 
   // for each time period, calculate the average mood score and how many entries exist
   const periodStats = ["morning", "afternoon", "evening"].map((period) => {
@@ -390,6 +392,8 @@ app.get("/dashboard", requireLogin, async (req, res) => {
     .slice(0, 9)
     .map(([tag, count]) => ({ tag, count }));
 
+  topTags.forEach((t) => console.log(`${t.tag}: ${t.count}`));
+
   // Build chart data: one mood score per period per day
   const chartData = {};
 
@@ -407,6 +411,11 @@ app.get("/dashboard", requireLogin, async (req, res) => {
   const chartMorning = chartLabels.map((d) => chartData[d].morning ?? null); // y-axis morning
   const chartAfternoon = chartLabels.map((d) => chartData[d].afternoon ?? null); // y-axis afternoon
   const chartEvening = chartLabels.map((d) => chartData[d].evening ?? null); // y-axis evening
+
+  // after building chartMorning, chartAfternoon, chartEvening
+  const consistentMood = chartMorning.every(
+    (v, i) => v === chartAfternoon[i] && v === chartEvening[i],
+  );
 
   res.render("dashboard", {
     userName,
@@ -431,6 +440,7 @@ app.get("/dashboard", requireLogin, async (req, res) => {
     chartMorning: JSON.stringify(chartMorning),
     chartAfternoon: JSON.stringify(chartAfternoon),
     chartEvening: JSON.stringify(chartEvening),
+    consistentMood,
   });
 });
 

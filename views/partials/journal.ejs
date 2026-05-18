@@ -9,6 +9,20 @@
     });
 %>
 
+<%
+    const tagIcons = {
+        'Exercised':       'ti-run',
+        'Ate Healthy':     'ti-apple',
+        'Meditated':       'ti-heart',
+        'Slept Well':      'ti-moon',
+        'Productive':      'ti-check',
+        'Deep Work':       'ti-target',
+        'Walked':          'ti-walk',
+        'No Screens':      'ti-device-mobile-off',
+        'Read':            'ti-book',
+    };
+%>
+
 <form id="deleteForm" action="/deleteJournalEntry" method="POST">
     <input type="hidden" name="selectedDate" id="deleteSelectedDate">
     <div class="viewing-banner" id="viewingBanner">
@@ -49,7 +63,7 @@
 
         <div class="day-parts day-part-<%= index %>" >
             <div class="DayPartText day-part-text-<%= index %>">                           
-                <h4><%= part.label %></h4>
+                <h5><%= part.label %></h5>
                 <h6><%= part.time %></h6>
             </div>
                 <div class="textarea-wrapper">
@@ -65,30 +79,33 @@
                     <input type="hidden" name="selectedDate" id="selectedDate" />
 
                     <div class="bottomTextareaContent">
-                        <div class="tagsContainer tagContainer-<%= index %>">
-                            <% part.tags.forEach(t => { %>
-                            <div class="tag <%= sectionEntry && sectionEntry.tags && sectionEntry.tags.includes(t) ? 'selected' : '' %>" data-index="<%= index %>" data-tag="<%= t %>">
-                                <%= t %>
-                            </div>
-                            <% }) %>
+                    <div class="tagsContainer tagContainer-<%= index %>">
+                        <% part.tags.forEach(t => { %>
+                        <div class="tag <%= sectionEntry && sectionEntry.tags && sectionEntry.tags.includes(t) ? 'selected' : '' %>" 
+                            data-index="<%= index %>" 
+                            data-tag="<%= t %>">
+                            <i class="ti <%= tagIcons[t] || 'ti-tag' %>" aria-hidden="true"></i>
+                            <%= t.toUpperCase() %>
                         </div>
-
-                        <div class="moodContainer">
-                            <h6>MOOD</h6>
-                            <% [
-                                { mood: 'bad',       color: '#c8d4f0' },
-                                { mood: 'okay',      color: '#92a8e0' },
-                                { mood: 'good',      color: '#6080c8' },
-                                { mood: 'great',     color: '#4a9e80' },
-                                { mood: 'excellent', color: '#3db878' }
-                                ].forEach(m => { %>
-                                    <div class="mood mood-<%= index %> <%= sectionEntry && sectionEntry.mood_name === m.mood ? 'selected' : '' %>" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
-                                        <div class="mood-box <%= m.mood %>"></div>
-                                        <div class="mood-popup"><%= m.mood %></div>
-                                    </div>
-                                <% }) %>
-                        </div>
+                        <% }) %>
                     </div>
+
+                    <div class="moodContainer">
+                        <h6>MOOD</h6>
+                        <% [
+                            { mood: 'bad',       color: '#c8d4f0' },
+                            { mood: 'okay',      color: '#92a8e0' },
+                            { mood: 'good',      color: '#6080c8' },
+                            { mood: 'great',     color: '#4a9e80' },
+                            { mood: 'excellent', color: '#3db878' }
+                        ].forEach(m => { %>
+                            <div class="mood mood-<%= index %> <%= sectionEntry && sectionEntry.mood_name === m.mood ? 'selected' : '' %>" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
+                                <div class="mood-box <%= m.mood %>"></div>
+                                <div class="mood-popup"><%= m.mood %></div>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
                 </div>
         </div>
     </div>

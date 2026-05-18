@@ -125,7 +125,7 @@ document.querySelectorAll(".day").forEach((d) => {
       if (dt === day && m === month && y === year) {
         openTodayDay();
       } else {
-        openPastDay(`${monthNames[month - 1]} ${day}, ${year}`);
+        openPastDay(`${day} ${monthNames[month - 1]}, ${year}`);
       }
     }
   });

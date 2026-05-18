@@ -363,13 +363,13 @@ button {
   padding-top: 21px;
 }
 
-.day-part-text-0 h4 {
+.day-part-text-0 h5 {
   color: #d4831a;
 }
-.day-part-text-1 h4 {
+.day-part-text-1 h5 {
   color: #5b77c4;
 }
-.day-part-text-2 h4 {
+.day-part-text-2 h5 {
   color: #7b5ea8;
 }
 
@@ -377,7 +377,7 @@ button {
 .day-part-text-1 h6,
 .day-part-text-2 h6 {
   color: #7a8fc4cc;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 400;
 }
 
@@ -398,7 +398,7 @@ button {
 
 .notes {
   position: relative;
-  font-size: 17px;
+  font-size: 16px;
   font-family: inherit;
   width: 100%;
   min-height: 220px;
@@ -458,14 +458,15 @@ button {
 
 .tag {
   white-space: nowrap;
-  padding: 6px 14px;
+  padding: 5.5px 14px;
   border-radius: 20px;
-  background-color: white;
-  border: 1px solid #224ba740;
-  font-size: 13px;
+  background: transparent;
+  border: 1.5px dashed #224ba740;
+  font-size: 12px;
   font-weight: 400;
   cursor: pointer;
   color: #1e2a45a0;
+  transition: all 0.15s ease;
 }
 
 .tag:hover {
@@ -474,8 +475,23 @@ button {
 }
 
 .tag.selected {
-  background-color: #1e2d6bcc;
-  color: #ffffffcc;
+  background: transparent;
+  border: 1.5px solid #1e2d6bcc;
+  color: #1e2d6bcc;
+  font-weight: 500;
+}
+
+.tag i {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.tag.selected i {
+  opacity: 1;
+}
+
+.tag-icon {
+  font-size: 13px;
 }
 
 .moodContainer {
