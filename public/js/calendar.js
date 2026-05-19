@@ -23,144 +23,292 @@ const todayDate = `${nowDate.getFullYear()}-${String(nowDate.getMonth() + 1).pad
 let selectedDay = todayDate;
 
 // remove/add the '.selected' class whenever a day on the calendar is clicked
-document.querySelectorAll(".day").forEach((d) => {
-  d.addEventListener("click", (e) => {
-    selectedDay = `${e.currentTarget.dataset.year}-${String(e.currentTarget.dataset.month).padStart(2, "0")}-${String(e.currentTarget.dataset.day).padStart(2, "0")}`;
+// document.querySelectorAll(".day").forEach((d) => {
+//   d.addEventListener("click", (e) => {
+//     selectedDay = `${e.currentTarget.dataset.year}-${String(e.currentTarget.dataset.month).padStart(2, "0")}-${String(e.currentTarget.dataset.day).padStart(2, "0")}`;
 
-    // if user is on stats page, switch to journal first
-    const journalSection = document.getElementById("journalSection");
-    const statsSection = document.getElementById("statsSection");
+//     // if user is on stats page, switch to journal first
+//     const journalSection = document.getElementById("journalSection");
+//     const statsSection = document.getElementById("statsSection");
 
-    if (journalSection.classList.contains("hidden")) {
-      journalSection.classList.remove("hidden");
-      statsSection.classList.add("hidden");
+//     if (journalSection.classList.contains("hidden")) {
+//       journalSection.classList.remove("hidden");
+//       statsSection.classList.add("hidden");
 
-      // update left menu active state
-      document
-        .querySelectorAll(".menu.categories")
-        .forEach((btn) => btn.classList.remove("active"));
-      document
-        .querySelector("a.journal")
-        ?.closest(".menu.categories")
-        .classList.add("active");
+//       // update left menu active state
+//       document
+//         .querySelectorAll(".menu.categories")
+//         .forEach((btn) => btn.classList.remove("active"));
+//       document
+//         .querySelector("a.journal")
+//         ?.closest(".menu.categories")
+//         .classList.add("active");
 
-      // update icons
-      document.querySelectorAll(".menu-image").forEach((img) => {
-        img.src = img.src.replace("-selected", "-unselected");
-      });
-      const journalImg = document.querySelector("a.journal .menu-image");
-      if (journalImg)
-        journalImg.src = journalImg.src.replace("-unselected", "-selected");
+//       // update icons
+//       document.querySelectorAll(".menu-image").forEach((img) => {
+//         img.src = img.src.replace("-selected", "-unselected");
+//       });
+//       const journalImg = document.querySelector("a.journal .menu-image");
+//       if (journalImg)
+//         journalImg.src = journalImg.src.replace("-unselected", "-selected");
 
-      // update text colors
-      document.querySelectorAll("a").forEach((a) => {
-        a.style.color = "#5870c06e";
-      });
-      const journalLink = document.querySelector("a.journal");
-      if (journalLink) journalLink.style.color = "#2e3d64";
+//       // update text colors
+//       document.querySelectorAll("a").forEach((a) => {
+//         a.style.color = "#5870c06e";
+//       });
+//       const journalLink = document.querySelector("a.journal");
+//       if (journalLink) journalLink.style.color = "#2e3d64";
+//     }
+
+//     if (selectedDay <= todayDate) {
+//       document.querySelectorAll(".day.selected").forEach((ds) => {
+//         ds.classList.remove("selected");
+//       });
+//       d.classList.add("selected");
+
+//       //find the mood entries from the DB that has the same date as the day that has been clicked from the calendar
+//       const cur_Mood_Entry = moods.filter((entry) => {
+//         const d = new Date(entry.mood_date);
+//         const entryKey = `${d.getDate()}-${d.getMonth() + 1}`;
+
+//         const clickedDate = `${e.currentTarget.dataset.day}-${e.currentTarget.dataset.month}`;
+//         // selectedDate = `${e.currentTarget.dataset.year}-${e.currentTarget.dataset.month}-${e.currentTarget.dataset.day}`;
+
+//         return entryKey === clickedDate;
+//       });
+
+//       // if there are no entries for the clicked day
+//       if (cur_Mood_Entry.length !== 0) {
+//         // display the delete btn on the banner (dashboard page)
+//         document.querySelector(".delete-btn").classList.remove("hidden");
+//       } else {
+//         document.querySelector(".delete-btn").classList.add("hidden");
+//       }
+
+//       const periods = ["morning", "afternoon", "evening"];
+
+//       periods.forEach((p, index) => {
+//         // Find the mood entry for the current period, if one exists
+//         const periodMoodEntry = cur_Mood_Entry.find((entry) => {
+//           return entry.period === p;
+//         });
+
+//         // put that period's note into the matching textarea
+//         document.querySelector(".notes-" + index).value =
+//           periodMoodEntry?.note || "";
+
+//         // select the saved mood for each period
+//         document.querySelectorAll(".mood-" + index).forEach((moodEl) => {
+//           //clear any previously selected mood option for this period
+//           moodEl.classList.remove("selected");
+
+//           // select the mood option whose data-mood matches the saved mood name
+//           if (moodEl.dataset.mood === periodMoodEntry?.mood_name) {
+//             moodEl.classList.add("selected");
+//           }
+
+//           // update the hidden inputs
+//           document.querySelector(`input[name='selectedMood-${index}']`).value =
+//             periodMoodEntry?.mood_name;
+//           document.querySelector(`input[name='selectedcolor-${index}']`).value =
+//             periodMoodEntry?.mood_color;
+
+//           // console.log(
+//           //   "COLOR: " +
+//           //     document.querySelector(`input[name='selectedcolor-${index}']`)
+//           //       .value,
+//           // );
+//         });
+
+//         // select the saved tags for each period (if any exist)
+//         document
+//           .querySelectorAll(`.tag[data-index="${index}"]`)
+//           .forEach((t) => {
+//             t.classList.remove("selected");
+
+//             if (periodMoodEntry?.tags?.length > 0) {
+//               periodMoodEntry?.tags?.forEach((tag) => {
+//                 if (
+//                   Number(t.dataset.index) === index &&
+//                   t.dataset.tag === tag
+//                 ) {
+//                   t.classList.add("selected");
+//                 }
+//               });
+//             }
+//           });
+
+//         // update the hidden inputs
+//         document.querySelector(`input[name='selectedTags-${index}']`).value =
+//           periodMoodEntry?.tags?.join(",") || "";
+//       });
+
+//       const day = String(e.currentTarget.dataset.day).padStart(2, "0");
+//       const month = String(e.currentTarget.dataset.month).padStart(2, "0");
+//       const year = document.querySelector("#curYear").textContent.trim();
+
+//       document.querySelector("#selectedDate").value = `${year}-${month}-${day}`;
+
+//       const now = new Date();
+//       const dt = String(now.getDate()).padStart(2, "0");
+//       const m = String(now.getMonth() + 1).padStart(2, "0");
+//       const y = String(now.getFullYear());
+
+//       // if the clicked day is today, display "VIEWING: TODAY" on the banner
+//       if (dt === day && m === month && y === year) {
+//         openTodayDay();
+//       } else {
+//         openPastDay(`${day} ${monthNames[month - 1]}, ${year}`);
+//       }
+//     }
+//   });
+// });
+
+function handleDayClick(dayEl) {
+  selectedDay = `${dayEl.dataset.year}-${String(dayEl.dataset.month).padStart(2, "0")}-${String(dayEl.dataset.day).padStart(2, "0")}`;
+
+  // if user is on stats page, switch to journal first
+  const journalSection = document.getElementById("journalSection");
+  const statsSection = document.getElementById("statsSection");
+
+  if (journalSection && journalSection.classList.contains("hidden")) {
+    journalSection.classList.remove("hidden");
+    statsSection.classList.add("hidden");
+
+    // update left menu active state
+    document
+      .querySelectorAll(".menu.categories")
+      .forEach((btn) => btn.classList.remove("active"));
+    document
+      .querySelector("a.journal")
+      ?.closest(".menu.categories")
+      .classList.add("active");
+
+    // update icons
+    document.querySelectorAll(".menu-image").forEach((img) => {
+      img.src = img.src.replace("-selected", "-unselected");
+    });
+
+    const journalImg = document.querySelector("a.journal .menu-image");
+    if (journalImg)
+      journalImg.src = journalImg.src.replace("-unselected", "-selected");
+
+    // update text colors
+    document.querySelectorAll("a").forEach((a) => {
+      a.style.color = "#5870c06e";
+    });
+
+    const journalLink = document.querySelector("a.journal");
+    if (journalLink) journalLink.style.color = "#2e3d64";
+  }
+
+  if (selectedDay <= todayDate) {
+    document.querySelectorAll(".day.selected").forEach((ds) => {
+      ds.classList.remove("selected");
+    });
+    dayEl.classList.add("selected");
+
+    //find the mood entries from the DB that has the same date as the day that has been clicked from the calendar
+    const cur_Mood_Entry = moods.filter((entry) => {
+      const d = new Date(entry.mood_date);
+      const entryKey = `${d.getDate()}-${d.getMonth() + 1}`;
+
+      const clickedDate = `${dayEl.dataset.day}-${dayEl.dataset.month}`;
+      // selectedDate = `${e.currentTarget.dataset.year}-${e.currentTarget.dataset.month}-${e.currentTarget.dataset.day}`;
+
+      return entryKey === clickedDate;
+    });
+
+    // if there are no entries for the clicked day
+    if (cur_Mood_Entry.length !== 0) {
+      // display the delete btn on the banner (dashboard page)
+      document.querySelector(".delete-btn").classList.remove("hidden");
+    } else {
+      document.querySelector(".delete-btn").classList.add("hidden");
     }
 
-    if (selectedDay <= todayDate) {
-      document.querySelectorAll(".day.selected").forEach((ds) => {
-        ds.classList.remove("selected");
-      });
-      d.classList.add("selected");
+    const periods = ["morning", "afternoon", "evening"];
 
-      //find the mood entries from the DB that has the same date as the day that has been clicked from the calendar
-      const cur_Mood_Entry = moods.filter((entry) => {
-        const d = new Date(entry.mood_date);
-        const entryKey = `${d.getDate()}-${d.getMonth() + 1}`;
-
-        const clickedDate = `${e.currentTarget.dataset.day}-${e.currentTarget.dataset.month}`;
-        // selectedDate = `${e.currentTarget.dataset.year}-${e.currentTarget.dataset.month}-${e.currentTarget.dataset.day}`;
-
-        return entryKey === clickedDate;
+    periods.forEach((p, index) => {
+      // Find the mood entry for the current period, if one exists
+      const periodMoodEntry = cur_Mood_Entry.find((entry) => {
+        return entry.period === p;
       });
 
-      // if there are no entries for the clicked day
-      if (cur_Mood_Entry.length !== 0) {
-        // display the delete btn on the banner (dashboard page)
-        document.querySelector(".delete-btn").classList.remove("hidden");
-      } else {
-        document.querySelector(".delete-btn").classList.add("hidden");
-      }
+      // put that period's note into the matching textarea
+      document.querySelector(".notes-" + index).value =
+        periodMoodEntry?.note || "";
 
-      const periods = ["morning", "afternoon", "evening"];
+      // select the saved mood for each period
+      document.querySelectorAll(".mood-" + index).forEach((moodEl) => {
+        //clear any previously selected mood option for this period
+        moodEl.classList.remove("selected");
 
-      periods.forEach((p, index) => {
-        // Find the mood entry for the current period, if one exists
-        const periodMoodEntry = cur_Mood_Entry.find((entry) => {
-          return entry.period === p;
-        });
-
-        // put that period's note into the matching textarea
-        document.querySelector(".notes-" + index).value =
-          periodMoodEntry?.note || "";
-
-        // select the saved mood for each period
-        document.querySelectorAll(".mood-" + index).forEach((moodEl) => {
-          //clear any previously selected mood option for this period
-          moodEl.classList.remove("selected");
-
-          // select the mood option whose data-mood matches the saved mood name
-          if (moodEl.dataset.mood === periodMoodEntry?.mood_name) {
-            moodEl.classList.add("selected");
-          }
-
-          // update the hidden inputs
-          document.querySelector(`input[name='selectedMood-${index}']`).value =
-            periodMoodEntry?.mood_name;
-          document.querySelector(`input[name='selectedcolor-${index}']`).value =
-            periodMoodEntry?.mood_color;
-
-          // console.log(
-          //   "COLOR: " +
-          //     document.querySelector(`input[name='selectedcolor-${index}']`)
-          //       .value,
-          // );
-        });
-
-        // select the saved tags for each period (if any exist)
-        document
-          .querySelectorAll(`.tag[data-index="${index}"]`)
-          .forEach((t) => {
-            t.classList.remove("selected");
-
-            if (periodMoodEntry?.tags?.length > 0) {
-              periodMoodEntry?.tags?.forEach((tag) => {
-                if (
-                  Number(t.dataset.index) === index &&
-                  t.dataset.tag === tag
-                ) {
-                  t.classList.add("selected");
-                }
-              });
-            }
-          });
+        // select the mood option whose data-mood matches the saved mood name
+        if (moodEl.dataset.mood === periodMoodEntry?.mood_name) {
+          moodEl.classList.add("selected");
+        }
 
         // update the hidden inputs
-        document.querySelector(`input[name='selectedTags-${index}']`).value =
-          periodMoodEntry?.tags?.join(",") || "";
+        document.querySelector(`input[name='selectedMood-${index}']`).value =
+          periodMoodEntry?.mood_name;
+        document.querySelector(`input[name='selectedcolor-${index}']`).value =
+          periodMoodEntry?.mood_color;
+
+        // console.log(
+        //   "COLOR: " +
+        //     document.querySelector(`input[name='selectedcolor-${index}']`)
+        //       .value,
+        // );
       });
 
-      const day = String(e.currentTarget.dataset.day).padStart(2, "0");
-      const month = String(e.currentTarget.dataset.month).padStart(2, "0");
-      const year = document.querySelector("#curYear").textContent.trim();
+      // select the saved tags for each period (if any exist)
+      document.querySelectorAll(`.tag[data-index="${index}"]`).forEach((t) => {
+        t.classList.remove("selected");
 
-      document.querySelector("#selectedDate").value = `${year}-${month}-${day}`;
+        if (periodMoodEntry?.tags?.length > 0) {
+          periodMoodEntry?.tags?.forEach((tag) => {
+            if (Number(t.dataset.index) === index && t.dataset.tag === tag) {
+              t.classList.add("selected");
+            }
+          });
+        }
+      });
 
-      const now = new Date();
-      const dt = String(now.getDate()).padStart(2, "0");
-      const m = String(now.getMonth() + 1).padStart(2, "0");
-      const y = String(now.getFullYear());
+      // update the hidden inputs
+      document.querySelector(`input[name='selectedTags-${index}']`).value =
+        periodMoodEntry?.tags?.join(",") || "";
+    });
 
-      // if the clicked day is today, display "VIEWING: TODAY" on the banner
-      if (dt === day && m === month && y === year) {
-        openTodayDay();
-      } else {
-        openPastDay(`${day} ${monthNames[month - 1]}, ${year}`);
-      }
+    const day = String(dayEl.dataset.day).padStart(2, "0");
+    const month = String(dayEl.dataset.month).padStart(2, "0");
+    const year = document.querySelector("#curYear").textContent.trim();
+
+    document.querySelector("#selectedDate").value = `${year}-${month}-${day}`;
+
+    const now = new Date();
+    const dt = String(now.getDate()).padStart(2, "0");
+    const m = String(now.getMonth() + 1).padStart(2, "0");
+    const y = String(now.getFullYear());
+
+    // if the clicked day is today, display "VIEWING: TODAY" on the banner
+    if (dt === day && m === month && y === year) {
+      openTodayDay();
+    } else {
+      openPastDay(`${day} ${monthNames[month - 1]}, ${year}`);
     }
+  }
+}
+
+document.querySelectorAll(".day").forEach((d) => {
+  d.addEventListener("click", (e) => {
+    handleDayClick(e.currentTarget);
+  });
+});
+
+document.querySelectorAll("button.today").forEach((d) => {
+  d.addEventListener("click", (e) => {
+    handleDayClick(e.currentTarget);
   });
 });
 

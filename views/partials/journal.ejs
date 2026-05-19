@@ -26,13 +26,30 @@
 <form id="deleteForm" action="/deleteJournalEntry" method="POST">
     <input type="hidden" name="selectedDate" id="deleteSelectedDate">
     <div class="viewing-banner" id="viewingBanner">
-        <div class="banner-spacer"></div>
+        <!-- <div class="banner-spacer"></div> -->
+        <button type="button" class="banner-arrow-btn" id="prevDayBtn">‹</button>
         <div>VIEWING: <span id="viewingDate">TODAY</span></div>
         <button class="delete-btn <%= sectionEntry ? '' : 'hidden' %>" type="submit" >
-            <img src="/images/delete.png" class="delete-btn-img" alt="Delete">
-        </button>
+            <span class="delete-icon-wrap">
+                <i class="ti ti-trash" aria-hidden="true"></i>
+            </span>
+            <span class="delete-label">Delete</span>     
+         </button>
+        <button type="button" class="banner-arrow-btn" id="nextDayBtn">›</button>
     </div>
 </form>      
+
+<!-- floating calendar button — mobile only -->
+<button type="button" class="cal-fab" id="calFab" aria-label="Open calendar">📅</button>
+
+<!-- calendar overlay — mobile only -->
+<div class="cal-overlay" id="calOverlay">
+    <div class="cal-drawer" id="calDrawer">
+        <div class="cal-drawer-inner" id="calDrawerInner">
+            <!-- calendar content injected here by JS -->
+        </div>
+    </div>
+</div>
 
 <form action="/addJournalEntry" method="POST">
 
@@ -55,7 +72,6 @@
     <div class="day-row">
 
         <div class="timeline-vertical-line">
-
             <div class="dot dot-<%= index %>">
                 <div class="greyTodayDot"></div>
             </div>
@@ -111,6 +127,8 @@
     </div>
 <% }) %>
 
-<button type="submit" class="ok">Save Day</button>
+<div class="save-btn-wrapper">
+  <button type="submit" class="ok">Save Day</button>
+</div>
 
 </form>

@@ -237,6 +237,10 @@ app.get("/dashboard", requireLogin, async (req, res) => {
   const month = date.getMonth();
   const day = date.getDate();
 
+  // console.log("DAY:", day);
+  // console.log("MONTH:", month);
+  // console.log("YEAR:", year);
+
   const DaysOfMonths = [];
   for (let i = 0; i < 12; i++) {
     DaysOfMonths.push(new Date(year, i + 1, 0).getDate());
