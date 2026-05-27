@@ -96,3 +96,5 @@ document.querySelector("button.ok").addEventListener("click", function (e) {
   // all moods valid — submit manually
   document.querySelector("form[action='/addJournalEntry']").submit();
 });
+
+console.log(`Width: ${window.innerWidth}px | Height: ${window.innerHeight}px`);

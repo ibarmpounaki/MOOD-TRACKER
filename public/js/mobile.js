@@ -1,7 +1,7 @@
 const testDay = document.querySelector(".day, button.today");
 
 (function () {
-  if (window.innerWidth > 1470) return; // desktop — do nothing
+  // if (window.innerWidth > 1470) return; // desktop — do nothing
 
   function getSelectedDay() {
     return (
@@ -12,37 +12,58 @@ const testDay = document.querySelector(".day, button.today");
   }
 
   function clickDay(day, month, year) {
-    const sel =
-      `button.today[data-day="${day}"][data-month="${month}"][data-year="${year}"], ` +
-      `.day[data-day="${day}"][data-month="${month}"][data-year="${year}"]`;
+    const all = [
+      ...document.querySelectorAll(
+        `.day[data-day="${day}"][data-month="${month}"][data-year="${year}"]`,
+      ),
+      ...document.querySelectorAll(
+        `button.today[data-day="${day}"][data-month="${month}"][data-year="${year}"]`, // cuz today is a btn, unlike the other cells that are divs. clicking the prev/next arrow to land on today would find nothing
+      ),
+    ];
 
-    const el = document.querySelector(sel);
+    const original = all.find((e) => !e.closest("#calDrawerInner")); //this element has NO #calDrawerInner parent, so its the original one
+    const clone = all.find((e) => e.closest("#calDrawerInner"));
 
-    if (!el) {
-      console.log("element not found");
-      return;
+    if (!original) return;
+
+    handleDayClick(original); // run logic on the real element
+
+    // clear old selection in clone
+    document
+      .querySelectorAll("#calDrawerInner .selected")
+      .forEach((e) => e.classList.remove("selected"));
+
+    if (clone) {
+      clone.classList.add("selected");
     }
-
-    handleDayClick(el); // call directly instead of .click()
   }
 
   function buildDotStrip() {
     const strip = document.getElementById("dayDotStrip");
+
     if (!strip) return;
+
     strip.innerHTML = "";
     const today = new Date();
+
     for (let i = -3; i <= 3; i++) {
       const d = new Date(today);
+
       d.setDate(today.getDate() + i);
+
       const key = `${d.getDate()}-${d.getMonth() + 1}`;
       const dot = document.createElement("div");
+
       dot.className = "day-dot";
+
       if (i === 0) dot.classList.add("active");
       else if (typeof moodMap !== "undefined" && !moodMap[key])
         dot.classList.add("empty");
+
       strip.appendChild(dot);
     }
   }
+
   buildDotStrip();
 
   // prev arrow
@@ -107,6 +128,7 @@ const testDay = document.querySelector(".day, button.today");
 
     console.log("clone innerHTML length:", clone.innerHTML.length);
     console.log("clone children:", clone.children.length);
+
     clone.style.display = "block";
     clone.style.visibility = "visible";
     clone.style.height = "auto";
@@ -117,7 +139,7 @@ const testDay = document.querySelector(".day, button.today");
     clone.style.display = "block";
     drawer.appendChild(clone);
 
-    // wire clicks in the cloned calendar → trigger real calendar → close overlay
+    // wire clicks in the cloned calendar -> trigger real calendar -> close overlay
     clone.querySelectorAll(".day, button.today").forEach((dayEl) => {
       dayEl.addEventListener("click", function () {
         clickDay(this.dataset.day, this.dataset.month, this.dataset.year);

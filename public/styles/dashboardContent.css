@@ -85,6 +85,7 @@ body {
   justify-content: center;
   align-items: stretch;
   height: 100vh;
+  overflow: hidden; /* cuts off anything that goes below 100vh */
 }
 
 .card {
@@ -140,6 +141,7 @@ body {
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
   border-right: 2px solid #dcdfe6;
+  overflow: auto;
 }
 
 .menu {
@@ -249,6 +251,14 @@ button {
    MAIN SECTION — TIMELINE
    ================================ */
 
+form[action="/addJournalEntry"] {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  margin-top: -17px; /* pull the whole form up */
+}
+
 /* for other pages like statistics or settings */
 .main-section.hidden {
   display: none;
@@ -268,6 +278,14 @@ button {
   flex-direction: row;
   flex: 1;
 }
+
+.day-row-2 {
+  flex: 0;
+}
+
+/* .day-row-0 {
+  flex: 0;
+} */
 
 .timeline-vertical-line {
   display: flex;
@@ -297,12 +315,14 @@ button {
   border-radius: 60%;
   z-index: 1;
   position: relative;
-  margin-top: 26px;
+  /* margin-top: 26px; */
+  margin-top: 34px;
 }
 
 .dot-0 {
   background: #d4831a;
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  margin-top: 28px;
 } /* Morning  */
 .dot-1 {
   background: #5b77c4;
@@ -345,10 +365,13 @@ button {
 .day-parts {
   flex: 1;
   padding: 30px;
-  padding-top: 5px;
+  /* padding-top: 5px; */
+  padding-top: 22px;
+
   padding-bottom: 0px;
   padding-left: 20px;
   align-items: center;
+  padding-right: 21px;
 }
 
 .DayPartText {
@@ -357,11 +380,11 @@ button {
   align-items: center;
   margin-bottom: 2px;
 }
-
+/* 
 .day-part-1,
 .day-part-2 {
   padding-top: 22px;
-}
+} */
 
 .day-part-text-0 h5 {
   color: #d4831a;
@@ -417,6 +440,7 @@ button {
   overflow-y: auto;
 
   min-height: 21vh;
+  /* min-height: clamp(130px, 22vh, 305px); */
   padding-bottom: 60px;
 }
 
@@ -447,7 +471,8 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 0 12px;
-  top: 83%;
+  top: auto;
+  bottom: 8px;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   border-top: none;
@@ -593,10 +618,15 @@ form[action="/addJournalEntry"] {
   flex-direction: column;
   flex: 1;
   overflow-y: auto;
+  margin-top: -17px; /* pull the whole form up */
 }
 
 .save-btn-wrapper {
-  flex: 1;
+  /* min-height: 110px; */
+  min-height: 90px;
+
+  flex: 0; /* stop it from expanding */
+  /* flex: 1; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -636,6 +666,7 @@ form[action="/addJournalEntry"] {
   flex: 1;
   display: flex;
   align-items: center;
+  overflow: auto;
 }
 
 .calendar-grid {
@@ -755,7 +786,7 @@ form[action="/addJournalEntry"] {
   position: relative;
 }
 
-/* BANNER ARROWS (hidden on desktop) */
+/* BANNER ARROWS */
 .banner-arrow-btn {
   display: flex;
   width: 28px;
@@ -782,8 +813,8 @@ form[action="/addJournalEntry"] {
   position: fixed;
   bottom: 16px;
   right: 19px;
-  width: 60px;
-  height: 60px;
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
   background: linear-gradient(135deg, #5870c0, #9878c8);
   border: none;
@@ -858,17 +889,18 @@ form[action="/addJournalEntry"] {
 
 .delete-btn {
   position: absolute;
-  right: 61px;
+  right: 65px;
   top: 50%;
   transform: translateY(-50%);
-  background: #c0606a;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
-  padding: 5px 14px 5px 8px;
+  padding: 4px 12px 4px 8px;
+  color: #fff;
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  border: none;
 }
 
 .delete-btn.hidden {
@@ -939,36 +971,91 @@ form[action="/addJournalEntry"] {
     opacity: 0;
   }
 }
-
-@media (max-width: 768px) {
-  form[action="/addJournalEntry"] {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    /* overflow-y: auto; */
-  }
-
-  .save-btn-wrapper {
-    min-height: 58px;
-  }
-
-  /* LAYOUT */
+/* ================================
+   RESPONSIVE — PHONE (≤480px)
+   ================================ */
+@media (max-width: 480px) {
   .dashboard {
-    flex-direction: column;
-    height: 100vh;
-    /* min-height: 100vh; */
-    /* padding: 0px; */
-    padding-top: 0px;
-    /* overflow: hidden;
-    height: 100dvh; */
-    gap: 10px;
+    padding: 6px;
+    gap: 8px;
+    overflow: hidden;
   }
+  .menu-bar {
+    padding: 8px 10px;
+  }
+  .categories {
+    font-size: 11px;
+    padding: 6px 7px;
+  }
+  .menu-image {
+    width: 15px;
+    height: 15px;
+    margin-right: 3px;
+  }
+  .user-name {
+    font-size: 12px;
+  }
+  .rounded-profile-pic {
+    width: 30px;
+    height: 30px;
+  }
+  .firstUsrLetter {
+    font-size: 15px;
+  }
+  .notes {
+    font-size: 13px;
+    padding-bottom: 48px;
+    min-height: clamp(110px, 19vh, 250px);
+  }
+  .tag {
+    font-size: 9px;
+    padding: 3px 7px;
+  }
+  .mood-box {
+    width: 13px;
+    height: 13px;
+  }
+  .moodContainer > h6 {
+    font-size: 10px;
+  }
+  .ok {
+    width: 94%;
+    font-size: 12px;
+  }
+  #welcomeMsg {
+    font-size: 16px;
+  }
+  #curTime {
+    font-size: 20px;
+  }
+  .viewing-banner {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  .calendar-grid {
+    grid-template-columns: 16px repeat(12, 15px);
+    column-gap: 2px;
+    row-gap: 3px;
+  }
+}
 
+/* ================================
+   RESPONSIVE — TABLET PHONE (≤768px)
+   ================================ */
+@media (max-width: 768px) {
+  .dashboard {
+    padding-top: 0;
+    gap: 10px;
+    overflow: hidden;
+    height: 100vh;
+  }
   .question-card {
     flex-direction: column;
   }
+  .card {
+    padding: 0;
+  }
 
-  /* LEFT MENU */
   .menu-bar {
     flex-direction: row;
     align-items: center;
@@ -977,15 +1064,8 @@ form[action="/addJournalEntry"] {
     border-radius: 12px;
     border-right: none;
     border-bottom: 1.5px solid #dcdfe6;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
     gap: 8px;
   }
-
-  .card {
-    padding: 0px;
-  }
-
   .categories-top {
     display: flex;
     flex-direction: row;
@@ -993,7 +1073,6 @@ form[action="/addJournalEntry"] {
     flex: 1;
     gap: 4px;
   }
-
   .categories-bottom {
     display: flex;
     flex-direction: row;
@@ -1002,7 +1081,6 @@ form[action="/addJournalEntry"] {
     border-left: 1.5px solid #dcdfe6;
     padding-left: 8px;
   }
-
   .user-info {
     padding: 0;
     margin-right: 8px;
@@ -1010,187 +1088,120 @@ form[action="/addJournalEntry"] {
     align-items: center;
     gap: 8px;
   }
-
   .rounded-profile-pic {
     width: 36px;
     height: 36px;
     flex-shrink: 0;
   }
-
   .firstUsrLetter {
     font-size: 18px;
   }
-
   .user-name {
     font-size: 14px;
     margin-top: 0;
   }
-
   .UserStreakDays {
     display: none;
   }
-
   .leftMenu-divider {
     display: none;
   }
-
   .first-cat {
     margin-top: 0;
   }
-
   .categories {
     padding: 7px 10px;
     font-size: 13px;
     display: flex;
     align-items: center;
   }
-
   .menu-image {
     width: 18px;
     height: 18px;
     margin-right: 5px;
   }
 
-  /* MAIN SECTION */
   .main-section {
     margin: 0;
-    /* overflow-y: visible; */
+    overflow-y: auto;
   }
-
-  /* TIMELINE */
   .timeline-column {
-    display: none;
+    left: 28.5px;
   }
-
-  /* .timeline-vertical-line {
-    width: 24px;
-    padding-left: 6px;
-    align-items: center;
-  } */
-
   .dot {
     width: 10px;
     height: 10px;
-    margin-top: 20px;
+    margin-top: 34px;
   }
-
   .dot-0 {
-    margin-top: 15px;
+    margin-top: 28px;
   }
-
   .greyTodayDot {
     width: 26px;
     height: 26px;
   }
-
-  .day-parts {
-    padding: 8px 14px 0 8px;
-  }
-
   .day-part-1,
   .day-part-2 {
-    padding-top: 12px;
+    padding-top: 28px;
   }
 
-  /* NOTES */
   .notes {
-    /* min-height: 200px; */
-    min-height: 20vh;
     font-size: 14px;
     padding: 14px;
-    padding-bottom: 52px;
-    border-radius: 16px;
     padding-bottom: 60px;
+    border-radius: 16px;
+    min-height: clamp(130px, 19vh, 280px);
   }
 
-  /* BOTTOM BAR */
   .bottomTextareaContent {
     position: absolute;
-    /* top: 76%; */
     padding: 0 10px;
     width: 100%;
     gap: 4px;
+    top: auto;
+    bottom: 8px;
   }
-
   .tagsContainer {
     gap: 5px;
     flex-wrap: nowrap;
-    /* overflow-x: auto; */
   }
-
   .tag {
     font-size: 10px;
     padding: 4px 8px;
     flex-shrink: 0;
   }
-
   .moodContainer {
     flex-shrink: 0;
     gap: 5px;
     flex-wrap: nowrap;
   }
-
   .moodContainer > h6 {
     font-size: 11px;
     margin-right: 4px;
   }
-
   .mood-box {
     width: 14px;
     height: 14px;
   }
 
-  /* SAVE BUTTON */
   .ok {
     width: 35%;
     padding: 12px;
     font-size: 13px;
-    /* margin-top: 12px; */
   }
-
   .viewing-banner {
     font-size: 13px;
     padding: 9px 14px;
     letter-spacing: 1px;
   }
 
-  /* CALENDAR */
   .calendar-card {
-    overflow-x: auto;
-    padding: 10px;
+    visibility: hidden;
+    position: absolute;
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
   }
-
-  .calendar-toggle {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 10px;
-    background: #ffffff54;
-    border: 1px solid #f6f6f6;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #5870c06e;
-    cursor: pointer;
-    margin-bottom: 8px;
-  }
-
-  .calendar-toggle.open {
-    color: #2e3d64;
-    background: #5870c023;
-  }
-
-  .calendar-collapsible {
-    display: none;
-    overflow-x: auto;
-  }
-
-  .calendar-collapsible.open {
-    display: block;
-  }
-
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 18px);
     column-gap: 3px;
@@ -1200,152 +1211,42 @@ form[action="/addJournalEntry"] {
   #curTime {
     font-size: 24px;
   }
-
   #curDate {
     font-size: 12px;
   }
-
   #welcomeMsg {
-    font-size: 28px;
+    font-size: 22px;
   }
-
-  /* .banner-arrow-btn {
-    display: flex;
-  } */
 
   .cal-fab {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
-  /* hide the desktop calendar card on mobile */
-  .calendar-card {
-    visibility: hidden;
-    position: absolute;
-    pointer-events: none;
-    height: 0;
-    overflow: hidden;
+  .day-dot-strip {
+    display: flex;
   }
-
-  /* .banner-spacer {
-    display: none;
-  } */
-
   .delete-btn {
     flex: 0;
   }
 }
 
-@media (max-width: 480px) {
-  .dashboard {
-    padding: 6px;
-    gap: 8px;
-  }
-
-  .menu-bar {
-    padding: 8px 10px;
-  }
-
-  .categories {
-    font-size: 11px;
-    padding: 6px 7px;
-  }
-
-  .menu-image {
-    width: 15px;
-    height: 15px;
-    margin-right: 3px;
-  }
-
-  .user-name {
-    font-size: 12px;
-  }
-
-  .rounded-profile-pic {
-    width: 30px;
-    height: 30px;
-  }
-
-  .firstUsrLetter {
-    font-size: 15px;
-  }
-
-  .notes {
-    /* min-height: 180px; */
-    min-height: 20vh;
-    font-size: 13px;
-    padding-bottom: 48px;
-  }
-
-  .bottomTextareaContent {
-    top: 72%;
-  }
-
-  .tag {
-    font-size: 9px;
-    padding: 3px 7px;
-  }
-
-  .mood-box {
-    width: 13px;
-    height: 13px;
-  }
-
-  .moodContainer > h6 {
-    font-size: 10px;
-  }
-
-  .ok {
-    width: 94%;
-    font-size: 12px;
-  }
-
-  #welcomeMsg {
-    font-size: 16px;
-  }
-
-  #curTime {
-    font-size: 20px;
-  }
-
-  .viewing-banner {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-
-  .calendar-grid {
-    grid-template-columns: 16px repeat(12, 15px);
-    column-gap: 2px;
-    row-gap: 3px;
-  }
-}
-
+/* ================================
+   RESPONSIVE — TABLET (769–1180px)
+   ================================ */
 @media (min-width: 769px) and (max-width: 1180px) {
-  form[action="/addJournalEntry"] {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    overflow-y: auto;
-  }
-
-  /* stack layout vertically */
   .dashboard {
-    flex-direction: column;
     height: 100vh;
-    /* min-height: 100dvh; */
     gap: 10px;
-    /* padding: 10px; */
     padding-top: 0;
+    overflow: hidden;
   }
-
   .question-card {
     padding: 0;
     flex-direction: column;
     flex: 1;
   }
 
-  /* horizontal top menu */
   .menu-bar {
     flex-direction: row;
     align-items: center;
@@ -1356,7 +1257,6 @@ form[action="/addJournalEntry"] {
     border-bottom: 1.5px solid #dcdfe6;
     gap: 10px;
   }
-
   .categories-top {
     display: flex;
     flex-direction: row;
@@ -1364,7 +1264,6 @@ form[action="/addJournalEntry"] {
     flex: 1;
     gap: 6px;
   }
-
   .categories-bottom {
     display: flex;
     flex-direction: row;
@@ -1373,7 +1272,6 @@ form[action="/addJournalEntry"] {
     border-left: 1.5px solid #dcdfe6;
     padding-left: 10px;
   }
-
   .user-info {
     padding: 0;
     margin-right: 10px;
@@ -1381,71 +1279,71 @@ form[action="/addJournalEntry"] {
     align-items: center;
     gap: 10px;
   }
-
   .rounded-profile-pic {
     width: 40px;
     height: 40px;
     flex-shrink: 0;
   }
-
   .firstUsrLetter {
     font-size: 20px;
   }
-
   .user-name {
     font-size: 16px;
     margin-top: 0;
   }
-
   .UserStreakDays {
     display: none;
   }
-
   .leftMenu-divider {
     display: none;
   }
-
   .first-cat {
     margin-top: 0;
   }
-
   .categories {
     padding: 8px 12px;
     font-size: 14px;
     display: flex;
     align-items: center;
   }
-
   .menu-image {
     width: 20px;
     height: 20px;
     margin-right: 6px;
   }
 
-  /* keep journal layout normal — no stacking */
   .main-section {
     margin: 0;
     flex: 1;
-    /* overflow-y: auto; */
   }
-
   .calendar-card {
-    display: none;
+    visibility: hidden;
+    position: absolute;
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
   }
-
   .timeline-column {
+    left: 25.5px;
     bottom: 89px;
   }
-
-  .notes {
-    /* min-height: 238px; */
-    min-height: 20vh;
-    padding-bottom: 60px;
+  .timeline-vertical-line {
+    padding-left: 14px;
   }
-
+  .dot {
+    margin-top: 34px;
+  }
+  .dot-0 {
+    margin-top: 28px;
+  }
   .day-part-1,
   .day-part-2 {
     padding-top: 28px;
+  }
+
+  .notes {
+    padding-bottom: 60px;
+    min-height: clamp(130px, 18vh, 280px);
   }
 
   .bottomTextareaContent {
@@ -1456,148 +1354,68 @@ form[action="/addJournalEntry"] {
     padding: 8px 16px;
     align-items: center;
   }
-
   .tagsContainer {
     flex-wrap: wrap;
     gap: 6px;
     flex: 1;
   }
-
   .tag {
     font-size: 11px;
     padding: 4px 10px;
   }
-
   .moodContainer {
     flex-shrink: 0;
     gap: 5px;
     flex-wrap: nowrap;
   }
-
   .mood-box {
     width: 15px;
     height: 15px;
   }
-
   .moodContainer > h6 {
     margin-right: 6px;
     font-size: 12px;
   }
 
   .save-btn-wrapper {
-    min-height: 80px;
+    flex: 0;
+    height: 60px;
+    padding: 0;
   }
-
   .ok {
     width: 40%;
   }
-
   #welcomeMsg {
-    font-size: 32px;
+    font-size: 26px;
   }
-
-  /* .banner-arrow-btn {
-    display: flex;
-  } */
-
-  .cal-fab {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* .banner-spacer {
-    display: none;
-  } */
-
-  .delete-btn {
-    flex: 0;
-  }
-
-  .calendar-card {
-    visibility: hidden;
-    position: absolute;
-    pointer-events: none;
-    height: 0;
-    overflow: hidden;
-    overflow-x: auto;
-    padding: 10px;
-  }
-
-  .calendar-toggle {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 10px;
-    background: #ffffff54;
-    border: 1px solid #f6f6f6;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #5870c06e;
-    cursor: pointer;
-    margin-bottom: 8px;
-  }
-
-  .calendar-toggle.open {
-    color: #2e3d64;
-    background: #5870c023;
-  }
-
-  .calendar-collapsible {
-    display: none;
-    overflow-x: auto;
-  }
-
-  .calendar-collapsible.open {
-    display: block;
-  }
-
-  .calendar-grid {
-    grid-template-columns: 20px repeat(12, 18px);
-    column-gap: 3px;
-    row-gap: 4px;
-  }
-
   .viewing-banner {
     font-size: 15px;
     padding: 9px 14px;
     letter-spacing: 1px;
   }
-
-  .day-parts {
-    /* padding: 8px 14px 0 8px; */
-    padding-right: 14px;
+  .banner-arrow-btn {
+    font-size: 20px;
   }
-
-  .timeline-vertical-line {
-    padding-left: 14px;
+  .cal-fab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-
-  .dot {
-    margin-top: 34px;
-  }
-
-  .dot-0 {
-    margin-top: 10px;
-  }
-
-  .timeline-column {
-    left: 25.5px;
+  .delete-btn {
+    flex: 0;
   }
 }
 
+/* ================================
+   RESPONSIVE — SMALL DESKTOP (1180–1470px)
+   ================================ */
 @media (min-width: 1180px) and (max-width: 1470px) {
-  form[action="/addJournalEntry"] {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    overflow-y: auto;
+  .dashboard {
+    height: 100vh;
+    gap: 10px;
+    padding-top: 0;
+    overflow: hidden;
   }
-
-  /* hide the desktop calendar card on mobile */
   .calendar-card {
     visibility: hidden;
     position: absolute;
@@ -1605,130 +1423,408 @@ form[action="/addJournalEntry"] {
     height: 0;
     overflow: hidden;
   }
-
-  /* .banner-arrow-btn {
-    display: flex;
-  } */
-
-  /* .banner-spacer {
-    display: none;
-  } */
-
-  .delete-btn {
-    flex: 0;
-  }
-
-  .calendar-card {
-    overflow-x: auto;
-    padding: 10px;
-  }
-
-  .calendar-toggle {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 10px;
-    background: #ffffff54;
-    border: 1px solid #f6f6f6;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #5870c06e;
-    cursor: pointer;
-    margin-bottom: 8px;
-  }
-
-  .calendar-toggle.open {
-    color: #2e3d64;
-    background: #5870c023;
-  }
-
-  .calendar-collapsible {
-    display: none;
-    overflow-x: auto;
-  }
-
-  .calendar-collapsible.open {
-    display: block;
-  }
-
-  .calendar-grid {
-    grid-template-columns: 20px repeat(12, 18px);
-    column-gap: 3px;
-    row-gap: 4px;
-  }
-
-  .viewing-banner {
-    font-size: 15px;
-    padding: 9px 14px;
-    letter-spacing: 1px;
-  }
-
   .cal-fab {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
-  .dashboard {
-    flex-direction: column;
-    height: 100vh;
-    gap: 10px;
-    padding-top: 0;
-  }
-
   .notes {
-    min-height: 22vh;
     padding-bottom: 60px;
+    min-height: clamp(130px, 20vh, 280px);
   }
-
-  .day-part-1,
-  .day-part-2 {
-    padding-top: 28px; /* space between sections */
-  }
-}
-
-@media (min-width: 1470px) and (max-width: 1740px) {
-  form[action="/addJournalEntry"] {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    overflow-y: auto;
-  }
-
-  .cal-fab {
-    display: none !important;
-  }
-
-  .dashboard {
-    display: flex;
-    height: 100vh;
-    gap: 10px;
-    padding-top: 0;
-  }
-
-  .notes {
-    min-height: 22vh;
-    padding-bottom: 60px;
-  }
-
-  .question-card {
-    display: flex;
-    flex: 3;
-  }
-
   .day-part-1,
   .day-part-2 {
     padding-top: 28px;
   }
-
+  .bottomTextareaContent {
+    top: auto;
+    bottom: 8px;
+  }
+  .banner-arrow-btn {
+    font-size: 20px;
+  }
+  .delete-btn {
+    flex: 0;
+  }
   .calendar-grid {
-    display: grid;
+    grid-template-columns: 20px repeat(12, 18px);
+    column-gap: 3px;
+    row-gap: 4px;
+  }
+}
+
+/* ================================
+   RESPONSIVE — DESKTOP (1470px+)
+   ================================ */
+@media (min-width: 1470px) {
+  .dashboard {
+    height: 100vh;
+    gap: 10px;
+    padding-top: 0;
+    overflow: hidden;
+  }
+  .cal-fab {
+    display: none !important;
+  }
+  .notes {
+    padding-bottom: 60px;
+    min-height: clamp(130px, 20vh, 280px);
+  }
+  .question-card {
+    display: flex;
+    flex: 3;
+  }
+  .day-part-1,
+  .day-part-2 {
+    padding-top: 28px;
+  }
+  .bottomTextareaContent {
+    top: auto;
+    bottom: 8px;
+  }
+  .banner-arrow-btn {
+    font-size: 20px;
+  }
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 19px);
+    row-gap: 3px;
+    column-gap: 6px;
+  }
+}
+
+/* ================================
+   CALENDAR GRID — LARGE SCREENS
+   ================================ */
+@media (min-width: 1800px) {
+  .calendar-grid {
     grid-template-columns: 20px repeat(12, 20px);
-    row-gap: 7px;
-    column-gap: 7px;
-    margin: 0 0 10px 0;
+    row-gap: 3px;
+    column-gap: 6px;
+  }
+}
+@media (min-width: 2000px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 21.5px);
+    row-gap: 5px;
+    column-gap: 10px;
+  }
+}
+@media (min-width: 2100px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 24.5px);
+    row-gap: 5px;
+    column-gap: 10px;
+  }
+}
+@media (min-width: 2250px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 25px);
+    row-gap: 6px;
+    column-gap: 10px;
+  }
+}
+@media (min-width: 2550px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 25px);
+    row-gap: 10px;
+    column-gap: 10px;
+  }
+}
+@media (min-width: 2750px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 28px);
+    row-gap: 12px;
+    column-gap: 12px;
+  }
+}
+
+/* ================================
+   HEIGHT-BASED QUERIES
+   ================================ */
+@media (min-width: 769px) and (min-height: 985px) and (max-height: 1080px) {
+  .notes {
+    min-height: clamp(100px, 19vh, 280px);
+    padding-bottom: 50px;
+  }
+  .main-section {
+    overflow-y: auto;
+  }
+  .save-btn-wrapper {
+    height: 50px;
+  }
+}
+
+@media (min-width: 769px) and (max-height: 984px) {
+  .notes {
+    min-height: clamp(80px, 18vh, 250px);
+    padding-bottom: 50px;
+  }
+  .main-section {
+    overflow-y: auto;
+  }
+  .save-btn-wrapper {
+    height: 50px;
+  }
+}
+
+@media (min-height: 1237px) and (max-height: 1390px) {
+  .notes {
+    min-height: clamp(100px, 21vh, 300px);
+    padding-bottom: 50px;
+  }
+}
+
+@media (min-height: 1391px) {
+  .notes {
+    min-height: clamp(100px, 21vh, 345px);
+    padding-bottom: 50px;
+  }
+}
+
+/* base (desktop 1470px+) */
+#welcomeMsg {
+  font-size: 28px;
+}
+#curTime {
+  font-size: 35px;
+}
+#curDate {
+  font-size: 16px;
+}
+.user-name {
+  font-size: 28px;
+}
+.categories {
+  font-size: 19px;
+}
+.notes {
+  font-size: 16px;
+}
+.tag {
+  font-size: 12px;
+}
+
+/* tablet 769–1180px */
+@media (min-width: 769px) and (max-width: 1180px) {
+  #welcomeMsg {
+    font-size: 22px;
+  }
+  #curTime {
+    font-size: 28px;
+  }
+  .user-name {
+    font-size: 18px;
+  }
+  .categories {
+    font-size: 15px;
+  }
+  .notes {
+    font-size: 14px;
+  }
+}
+
+/* mobile ≤768px */
+@media (max-width: 768px) {
+  #welcomeMsg {
+    font-size: 20px;
+  }
+  #curTime {
+    font-size: 24px;
+  }
+  .notes {
+    font-size: 14px;
+  }
+}
+
+/* small phones ≤480px */
+@media (max-width: 480px) {
+  #welcomeMsg {
+    font-size: 16px;
+  }
+  #curTime {
+    font-size: 20px;
+  }
+  .notes {
+    font-size: 13px;
+  }
+}
+
+/* ================================
+   BASE (desktop 1470px+)
+   ================================ */
+.day-part-text-0 h5,
+.day-part-text-1 h5,
+.day-part-text-2 h5 {
+  font-size: 22px;
+}
+
+.day-part-text-0 h6,
+.day-part-text-1 h6,
+.day-part-text-2 h6 {
+  font-size: 15px;
+}
+
+.month-label {
+  font-size: 16px;
+}
+.day-label {
+  font-size: 16px;
+}
+#curYear {
+  font-size: 28px;
+}
+.notes {
+  font-size: 16px;
+}
+.tag {
+  font-size: 11px;
+}
+.ok {
+  font-size: 14px;
+}
+.user-name {
+  font-size: 26px;
+}
+.categories {
+  font-size: 18px;
+}
+.UserStreakDays {
+  font-size: 15px;
+}
+
+/* ================================
+   SMALL DESKTOP (1180–1470px)
+   ================================ */
+@media (min-width: 1180px) and (max-width: 1470px) {
+  .day-part-text-0 h5,
+  .day-part-text-1 h5,
+  .day-part-text-2 h5 {
+    font-size: 19px;
+  }
+  .day-part-text-0 h6,
+  .day-part-text-1 h6,
+  .day-part-text-2 h6 {
+    font-size: 15px;
+  }
+  .month-label {
+    font-size: 12px;
+  }
+  .day-label {
+    font-size: 12px;
+  }
+  #curYear {
+    font-size: 16px;
+  }
+  .notes {
+    font-size: 15px;
+  }
+  .tag {
+    font-size: 11px;
+  }
+  .ok {
+    font-size: 13px;
+  }
+  .user-name {
+    font-size: 22px;
+  }
+  .categories {
+    font-size: 16px;
+  }
+}
+
+/* ================================
+   TABLET (769–1180px)
+   ================================ */
+@media (min-width: 769px) and (max-width: 1180px) {
+  .day-part-text-0 h5,
+  .day-part-text-1 h5,
+  .day-part-text-2 h5 {
+    font-size: 18px;
+  }
+  .day-part-text-0 h6,
+  .day-part-text-1 h6,
+  .day-part-text-2 h6 {
+    font-size: 14px;
+  }
+  .notes {
+    font-size: 14px;
+  }
+  .tag {
+    font-size: 11px;
+  }
+  .ok {
+    font-size: 13px;
+  }
+  .user-name {
+    font-size: 16px;
+  }
+  .categories {
+    font-size: 14px;
+  }
+}
+
+/* ================================
+   MOBILE (≤768px)
+   ================================ */
+@media (max-width: 768px) {
+  .day-part-text-0 h5,
+  .day-part-text-1 h5,
+  .day-part-text-2 h5 {
+    font-size: 17px;
+  }
+  .day-part-text-0 h6,
+  .day-part-text-1 h6,
+  .day-part-text-2 h6 {
+    font-size: 14px;
+  }
+  .notes {
+    font-size: 14px;
+  }
+  .tag {
+    font-size: 10px;
+  }
+  .ok {
+    font-size: 13px;
+  }
+  #welcomeMsg {
+    font-size: 20px;
+  }
+  #curTime {
+    font-size: 24px;
+  }
+  #curDate {
+    font-size: 12px;
+  }
+}
+
+/* ================================
+   SMALL PHONE (≤480px)
+   ================================ */
+@media (max-width: 480px) {
+  .day-part-text-0 h5,
+  .day-part-text-1 h5,
+  .day-part-text-2 h5 {
+    font-size: 14px;
+  }
+  .notes {
+    font-size: 13px;
+  }
+  .tag {
+    font-size: 9px;
+  }
+  .ok {
+    font-size: 12px;
+  }
+  .user-name {
+    font-size: 12px;
+  }
+  .categories {
+    font-size: 11px;
+  }
+  #welcomeMsg {
+    font-size: 16px;
+  }
+  #curTime {
+    font-size: 20px;
   }
 }

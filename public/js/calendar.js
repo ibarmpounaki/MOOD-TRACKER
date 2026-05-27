@@ -167,6 +167,9 @@ let selectedDay = todayDate;
 function handleDayClick(dayEl) {
   selectedDay = `${dayEl.dataset.year}-${String(dayEl.dataset.month).padStart(2, "0")}-${String(dayEl.dataset.day).padStart(2, "0")}`;
 
+  console.log("SELECTED DAY: " + selectedDay);
+  console.log("TODAY DAY: " + todayDate);
+
   // if user is on stats page, switch to journal first
   const journalSection = document.getElementById("journalSection");
   const statsSection = document.getElementById("statsSection");
@@ -206,9 +209,11 @@ function handleDayClick(dayEl) {
     document.querySelectorAll(".day.selected").forEach((ds) => {
       ds.classList.remove("selected");
     });
-    dayEl.classList.add("selected");
+    dayEl.classList.add("selected"); //dayEl is from the cloned calendar
 
-    //find the mood entries from the DB that has the same date as the day that has been clicked from the calendar
+    console.log(dayEl.classList);
+
+    //find the mood entries from the DB that have the same date as the day that has been clicked from the calendar
     const cur_Mood_Entry = moods.filter((entry) => {
       const d = new Date(entry.mood_date);
       const entryKey = `${d.getDate()}-${d.getMonth() + 1}`;
