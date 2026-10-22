@@ -863,9 +863,9 @@ form[action="/addJournalEntry"] {
 }
 
 .cal-drawer-inner .calendar-grid {
-  grid-template-columns: 20px repeat(12, 18px);
-  column-gap: 3px;
-  row-gap: 4px;
+  grid-template-columns: 20px repeat(12, 19px);
+  column-gap: 7px;
+  row-gap: 4.5px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -1525,9 +1525,9 @@ form[action="/addJournalEntry"] {
 }
 @media (min-width: 2550px) {
   .calendar-grid {
-    grid-template-columns: 20px repeat(12, 25px);
-    row-gap: 10px;
-    column-gap: 10px;
+    grid-template-columns: 20px repeat(12, 22px);
+    row-gap: 4px;
+    column-gap: 11px;
   }
 }
 @media (min-width: 2750px) {
@@ -1583,13 +1583,13 @@ form[action="/addJournalEntry"] {
 
 /* base (desktop 1470px+) */
 #welcomeMsg {
-  font-size: 28px;
+  font-size: 30px;
 }
 #curTime {
   font-size: 35px;
 }
 #curDate {
-  font-size: 16px;
+  font-size: 18px;
 }
 .user-name {
   font-size: 28px;
@@ -1671,7 +1671,7 @@ form[action="/addJournalEntry"] {
   font-size: 16px;
 }
 #curYear {
-  font-size: 28px;
+  font-size: 32px;
 }
 .notes {
   font-size: 16px;
@@ -1759,7 +1759,7 @@ form[action="/addJournalEntry"] {
     font-size: 16px;
   }
   .categories {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
@@ -1815,16 +1815,53 @@ form[action="/addJournalEntry"] {
   .ok {
     font-size: 12px;
   }
-  .user-name {
-    font-size: 12px;
-  }
+
   .categories {
-    font-size: 11px;
+    font-size: 0px;
   }
+  /* .categories .menu-image {
+    width: 24px;
+    height: 24px;
+  } */
   #welcomeMsg {
     font-size: 16px;
   }
   #curTime {
     font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .categories {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 693px) {
+  .categories {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 650px) {
+  .categories {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 636px) {
+  .categories {
+    font-size: 0px;
+    margin-left: 14px;
+  }
+
+  .categories .menu-image {
+    width: 24px;
+    height: 24px;
+  }
+
+  .user-name {
+    /* font-size: 12px; */
+    display: none;
   }
 }

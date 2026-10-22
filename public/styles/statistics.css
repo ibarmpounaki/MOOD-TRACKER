@@ -260,3 +260,35 @@
   opacity: 0.6;
   margin-left: 3px;
 }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .stats-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-row-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .stats-filters {
+    flex-wrap: wrap;
+  }
+
+  .stats-section > * {
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+  }
+}
