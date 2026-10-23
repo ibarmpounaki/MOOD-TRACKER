@@ -50,6 +50,7 @@ npm install
 npm run dev
 
 Then open `http://localhost:3000` in your browser.
+```
 
 ## Roadmap
 
@@ -61,4 +62,3 @@ Then open `http://localhost:3000` in your browser.
 ## Author
 
 Built by **Ioanna Barmpounaki**: [GitHub](https://github.com/ibarmpounaki) · [LinkedIn](https://www.linkedin.com/in/ioanna-barmpounaki-4515b7164/)
-```
