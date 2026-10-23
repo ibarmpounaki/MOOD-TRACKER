@@ -95,16 +95,26 @@
                     <input type="hidden" name="selectedDate" id="selectedDate" />
 
                     <div class="bottomTextareaContent">
-                    <div class="tagsContainer tagContainer-<%= index %>">
-                        <% part.tags.forEach(t => { %>
-                        <div class="tag <%= sectionEntry && sectionEntry.tags && sectionEntry.tags.includes(t) ? 'selected' : '' %>" 
-                            data-index="<%= index %>" 
-                            data-tag="<%= t %>">
-                            <i class="ti <%= tagIcons[t] || 'ti-tag' %>" aria-hidden="true"></i>
-                            <%= t.toUpperCase() %>
-                        </div>
-                        <% }) %>
-                    </div>
+
+
+                   <% const selectedCount = part.tags.filter(t => sectionEntry && sectionEntry.tags && sectionEntry.tags.includes(t)).length; %>
+<div class="tags-dropdown">
+  <button type="button" class="tags-toggle">
+    <i class="ti ti-tag" aria-hidden="true"></i>
+    TAGS <span class="tags-count"><%= selectedCount ? `(${selectedCount})` : '' %></span>
+  </button>
+
+  <div class="tagsContainer tagContainer-<%= index %> tags-menu">
+    <% part.tags.forEach(t => { %>
+      <div class="tag <%= sectionEntry && sectionEntry.tags && sectionEntry.tags.includes(t) ? 'selected' : '' %>"
+           data-index="<%= index %>"
+           data-tag="<%= t %>">
+        <i class="ti <%= tagIcons[t] || 'ti-tag' %>" aria-hidden="true"></i>
+        <%= t.toUpperCase() %>
+      </div>
+    <% }) %>
+  </div>
+</div>
 
                     <div class="moodContainer">
                         <h6>MOOD</h6>

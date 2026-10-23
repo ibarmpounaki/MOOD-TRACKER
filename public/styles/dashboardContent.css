@@ -30,8 +30,8 @@ body {
   flex-wrap: wrap;
   gap: 12px;
   padding: clamp(15px, 4vw, 25px); /* min, preferred, max */
-  padding-top: clamp(9px, 4vw, 8px);
-  padding-bottom: clamp(9px, 4vw, 8px);
+  padding-top: clamp(7px, 2vw, 7px);
+  padding-bottom: clamp(7px, 2vw, 7px);
 }
 
 .page-header > * {
@@ -287,7 +287,7 @@ form[action="/addJournalEntry"] {
   flex: 0;
 } */
 
-.timeline-vertical-line {
+/* .timeline-vertical-line {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -304,6 +304,40 @@ form[action="/addJournalEntry"] {
   left: 28.5px;
   background-color: #5b77c41f;
   z-index: 0;
+} */
+
+.day-row {
+  --dot-size: 13.5px; /* diameter of the dots */
+  --dot-top: 28px; /* distance from the row top to the dot, to line it up with the heading */
+  position: relative;
+}
+
+.timeline-vertical-line {
+  position: relative;
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 54px; /* column the dot and line share */
+  display: flex;
+  justify-content: center; /* dot horizontally centered in the column */
+  align-items: flex-start;
+}
+
+/* the line segment, centered in the same column */
+.timeline-vertical-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.5px;
+  border-radius: calc(var(--line-width) / 2);
+  background: #c5cbe8;
+}
+
+/* first row: start the line at the center of the orange dot */
+.day-row-0 .timeline-vertical-line::before {
+  top: calc(var(--dot-top) + var(--dot-size) / 2);
 }
 
 /* ================================
@@ -369,7 +403,8 @@ form[action="/addJournalEntry"] {
   padding-top: 22px;
 
   padding-bottom: 0px;
-  padding-left: 20px;
+  /* padding-left: 20px; */
+  padding-left: 0px;
   align-items: center;
   padding-right: 21px;
 }
@@ -510,7 +545,7 @@ form[action="/addJournalEntry"] {
 }
 
 .tag i {
-  font-size: 13px;
+  font-size: 12px;
   opacity: 0.7;
 }
 
@@ -813,8 +848,8 @@ form[action="/addJournalEntry"] {
   position: fixed;
   bottom: 16px;
   right: 19px;
-  width: 65px;
-  height: 65px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: linear-gradient(135deg, #5870c0, #9878c8);
   border: none;
@@ -1059,8 +1094,8 @@ form[action="/addJournalEntry"] {
   .menu-bar {
     flex-direction: row;
     align-items: center;
-    margin: 10px;
-    padding: 10px 14px;
+    margin: 8px;
+    padding: 8px 14px;
     border-radius: 12px;
     border-right: none;
     border-bottom: 1.5px solid #dcdfe6;
@@ -1142,7 +1177,7 @@ form[action="/addJournalEntry"] {
   }
   .day-part-1,
   .day-part-2 {
-    padding-top: 28px;
+    padding-top: 24px;
   }
 
   .notes {
@@ -1150,7 +1185,7 @@ form[action="/addJournalEntry"] {
     padding: 14px;
     padding-bottom: 60px;
     border-radius: 16px;
-    min-height: clamp(130px, 19vh, 280px);
+    min-height: clamp(130px, 17vh, 280px);
   }
 
   .bottomTextareaContent {
@@ -1328,7 +1363,7 @@ form[action="/addJournalEntry"] {
     bottom: 89px;
   }
   .timeline-vertical-line {
-    padding-left: 14px;
+    /* padding-left: 14px; */
   }
   .dot {
     margin-top: 34px;
@@ -1338,7 +1373,7 @@ form[action="/addJournalEntry"] {
   }
   .day-part-1,
   .day-part-2 {
-    padding-top: 28px;
+    padding-top: 24px;
   }
 
   .notes {
@@ -1434,7 +1469,7 @@ form[action="/addJournalEntry"] {
   }
   .day-part-1,
   .day-part-2 {
-    padding-top: 28px;
+    padding-top: 24px;
   }
   .bottomTextareaContent {
     top: auto;
@@ -1476,7 +1511,7 @@ form[action="/addJournalEntry"] {
   }
   .day-part-1,
   .day-part-2 {
-    padding-top: 28px;
+    padding-top: 24px;
   }
   .bottomTextareaContent {
     top: auto;
@@ -1586,10 +1621,10 @@ form[action="/addJournalEntry"] {
   font-size: 30px;
 }
 #curTime {
-  font-size: 35px;
+  font-size: 30px;
 }
 #curDate {
-  font-size: 18px;
+  font-size: 16px;
 }
 .user-name {
   font-size: 28px;
@@ -1607,10 +1642,10 @@ form[action="/addJournalEntry"] {
 /* tablet 769–1180px */
 @media (min-width: 769px) and (max-width: 1180px) {
   #welcomeMsg {
-    font-size: 22px;
+    font-size: 27px;
   }
   #curTime {
-    font-size: 28px;
+    font-size: 27px;
   }
   .user-name {
     font-size: 18px;
@@ -1761,6 +1796,9 @@ form[action="/addJournalEntry"] {
   .categories {
     font-size: 16px;
   }
+  .user-name {
+    font-size: 20px;
+  }
 }
 
 /* ================================
@@ -1787,13 +1825,17 @@ form[action="/addJournalEntry"] {
     font-size: 13px;
   }
   #welcomeMsg {
-    font-size: 20px;
+    font-size: 23px;
   }
   #curTime {
-    font-size: 24px;
+    font-size: 22px;
   }
   #curDate {
-    font-size: 12px;
+    font-size: 14px;
+  }
+
+  .user-name {
+    font-size: 20px;
   }
 }
 
@@ -1806,6 +1848,12 @@ form[action="/addJournalEntry"] {
   .day-part-text-2 h5 {
     font-size: 14px;
   }
+
+  .day-row {
+    --dot-size: 10px;
+    --dot-top: 27px;
+  }
+
   .notes {
     font-size: 13px;
   }
@@ -1824,10 +1872,13 @@ form[action="/addJournalEntry"] {
     height: 24px;
   } */
   #welcomeMsg {
-    font-size: 16px;
+    font-size: 21px;
   }
   #curTime {
     font-size: 20px;
+  }
+  #curDate {
+    font-size: 12px;
   }
 }
 
@@ -1845,23 +1896,148 @@ form[action="/addJournalEntry"] {
 
 @media (max-width: 650px) {
   .categories {
-    font-size: 12px;
+    font-size: 13px;
+  }
+
+  .user-name {
+    font-size: 18px;
   }
 }
 
-@media (max-width: 636px) {
+@media (max-width: 626px) {
   .categories {
     font-size: 0px;
-    margin-left: 14px;
+    margin-left: 13px;
   }
 
   .categories .menu-image {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
   }
 
   .user-name {
     /* font-size: 12px; */
     display: none;
+  }
+}
+
+@media (max-width: 618px) {
+  .categories {
+    font-size: 0px;
+    margin-left: 13px;
+  }
+
+  .categories .menu-image {
+    width: 22px;
+    height: 22px;
+  }
+
+  .user-name {
+    /* font-size: 12px; */
+    display: none;
+  }
+}
+
+@media (max-width: 383px) {
+  .categories {
+    font-size: 0px;
+    margin-left: 0px;
+  }
+
+  .categories .menu-image {
+    width: 20px;
+    height: 20px;
+  }
+
+  .user-name {
+    /* font-size: 12px; */
+    display: none;
+  }
+}
+
+@media (max-width: 687px) {
+  .tag {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 294px) {
+  #welcomeMsg {
+    font-size: 18px;
+  }
+  #curTime {
+    font-size: 18px;
+  }
+  #curDate {
+    font-size: 10px;
+  }
+}
+
+/* Desktop: toggle hidden, tags show as your normal pills */
+.tags-toggle {
+  display: none;
+}
+
+/* Dropdown only below 768px */
+@media (max-width: 696px) {
+  .tags-dropdown {
+    position: relative;
+  }
+
+  .tags-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 4px 8px;
+    background: none;
+    border: 1.5px dashed #c5c8dc;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    color: #6b6f8a;
+  }
+  .tags-toggle::after {
+    content: "▾";
+  }
+  .tags-dropdown.open .tags-toggle {
+    border-style: solid;
+    border-color: #4a4f7a;
+    color: #4a4f7a;
+  }
+
+  .tags-dropdown .tags-menu {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 0;
+    z-index: 20;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 190px;
+    padding: 8px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(40, 45, 90, 0.15);
+  }
+
+  .tags-dropdown.open .tags-menu {
+    display: flex;
+  }
+
+  .tags-dropdown .tag {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 10px;
+    justify-content: flex-start;
+  }
+  .tags-dropdown .tag:hover {
+    background: #f1f2f8;
+  }
+  .tags-dropdown .tag.selected {
+    background: #e8eaf6;
+    color: #4a4f7a;
+    font-weight: 600;
   }
 }

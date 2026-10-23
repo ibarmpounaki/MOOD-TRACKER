@@ -162,3 +162,26 @@ const testDay = document.querySelector(".day, button.today");
     }
   }
 })();
+
+document.querySelectorAll(".tags-dropdown").forEach((dropdown) => {
+  // open / close
+  dropdown.querySelector(".tags-toggle").addEventListener("click", () => {
+    dropdown.classList.toggle("open");
+  });
+
+  // keep the "(2)" count in sync after your existing tag handler runs
+  dropdown.addEventListener("click", (e) => {
+    if (!e.target.closest(".tag")) return;
+    const count = dropdown.querySelectorAll(".tag.selected").length;
+    dropdown.querySelector(".tags-count").textContent = count
+      ? `(${count})`
+      : "";
+  });
+});
+
+// close when clicking outside
+document.addEventListener("click", (e) => {
+  document.querySelectorAll(".tags-dropdown.open").forEach((d) => {
+    if (!d.contains(e.target)) d.classList.remove("open");
+  });
+});
