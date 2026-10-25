@@ -665,11 +665,13 @@ form[action="/addJournalEntry"] {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .ok {
   margin: 0;
-  padding: 10px 60px;
+  padding: 10px 50px;
   background: linear-gradient(135deg, #5870c0, #9878c8);
   color: #fff;
   border: none;
@@ -923,8 +925,27 @@ form[action="/addJournalEntry"] {
 }
 
 .delete-btn {
-  position: absolute;
-  right: 65px;
+  /* position: absolute; */
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 50px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  color: #b55a5a;
+  /* color: #fff; */
+
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  /* right: 58px;
   top: 50%;
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.18);
@@ -935,15 +956,16 @@ form[action="/addJournalEntry"] {
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
+  cursor: pointer; */
 }
 
 .delete-btn.hidden {
-  visibility: hidden;
+  opacity: 0.45;
+  cursor: not-allowed;
   pointer-events: none;
 }
 
-.delete-icon-wrap {
+/* .delete-icon-wrap {
   width: 26px;
   height: 22px;
   border-radius: 8px;
@@ -960,7 +982,7 @@ form[action="/addJournalEntry"] {
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-}
+} */
 
 /* push notification msg for when saving a day entry is successfull */
 .toast {
@@ -1011,7 +1033,7 @@ form[action="/addJournalEntry"] {
    ================================ */
 @media (max-width: 480px) {
   .dashboard {
-    padding: 6px;
+    padding: 10px;
     gap: 8px;
     overflow: hidden;
   }
@@ -1054,7 +1076,7 @@ form[action="/addJournalEntry"] {
     font-size: 10px;
   }
   .ok {
-    width: 94%;
+    /* width: 94%; */
     font-size: 12px;
   }
   #welcomeMsg {
@@ -1071,6 +1093,15 @@ form[action="/addJournalEntry"] {
     grid-template-columns: 16px repeat(12, 15px);
     column-gap: 2px;
     row-gap: 3px;
+  }
+  .page-header {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .cal-fab {
+    bottom: 5px;
+    right: 5px;
   }
 }
 
@@ -1220,8 +1251,8 @@ form[action="/addJournalEntry"] {
   }
 
   .ok {
-    width: 35%;
-    padding: 12px;
+    /* width: 35%; */
+    /* padding: 12px; */
     font-size: 13px;
   }
   .viewing-banner {
@@ -1261,9 +1292,9 @@ form[action="/addJournalEntry"] {
   .day-dot-strip {
     display: flex;
   }
-  .delete-btn {
+  /* .delete-btn {
     flex: 0;
-  }
+  } */
 }
 
 /* ================================
@@ -1417,9 +1448,9 @@ form[action="/addJournalEntry"] {
     height: 60px;
     padding: 0;
   }
-  .ok {
+  /* .ok {
     width: 40%;
-  }
+  } */
   #welcomeMsg {
     font-size: 26px;
   }
@@ -1436,9 +1467,9 @@ form[action="/addJournalEntry"] {
     align-items: center;
     justify-content: center;
   }
-  .delete-btn {
+  /* .delete-btn {
     flex: 0;
-  }
+  } */
 }
 
 /* ================================
@@ -1478,9 +1509,9 @@ form[action="/addJournalEntry"] {
   .banner-arrow-btn {
     font-size: 20px;
   }
-  .delete-btn {
+  /* .delete-btn {
     flex: 0;
-  }
+  } */
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 18px);
     column-gap: 3px;
@@ -1919,6 +1950,27 @@ form[action="/addJournalEntry"] {
     /* font-size: 12px; */
     display: none;
   }
+
+  .ok {
+    padding: 10px 30px;
+    font-size: 12px;
+  }
+
+  .delete-btn {
+    padding: 10px 30px;
+    font-size: 12px;
+  }
+
+  /* .delete-label {
+    display: none;
+  } */
+  /* 
+  .delete-icon-wrap {
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+  } */
 }
 
 @media (max-width: 618px) {
@@ -1998,9 +2050,7 @@ form[action="/addJournalEntry"] {
     letter-spacing: 0.04em;
     color: #6b6f8a;
   }
-  .tags-toggle::after {
-    content: "▾";
-  }
+
   .tags-dropdown.open .tags-toggle {
     border-style: solid;
     border-color: #4a4f7a;
@@ -2039,5 +2089,72 @@ form[action="/addJournalEntry"] {
     background: #e8eaf6;
     color: #4a4f7a;
     font-weight: 600;
+  }
+}
+
+@media (max-width: 333px) {
+  /* icon-only tags button */
+  .tags-label {
+    display: none;
+  }
+
+  .tags-toggle {
+    padding: 4px 7px;
+  }
+
+  /* compact mood group, aligned right */
+  .moodContainer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: auto;
+    justify-content: flex-end;
+  }
+
+  .ti-tag {
+    font-size: 12px;
+  }
+
+  .tags-toggle {
+    padding-right: 0px;
+  }
+}
+
+@media (max-width: 302px) {
+  .bottomTextareaContent {
+    flex-wrap: wrap; /* mood moves to a new line when space runs out */
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .moodContainer {
+    width: 100%; /* full row below the tags button */
+    justify-content: space-between;
+    gap: 10px;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 257px) {
+  #user {
+    display: block;
+  }
+
+  #welcomeMsg {
+    font-size: 17px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 456px) {
+  .ok {
+    padding: 10px 20px;
+    font-size: 10px;
+  }
+
+  .delete-btn {
+    padding: 10px 20px;
+    font-size: 10px;
   }
 }

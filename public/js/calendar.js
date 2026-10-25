@@ -300,7 +300,7 @@ function handleDayClick(dayEl) {
     if (dt === day && m === month && y === year) {
       openTodayDay();
     } else {
-      openPastDay(`${day} ${monthNames[month - 1]}, ${year}`);
+      openPastDay(`${day} ${monthNames[month - 1].slice(0, 3)}, ${year}`);
     }
   }
 }

@@ -1,43 +1,54 @@
-
-<% 
+<%
     const now = new Date();
     const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-    const sectionEntry = moods.find(e => {
-        const d = new Date(e.mood_date);
-        const localStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-        return localStr === today;
-    });
-%>
 
-<%
-    const tagIcons = {
-        'Exercised':       'ti-run',
-        'Ate Healthy':     'ti-apple',
-        'Meditated':       'ti-heart',
-        'Slept Well':      'ti-moon',
-        'Productive':      'ti-check',
-        'Deep Work':       'ti-target',
-        'Walked':          'ti-walk',
-        'No Screens':      'ti-device-mobile-off',
-        'Read':            'ti-book',
+    // turns a DB date into "YYYY-MM-DD" in local time
+    const toLocalKey = (dateValue) => {
+        const d = new Date(dateValue);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     };
+
+    // does today have at least one entry? (controls the Delete button)
+    const todayHasEntry = moods.some(e => toLocalKey(e.mood_date) === today);
+
+    const tagIcons = {
+        'Exercised':   'ti-run',
+        'Ate Healthy': 'ti-apple',
+        'Meditated':   'ti-heart',
+        'Slept Well':  'ti-moon',
+        'Productive':  'ti-check',
+        'Deep Work':   'ti-target',
+        'Walked':      'ti-walk',
+        'No Screens':  'ti-device-mobile-off',
+        'Read':        'ti-book',
+    };
+
+    const moodOptions = [
+        { mood: 'bad',       color: '#c8d4f0' },
+        { mood: 'okay',      color: '#92a8e0' },
+        { mood: 'good',      color: '#6080c8' },
+        { mood: 'great',     color: '#4a9e80' },
+        { mood: 'excellent', color: '#3db878' }
+    ];
+
+    const dayParts = [
+        { label: 'Morning',   time: '06:00 AM', placeholder: 'How did your morning unfold...',   tags: ['Exercised', 'Ate Healthy', 'Meditated', 'Slept Well'] },
+        { label: 'Afternoon', time: '12:00 PM', placeholder: 'The shape of your afternoon...',   tags: ['Productive', 'Ate Healthy', 'Deep Work', 'Walked'] },
+        { label: 'Evening',   time: '06:00 PM', placeholder: 'Reflections as the day quiets...', tags: ['No Screens', 'Ate Healthy', 'Meditated', 'Read'] }
+    ];
 %>
 
-<form id="deleteForm" action="/deleteJournalEntry" method="POST">
+<!-- delete form: only holds the date; submitted by the "Delete day" button at the bottom -->
+<form id="deleteForm" action="/deleteJournalEntry" method="POST"
+      onsubmit="return confirm('Delete all entries for this day?');">
     <input type="hidden" name="selectedDate" id="deleteSelectedDate">
-    <div class="viewing-banner" id="viewingBanner">
-        <!-- <div class="banner-spacer"></div> -->
-        <button type="button" class="banner-arrow-btn" id="prevDayBtn">‹</button>
-        <div>VIEWING: <span id="viewingDate">TODAY</span></div>
-        <button class="delete-btn <%= sectionEntry ? '' : 'hidden' %>" type="submit" >
-            <span class="delete-icon-wrap">
-                <i class="ti ti-trash" aria-hidden="true"></i>
-            </span>
-            <span class="delete-label">Delete</span>     
-         </button>
-        <button type="button" class="banner-arrow-btn" id="nextDayBtn">›</button>
-    </div>
-</form>      
+</form>
+
+<div class="viewing-banner" id="viewingBanner">
+    <button type="button" class="banner-arrow-btn" id="prevDayBtn" aria-label="Previous day">‹</button>
+    <div class="viewing-text"><span id="viewingDate">TODAY</span></div>
+    <button type="button" class="banner-arrow-btn" id="nextDayBtn" aria-label="Next day">›</button>
+</div>
 
 <!-- floating calendar button — mobile only -->
 <button type="button" class="cal-fab" id="calFab" aria-label="Open calendar">📅</button>
@@ -53,20 +64,17 @@
 
 <form action="/addJournalEntry" method="POST">
 
-<% [
-    { label: 'Morning',   time: '06:00 AM', placeholder: 'How did your morning unfold...', tags: ["Exercised", "Ate Healthy", "Meditated", "Slept Well"] },
-    { label: 'Afternoon', time: '12:00 PM', placeholder: 'The shape of your afternoon...', tags: ["Productive", "Ate Healthy", "Deep Work", "Walked"]},
-    { label: 'Evening',   time: '06:00 PM', placeholder: 'Reflections as the day quiets...', tags: ["No Screens", "Ate Healthy", "Meditated", "Read"] }
-].forEach((part, index) => { 
-    const now = new Date();
-    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-    const sectionEntry = moods.find(e => {
-        const d = new Date(e.mood_date);
-        const localStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-        return localStr === today && part.label.toLowerCase() === e.period;
-    });
-%>
-    
+    <!-- one shared date input for the whole form (must not be inside the loop) -->
+    <input type="hidden" name="selectedDate" id="selectedDate" />
+
+    <% dayParts.forEach((part, index) => {
+        const sectionEntry = moods.find(e =>
+            toLocalKey(e.mood_date) === today && e.period === part.label.toLowerCase()
+        );
+        const entryTags = (sectionEntry && sectionEntry.tags) || [];
+        const selectedCount = part.tags.filter(t => entryTags.includes(t)).length;
+    %>
+
     <div class="timeline-column"></div>
 
     <div class="day-row day-row-<%= index %>">
@@ -77,68 +85,69 @@
             </div>
         </div>
 
-        <div class="day-parts day-part-<%= index %>" >
-            <div class="DayPartText day-part-text-<%= index %>">                           
+        <div class="day-parts day-part-<%= index %>">
+            <div class="DayPartText day-part-text-<%= index %>">
                 <h5><%= part.label %></h5>
                 <h6><%= part.time %></h6>
             </div>
-                <div class="textarea-wrapper">
-                    <div class="MoodNotes">
-                        <textarea name="notes-<%= index %>" class="notes notes-<%= index %>" placeholder="<%= part.placeholder %>"><%= sectionEntry ? sectionEntry.note : '' %></textarea>
+
+            <div class="textarea-wrapper">
+                <div class="MoodNotes">
+                    <textarea name="notes-<%= index %>" class="notes notes-<%= index %>" placeholder="<%= part.placeholder %>"><%= sectionEntry ? sectionEntry.note : '' %></textarea>
+                </div>
+
+                <input type="hidden" name="selectedcolor-<%= index %>" class="selectedColorInput" value="<%= sectionEntry ? sectionEntry.mood_color : '' %>">
+                <input type="hidden" name="selectedMood-<%= index %>" class="selectedMoodInput" value="<%= sectionEntry ? sectionEntry.mood_name : '' %>">
+                <input type="hidden" name="selectedTags-<%= index %>" class="selectedTagsInput" value="<%= entryTags.join(',') %>">
+                <input type="hidden" name="period-<%= index %>" value="<%= part.label.toLowerCase() %>">
+
+                <div class="bottomTextareaContent">
+
+                    <div class="tags-dropdown">
+                        <button type="button" class="tags-toggle" aria-label="Tags">
+                            <i class="ti ti-tag" aria-hidden="true"></i>
+                            <span class="tags-label">TAGS</span>
+                            <i class="ti ti-chevron-down" aria-hidden="true"></i>
+                            <span class="tags-count"><%= selectedCount ? `(${selectedCount})` : '' %></span>
+                        </button>
+
+                        <div class="tagsContainer tagContainer-<%= index %> tags-menu">
+                            <% part.tags.forEach(t => { %>
+                                <div class="tag <%= entryTags.includes(t) ? 'selected' : '' %>"
+                                     data-index="<%= index %>"
+                                     data-tag="<%= t %>">
+                                    <i class="ti <%= tagIcons[t] || 'ti-tag' %>" aria-hidden="true"></i>
+                                    <%= t.toUpperCase() %>
+                                </div>
+                            <% }) %>
+                        </div>
                     </div>
-                    
-                    <input type="hidden" name="selectedcolor-<%= index %>" class="selectedColorInput" value="<%= sectionEntry ? sectionEntry.mood_color : '' %>" >
-                    <input type="hidden" name="selectedMood-<%= index %>" class="selectedMoodInput" value="<%= sectionEntry ? sectionEntry.mood_name : '' %>" >
-                    <input type="hidden" name="selectedTags-<%= index %>" class="selectedTagsInput" value="<%= sectionEntry && sectionEntry.tags ? sectionEntry.tags.join(',') : '' %>">
-                    <input type="hidden" name="period-<%= index %>" value="<%= part.label.toLowerCase() %>">
-                    
-                    <input type="hidden" name="selectedDate" id="selectedDate" />
-
-                    <div class="bottomTextareaContent">
-
-
-                   <% const selectedCount = part.tags.filter(t => sectionEntry && sectionEntry.tags && sectionEntry.tags.includes(t)).length; %>
-<div class="tags-dropdown">
-  <button type="button" class="tags-toggle">
-    <i class="ti ti-tag" aria-hidden="true"></i>
-    TAGS <span class="tags-count"><%= selectedCount ? `(${selectedCount})` : '' %></span>
-  </button>
-
-  <div class="tagsContainer tagContainer-<%= index %> tags-menu">
-    <% part.tags.forEach(t => { %>
-      <div class="tag <%= sectionEntry && sectionEntry.tags && sectionEntry.tags.includes(t) ? 'selected' : '' %>"
-           data-index="<%= index %>"
-           data-tag="<%= t %>">
-        <i class="ti <%= tagIcons[t] || 'ti-tag' %>" aria-hidden="true"></i>
-        <%= t.toUpperCase() %>
-      </div>
-    <% }) %>
-  </div>
-</div>
 
                     <div class="moodContainer">
                         <h6>MOOD</h6>
-                        <% [
-                            { mood: 'bad',       color: '#c8d4f0' },
-                            { mood: 'okay',      color: '#92a8e0' },
-                            { mood: 'good',      color: '#6080c8' },
-                            { mood: 'great',     color: '#4a9e80' },
-                            { mood: 'excellent', color: '#3db878' }
-                        ].forEach(m => { %>
-                            <div class="mood mood-<%= index %> <%= sectionEntry && sectionEntry.mood_name === m.mood ? 'selected' : '' %>" data-mood="<%= m.mood %>" data-color="<%= m.color %>">
+                        <% moodOptions.forEach(m => { %>
+                            <div class="mood mood-<%= index %> <%= sectionEntry && sectionEntry.mood_name === m.mood ? 'selected' : '' %>"
+                                 data-mood="<%= m.mood %>"
+                                 data-color="<%= m.color %>">
                                 <div class="mood-box <%= m.mood %>"></div>
                                 <div class="mood-popup"><%= m.mood %></div>
                             </div>
                         <% }) %>
                     </div>
+
                 </div>
-                </div>
+            </div>
         </div>
     </div>
-<% }) %>
+    <% }) %>
 
-<div class="save-btn-wrapper">
-  <button type="submit" class="ok">Save Day</button>
-</div>
+    <div class="save-btn-wrapper">
+        <!-- form="deleteForm" makes this button submit the delete form, even though it sits inside this one -->
+        <button type="submit" form="deleteForm"
+            class="delete-btn <%= todayHasEntry ? '' : 'hidden' %>">
+            Delete day
+        </button>
+        <button type="submit" class="ok">Save Day</button>
+    </div>
 
 </form>
