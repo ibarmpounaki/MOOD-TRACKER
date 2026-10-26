@@ -256,7 +256,7 @@ form[action="/addJournalEntry"] {
   flex-direction: column;
   flex: 1;
   overflow-y: auto;
-  margin-top: -17px; /* pull the whole form up */
+  margin-top: -10px; /* pull the whole form up */
 }
 
 /* for other pages like statistics or settings */
@@ -308,7 +308,7 @@ form[action="/addJournalEntry"] {
 
 .day-row {
   --dot-size: 13.5px; /* diameter of the dots */
-  --dot-top: 28px; /* distance from the row top to the dot, to line it up with the heading */
+  --dot-top: 21px; /* distance from the row top to the dot, to line it up with the heading */
   position: relative;
 }
 
@@ -316,7 +316,7 @@ form[action="/addJournalEntry"] {
   position: relative;
   align-self: stretch;
   flex-shrink: 0;
-  width: 54px; /* column the dot and line share */
+  width: 50px; /* column the dot and line share */
   display: flex;
   justify-content: center; /* dot horizontally centered in the column */
   align-items: flex-start;
@@ -350,13 +350,13 @@ form[action="/addJournalEntry"] {
   z-index: 1;
   position: relative;
   /* margin-top: 26px; */
-  margin-top: 34px;
+  margin-top: 29px;
 }
 
 .dot-0 {
   background: #d4831a;
   /* margin-top: 10px; */
-  margin-top: 28px;
+  margin-top: 18px;
 } /* Morning  */
 .dot-1 {
   background: #5b77c4;
@@ -400,7 +400,7 @@ form[action="/addJournalEntry"] {
   flex: 1;
   padding: 30px;
   /* padding-top: 5px; */
-  padding-top: 22px;
+  padding-top: 12px;
 
   padding-bottom: 0px;
   /* padding-left: 20px; */
@@ -648,14 +648,6 @@ form[action="/addJournalEntry"] {
    SAVE BUTTON
    ================================ */
 
-form[action="/addJournalEntry"] {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow-y: auto;
-  margin-top: -17px; /* pull the whole form up */
-}
-
 .save-btn-wrapper {
   /* min-height: 110px; */
   min-height: 90px;
@@ -820,7 +812,8 @@ form[action="/addJournalEntry"] {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  position: sticky;
+  z-index: 100;
 }
 
 /* BANNER ARROWS */
@@ -1197,10 +1190,10 @@ form[action="/addJournalEntry"] {
   .dot {
     width: 10px;
     height: 10px;
-    margin-top: 34px;
+    margin-top: 29px;
   }
   .dot-0 {
-    margin-top: 28px;
+    margin-top: 18px;
   }
   .greyTodayDot {
     width: 26px;
@@ -1397,10 +1390,10 @@ form[action="/addJournalEntry"] {
     /* padding-left: 14px; */
   }
   .dot {
-    margin-top: 34px;
+    margin-top: 29px;
   }
   .dot-0 {
-    margin-top: 28px;
+    margin-top: 18px;
   }
   .day-part-1,
   .day-part-2 {
@@ -1715,6 +1708,20 @@ form[action="/addJournalEntry"] {
   }
 }
 
+@media (max-height: 894px) {
+  #welcomeMsg {
+    font-size: 25px;
+  }
+
+  #curDate {
+    font-size: 12px;
+  }
+
+  #curTime {
+    font-size: 25px;
+  }
+}
+
 /* ================================
    BASE (desktop 1470px+)
    ================================ */
@@ -1882,7 +1889,7 @@ form[action="/addJournalEntry"] {
 
   .day-row {
     --dot-size: 10px;
-    --dot-top: 27px;
+    --dot-top: 21px;
   }
 
   .notes {
