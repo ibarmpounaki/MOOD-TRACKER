@@ -592,19 +592,24 @@ form[action="/addJournalEntry"] {
 }
 
 .bad {
-  background: #c8d4f0;
+  /* background: #c8d4f0; */
+  background: #cdbdf3;
 }
 .okay {
-  background: #92a8e0;
+  /* background: #92a8e0; */
+  background: #b09dec;
 }
 .good {
-  background: #6080c8;
+  /* background: #6080c8; */
+  background: #8c72e0;
 }
 .great {
-  background: #4a9e80;
+  /* background: #4a9e80; */
+  background: #6849cf;
 }
 .excellent {
-  background: #3db878;
+  /* background: #3db878; */
+  background: #4527a8;
 }
 
 .mood:hover .mood-box {
@@ -656,9 +661,10 @@ form[action="/addJournalEntry"] {
   /* flex: 1; */
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
+  justify-content: space-between;
+  /* gap: 16px; */
   flex-wrap: wrap;
+  padding: 21px;
 }
 
 .ok {
@@ -847,6 +853,7 @@ form[action="/addJournalEntry"] {
   height: 60px;
   border-radius: 50%;
   background: linear-gradient(135deg, #5870c0, #9878c8);
+  /* background: #1D1A33; */
   border: none;
   font-size: 20px;
   cursor: pointer;
