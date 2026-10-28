@@ -134,6 +134,7 @@ const testDay = document.querySelector(".day, button.today");
     clone.style.height = "auto";
     clone.style.position = "relative";
     clone.style.overflow = "visible";
+    clone.style.pointerEvents = "auto";
     drawer.appendChild(clone);
 
     clone.style.display = "block";
@@ -169,7 +170,7 @@ document.querySelectorAll(".tags-dropdown").forEach((dropdown) => {
     dropdown.classList.toggle("open");
   });
 
-  // keep the "(2)" count in sync after your existing tag handler runs
+  // keep the "(2)" count in sync
   dropdown.addEventListener("click", (e) => {
     if (!e.target.closest(".tag")) return;
     const count = dropdown.querySelectorAll(".tag.selected").length;

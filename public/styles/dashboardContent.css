@@ -162,7 +162,9 @@ body {
 
 .user-info {
   display: flex;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   padding-top: 10px;
 }
