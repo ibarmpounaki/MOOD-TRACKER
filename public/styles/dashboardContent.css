@@ -709,7 +709,7 @@ form[action="/addJournalEntry"] {
 .calendar-grid {
   display: grid;
   grid-template-columns: 20px repeat(12, 20px);
-  row-gap: 5px;
+  /* row-gap: 5px; */
   column-gap: 5px;
   margin: 0 0 10px 0;
 }
@@ -886,9 +886,11 @@ form[action="/addJournalEntry"] {
 .cal-drawer {
   background: #fff;
   border-radius: 20px;
-  width: 100%;
+  width: 80%;
   max-width: 480px;
+  max-height: 85vh;
   padding: 10px 16px;
+  overflow-y: auto;
   /* transform: translateY(100%); */
   transition: transform 0.3s cubic-bezier(0.32, 1, 0.56, 1);
 }
@@ -901,20 +903,161 @@ form[action="/addJournalEntry"] {
   overflow-x: auto;
 }
 
+/* base / small phones (≤480px wide) — sized so 13 cols fit the drawer's
+   width; this is the ceiling used when the screen is also tall enough
+   that none of the height tiers below need to kick in */
 .cal-drawer-inner .calendar-grid {
-  grid-template-columns: 20px repeat(12, 19px);
-  column-gap: 7px;
-  row-gap: 4.5px;
-  flex-direction: column;
-  align-items: center;
+  grid-template-columns: 15px repeat(12, 15px);
+  column-gap: 3px;
+  row-gap: 3px;
   justify-content: center;
-  margin-top: 15px;
+  align-items: center;
+  /* margin-top: 15px; */
+}
+
+.cal-drawer-inner .month-label,
+.cal-drawer-inner .day-label {
+  font-size: 11px;
 }
 
 .cal-drawer-inner #curYear {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+/* larger phones */
+@media (min-width: 481px) and (max-width: 768px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 18px repeat(12, 18px);
+    column-gap: 4px;
+    row-gap: 4px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: 13px;
+  }
+  .cal-drawer-inner #curYear {
+    font-size: 20px;
+  }
+}
+
+/* tablets */
+@media (min-width: 769px) and (max-width: 1180px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 20px repeat(12, 20px);
+    column-gap: 5px;
+    row-gap: 5px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: 14px;
+  }
+  .cal-drawer-inner #curYear {
+    font-size: 22px;
+  }
+}
+
+/* small desktops (fab still shown up to 1470px) */
+@media (min-width: 1181px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 22px repeat(12, 22px);
+    column-gap: 5px;
+    row-gap: 5px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: 15px;
+  }
+  .cal-drawer-inner #curYear {
+    font-size: 24px;
+  }
+}
+
+/* --------------------------------------------------------------
+   Height ladder: the drawer fits 32 rows (month header + 31 days)
+   in max-height: 85vh, so height — not width — is what usually runs
+   out first. Each step below is sized to the worst-case (shortest)
+   viewport in its range so the full grid still fits with no scroll;
+   placed after the width queries so it overrides them when a screen
+   is short, regardless of how wide it is.
+   -------------------------------------------------------------- */
+@media (max-height: 1040px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 20px repeat(12, 20px);
+    column-gap: 5px;
+    row-gap: 5px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: 14px;
+  }
+  .cal-drawer-inner #curYear {
+    font-size: 20px;
+  }
+}
+
+@media (max-height: 900px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 17px repeat(12, 17px);
+    column-gap: 4px;
+    row-gap: 4px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: 12px;
+  }
+  .cal-drawer-inner #curYear {
+    font-size: 18px;
+  }
+}
+
+@media (max-height: 760px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 13px repeat(12, 13px);
+    column-gap: 7px;
+    row-gap: 3px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: 10px;
+  }
+  .cal-drawer-inner #curYear {
+    font-size: 16px;
+  }
+}
+
+@media (max-height: 600px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 10px repeat(12, 10px);
+    column-gap: 2px;
+    row-gap: 2px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: 9px;
+  }
+  .cal-drawer-inner #curYear {
+    font-size: 14px;
+  }
+}
+
+/* floor — below this the grid can no longer shrink and stay legible;
+   the .cal-drawer's own max-height/overflow-y takes over here as the
+   genuinely-extreme-case fallback (e.g. phones in landscape) */
+@media (max-height: 520px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 9px repeat(12, 9px);
+    column-gap: 2px;
+    row-gap: 2px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: 8px;
+  }
+  .cal-drawer-inner #curYear {
+    font-size: 12px;
+  }
 }
 
 .banner-spacer {
@@ -1094,7 +1237,7 @@ form[action="/addJournalEntry"] {
   .calendar-grid {
     grid-template-columns: 16px repeat(12, 15px);
     column-gap: 2px;
-    row-gap: 3px;
+    /* row-gap: 3px; */
   }
   .page-header {
     padding-right: 10px;
@@ -1273,7 +1416,7 @@ form[action="/addJournalEntry"] {
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 18px);
     column-gap: 3px;
-    row-gap: 4px;
+    /* row-gap: 4px; */
   }
 
   #curTime {
@@ -1517,7 +1660,7 @@ form[action="/addJournalEntry"] {
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 18px);
     column-gap: 3px;
-    row-gap: 4px;
+    /* row-gap: 4px; */
   }
 }
 
@@ -1555,7 +1698,7 @@ form[action="/addJournalEntry"] {
   }
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 19px);
-    row-gap: 3px;
+    /* row-gap: 3px; */
     column-gap: 6px;
   }
 }
@@ -1566,43 +1709,43 @@ form[action="/addJournalEntry"] {
 @media (min-width: 1800px) {
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 20px);
-    row-gap: 3px;
+    /* row-gap: 3px; */
     column-gap: 6px;
   }
 }
 @media (min-width: 2000px) {
   .calendar-grid {
-    grid-template-columns: 20px repeat(12, 21.5px);
-    row-gap: 5px;
-    column-gap: 10px;
+    grid-template-columns: 20px repeat(12, 19px);
+    row-gap: 2px;
+    column-gap: 11px;
   }
 }
 @media (min-width: 2100px) {
   .calendar-grid {
-    grid-template-columns: 20px repeat(12, 24.5px);
-    row-gap: 5px;
+    grid-template-columns: 20px repeat(12, 19px);
+    /* row-gap: 5px; */
     column-gap: 10px;
   }
 }
 @media (min-width: 2250px) {
   .calendar-grid {
-    grid-template-columns: 20px repeat(12, 25px);
-    row-gap: 6px;
-    column-gap: 10px;
+    grid-template-columns: 20px repeat(12, 21px);
+    row-gap: 3px;
+    column-gap: 11px;
   }
 }
 @media (min-width: 2550px) {
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 22px);
-    row-gap: 4px;
+    /* row-gap: 4px; */
     column-gap: 11px;
   }
 }
 @media (min-width: 2750px) {
   .calendar-grid {
-    grid-template-columns: 20px repeat(12, 28px);
-    row-gap: 12px;
-    column-gap: 12px;
+    grid-template-columns: 20px repeat(12, 26px);
+    row-gap: 5px;
+    column-gap: 13px;
   }
 }
 

@@ -135,6 +135,7 @@ const testDay = document.querySelector(".day, button.today");
     clone.style.position = "relative";
     clone.style.overflow = "visible";
     clone.style.pointerEvents = "auto";
+    clone.style.paddingTop = "0px";
     drawer.appendChild(clone);
 
     clone.style.display = "block";
