@@ -30,7 +30,6 @@
         }
         );
 
-
         const averageIndex = Math.round(sumMood / DayJournalOccurences.length);
 
         moodMap[key] = moodColors[averageIndex];
@@ -100,28 +99,38 @@
                             const color = moodMap[key];
                         %>
 
-                        <div class="day"
-                            data-day="<%= day %>"
-                            data-month="<%= month %>"
-                            data-year="<%= todayYear %>"
+                        <% if (month < todayMonth || (month === todayMonth && day <= todayDay)) { %>
+                        
+                            <div class="day"
+                                data-day="<%= day %>"
+                                data-month="<%= month %>"
+                                data-year="<%= todayYear %>"
 
-                            <% <!-- if mood exists, apply its color. If not, apply default --> %>
-                            style="background: <%= moodMap[key] || '#dbe1f380' %>;"
-                            >
-                            <% if (moodMap[key]) { %>
-                                <div class="day-popup">
-                                    Mood: <%= colorsToMoods[color] %>
-                                </div>
-                            <% } %>
-                        </div>
+                                <% <!-- if mood exists, apply its color. If not, apply default --> %>
+                                style="background: <%= moodMap[key] || '#e2dff3' %>; opacity: 0.7;"                                >
+                                <% if (moodMap[key]) { %>
+                                    <div class="day-popup">
+                                        Mood: <%= colorsToMoods[color] %>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                        <% } else { %>
+                            
+                            <div class="futureDay"
+                                data-day="<%= day %>"
+                                data-month="<%= month %>"
+                                data-year="<%= todayYear %>">
+                            </div>
+
+                        <% } %>
 
                     <% } else { %>
 
                         <div class="emptyDay"
-                            data-day="<%= day %>"
-                            data-month="<%= month %>"
-                            data-year="<%= todayYear %>">
-
+                                data-day="<%= day %>"
+                                data-month="<%= month %>"
+                                data-year="<%= todayYear %>">
                         </div>
 
                     <% } %>

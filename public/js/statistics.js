@@ -1,3 +1,7 @@
+moodChart.options.scales.x.ticks.font = { size: 13 }; // dates, e.g. "22 Oct 2026"
+moodChart.options.scales.y.ticks.font = { size: 13 }; // Bad, Okay, Good, Great, Excellent
+moodChart.update();
+
 document.querySelectorAll(".stats-pill").forEach((pill) => {
   pill.addEventListener("click", async function () {
     // update active state

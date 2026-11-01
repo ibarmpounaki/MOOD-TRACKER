@@ -1888,7 +1888,7 @@ form[action="/addJournalEntry"] {
 .day-part-text-0 h5,
 .day-part-text-1 h5,
 .day-part-text-2 h5 {
-  font-size: var(--fs-2xl);
+  font-size: var(--fs-xl);
 }
 
 .day-part-text-0 h6,
@@ -2324,4 +2324,12 @@ form[action="/addJournalEntry"] {
     padding: 10px 20px;
     font-size: var(--fs-2xs);
   }
+}
+
+.futureDay {
+  background: #e2dff3;
+  opacity: 0.35;
+  border: 1px solid #e2dff3;
+  box-sizing: border-box; /* keeps it the same size as the filled cells */
+  cursor: default;
 }
