@@ -63,12 +63,12 @@ body {
 }
 
 #curDate {
-  font-size: clamp(8px, 2vw, 18px); /* min, preferred, max */
+  font-size: clamp(var(--fs-3xs), 2vw, var(--fs-lg)); /* min, preferred, max */
   color: #7080a8;
 }
 
 #curTime {
-  font-size: clamp(28px, 2vw, 35px); /* min, preferred, max */
+  font-size: clamp(var(--fs-3xl), 2vw, var(--fs-4xl)); /* min, preferred, max */
   width: 100%;
   font-weight: 700;
   color: #1e2140;
@@ -181,19 +181,19 @@ body {
 }
 
 .firstUsrLetter {
-  font-size: 45px;
+  font-size: var(--fs-5xl);
   color: #3848a0;
 }
 
 .user-name {
   margin-top: 6px;
-  font-size: 28px;
+  font-size: var(--fs-3xl);
   font-weight: 600;
   color: #2e3d64;
 }
 
 .UserStreakDays {
-  font-size: 17px;
+  font-size: var(--fs-lg);
   color: #5870c0a0;
   margin-bottom: 0px;
   padding-bottom: 0px;
@@ -207,7 +207,7 @@ body {
   padding: 20px;
   padding-top: 18px;
   padding-bottom: 18px;
-  font-size: 19px;
+  font-size: var(--fs-xl);
   font-weight: 600;
   color: #5870c06e;
   gap: 10px;
@@ -437,7 +437,7 @@ form[action="/addJournalEntry"] {
 .day-part-text-1 h6,
 .day-part-text-2 h6 {
   color: #7a8fc4cc;
-  font-size: 13px;
+  font-size: var(--fs-sm);
   font-weight: 400;
 }
 
@@ -458,7 +458,7 @@ form[action="/addJournalEntry"] {
 
 .notes {
   position: relative;
-  font-size: 16px;
+  font-size: var(--fs-base);
   font-family: inherit;
   width: 100%;
   /* min-height: 220px; */
@@ -527,7 +527,7 @@ form[action="/addJournalEntry"] {
   border-radius: 20px;
   background: transparent;
   border: 1.5px dashed #224ba740;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   font-weight: 400;
   cursor: pointer;
   color: #1e2a45a0;
@@ -547,7 +547,7 @@ form[action="/addJournalEntry"] {
 }
 
 .tag i {
-  font-size: 12px;
+  font-size: var(--fs-xs);
   opacity: 0.7;
 }
 
@@ -556,7 +556,7 @@ form[action="/addJournalEntry"] {
 }
 
 .tag-icon {
-  font-size: 13px;
+  font-size: var(--fs-sm);
 }
 
 .moodContainer {
@@ -571,7 +571,7 @@ form[action="/addJournalEntry"] {
 
 .moodContainer > h6 {
   color: #a9a9a9;
-  font-size: 13px;
+  font-size: var(--fs-sm);
   font-weight: 500;
   margin: 0;
   margin-right: 12px;
@@ -627,7 +627,7 @@ form[action="/addJournalEntry"] {
   color: #4665ba;
   padding: 6px 8px;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
@@ -676,7 +676,7 @@ form[action="/addJournalEntry"] {
   color: #fff;
   border: none;
   border-radius: 99px;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -717,14 +717,14 @@ form[action="/addJournalEntry"] {
 .month-label {
   text-align: center;
   font-weight: bold;
-  font-size: 14px;
+  font-size: var(--fs-sm);
 }
 
 .day-label {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   color: #666;
 }
 
@@ -780,7 +780,7 @@ form[action="/addJournalEntry"] {
   color: white;
   padding: 6px 8px;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
@@ -811,7 +811,7 @@ form[action="/addJournalEntry"] {
     rgba(152, 120, 200, 0.93)
   );
   color: #fff;
-  font-size: 16px;
+  font-size: var(--fs-base);
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -833,7 +833,7 @@ form[action="/addJournalEntry"] {
   background: rgba(255, 255, 255, 0.2);
   border: none;
   color: #fff;
-  font-size: 16px;
+  font-size: var(--fs-base);
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -857,7 +857,7 @@ form[action="/addJournalEntry"] {
   background: linear-gradient(135deg, #5870c0, #9878c8);
   /* background: #1D1A33; */
   border: none;
-  font-size: 20px;
+  font-size: var(--fs-xl);
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(88, 112, 192, 0.45);
   z-index: 100;
@@ -917,11 +917,11 @@ form[action="/addJournalEntry"] {
 
 .cal-drawer-inner .month-label,
 .cal-drawer-inner .day-label {
-  font-size: 11px;
+  font-size: var(--fs-xs);
 }
 
 .cal-drawer-inner #curYear {
-  font-size: 18px;
+  font-size: var(--fs-lg);
   margin-bottom: 10px;
   margin-top: 10px;
 }
@@ -935,10 +935,10 @@ form[action="/addJournalEntry"] {
   }
   .cal-drawer-inner .month-label,
   .cal-drawer-inner .day-label {
-    font-size: 13px;
+    font-size: var(--fs-sm);
   }
   .cal-drawer-inner #curYear {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
 }
 
@@ -951,10 +951,10 @@ form[action="/addJournalEntry"] {
   }
   .cal-drawer-inner .month-label,
   .cal-drawer-inner .day-label {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
   .cal-drawer-inner #curYear {
-    font-size: 22px;
+    font-size: var(--fs-2xl);
   }
 }
 
@@ -967,10 +967,10 @@ form[action="/addJournalEntry"] {
   }
   .cal-drawer-inner .month-label,
   .cal-drawer-inner .day-label {
-    font-size: 15px;
+    font-size: var(--fs-base);
   }
   .cal-drawer-inner #curYear {
-    font-size: 24px;
+    font-size: var(--fs-2xl);
   }
 }
 
@@ -990,10 +990,10 @@ form[action="/addJournalEntry"] {
   }
   .cal-drawer-inner .month-label,
   .cal-drawer-inner .day-label {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
   .cal-drawer-inner #curYear {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
 }
 
@@ -1005,10 +1005,10 @@ form[action="/addJournalEntry"] {
   }
   .cal-drawer-inner .month-label,
   .cal-drawer-inner .day-label {
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
   .cal-drawer-inner #curYear {
-    font-size: 18px;
+    font-size: var(--fs-lg);
   }
 }
 
@@ -1020,10 +1020,10 @@ form[action="/addJournalEntry"] {
   }
   .cal-drawer-inner .month-label,
   .cal-drawer-inner .day-label {
-    font-size: 10px;
+    font-size: var(--fs-2xs);
   }
   .cal-drawer-inner #curYear {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
 }
 
@@ -1035,10 +1035,10 @@ form[action="/addJournalEntry"] {
   }
   .cal-drawer-inner .month-label,
   .cal-drawer-inner .day-label {
-    font-size: 9px;
+    font-size: var(--fs-2xs);
   }
   .cal-drawer-inner #curYear {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
 }
 
@@ -1053,10 +1053,10 @@ form[action="/addJournalEntry"] {
   }
   .cal-drawer-inner .month-label,
   .cal-drawer-inner .day-label {
-    font-size: 8px;
+    font-size: var(--fs-3xs);
   }
   .cal-drawer-inner #curYear {
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
 }
 
@@ -1083,7 +1083,7 @@ form[action="/addJournalEntry"] {
   /* color: #fff; */
 
   font: inherit;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   cursor: pointer;
 
   font-weight: 700;
@@ -1118,12 +1118,12 @@ form[action="/addJournalEntry"] {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 15px;
+  font-size: var(--fs-base);
 }
 
 .delete-label {
   color: #fff;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -1186,7 +1186,7 @@ form[action="/addJournalEntry"] {
     padding: 8px 10px;
   }
   .categories {
-    font-size: 11px;
+    font-size: var(--fs-xs);
     padding: 6px 7px;
   }
   .menu-image {
@@ -1195,22 +1195,22 @@ form[action="/addJournalEntry"] {
     margin-right: 3px;
   }
   .user-name {
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
   .rounded-profile-pic {
     width: 30px;
     height: 30px;
   }
   .firstUsrLetter {
-    font-size: 15px;
+    font-size: var(--fs-base);
   }
   .notes {
-    font-size: 13px;
+    font-size: var(--fs-sm);
     padding-bottom: 48px;
     min-height: clamp(110px, 19vh, 250px);
   }
   .tag {
-    font-size: 9px;
+    font-size: var(--fs-2xs);
     padding: 3px 7px;
   }
   .mood-box {
@@ -1218,20 +1218,20 @@ form[action="/addJournalEntry"] {
     height: 13px;
   }
   .moodContainer > h6 {
-    font-size: 10px;
+    font-size: var(--fs-2xs);
   }
   .ok {
     /* width: 94%; */
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
   #welcomeMsg {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
   #curTime {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
   .viewing-banner {
-    font-size: 12px;
+    font-size: var(--fs-xs);
     padding: 8px 12px;
   }
   .calendar-grid {
@@ -1305,10 +1305,10 @@ form[action="/addJournalEntry"] {
     flex-shrink: 0;
   }
   .firstUsrLetter {
-    font-size: 18px;
+    font-size: var(--fs-lg);
   }
   .user-name {
-    font-size: 14px;
+    font-size: var(--fs-sm);
     margin-top: 0;
   }
   .UserStreakDays {
@@ -1322,7 +1322,7 @@ form[action="/addJournalEntry"] {
   }
   .categories {
     padding: 7px 10px;
-    font-size: 13px;
+    font-size: var(--fs-sm);
     display: flex;
     align-items: center;
   }
@@ -1357,7 +1357,7 @@ form[action="/addJournalEntry"] {
   }
 
   .notes {
-    font-size: 14px;
+    font-size: var(--fs-sm);
     padding: 14px;
     padding-bottom: 60px;
     border-radius: 16px;
@@ -1377,7 +1377,7 @@ form[action="/addJournalEntry"] {
     flex-wrap: nowrap;
   }
   .tag {
-    font-size: 10px;
+    font-size: var(--fs-2xs);
     padding: 4px 8px;
     flex-shrink: 0;
   }
@@ -1387,7 +1387,7 @@ form[action="/addJournalEntry"] {
     flex-wrap: nowrap;
   }
   .moodContainer > h6 {
-    font-size: 11px;
+    font-size: var(--fs-xs);
     margin-right: 4px;
   }
   .mood-box {
@@ -1398,10 +1398,10 @@ form[action="/addJournalEntry"] {
   .ok {
     /* width: 35%; */
     /* padding: 12px; */
-    font-size: 13px;
+    font-size: var(--fs-sm);
   }
   .viewing-banner {
-    font-size: 13px;
+    font-size: var(--fs-sm);
     padding: 9px 14px;
     letter-spacing: 1px;
   }
@@ -1420,13 +1420,13 @@ form[action="/addJournalEntry"] {
   }
 
   #curTime {
-    font-size: 24px;
+    font-size: var(--fs-2xl);
   }
   #curDate {
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
   #welcomeMsg {
-    font-size: 22px;
+    font-size: var(--fs-2xl);
   }
 
   .cal-fab {
@@ -1496,10 +1496,10 @@ form[action="/addJournalEntry"] {
     flex-shrink: 0;
   }
   .firstUsrLetter {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
   .user-name {
-    font-size: 16px;
+    font-size: var(--fs-base);
     margin-top: 0;
   }
   .UserStreakDays {
@@ -1513,7 +1513,7 @@ form[action="/addJournalEntry"] {
   }
   .categories {
     padding: 8px 12px;
-    font-size: 14px;
+    font-size: var(--fs-sm);
     display: flex;
     align-items: center;
   }
@@ -1571,7 +1571,7 @@ form[action="/addJournalEntry"] {
     flex: 1;
   }
   .tag {
-    font-size: 11px;
+    font-size: var(--fs-xs);
     padding: 4px 10px;
   }
   .moodContainer {
@@ -1585,7 +1585,7 @@ form[action="/addJournalEntry"] {
   }
   .moodContainer > h6 {
     margin-right: 6px;
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
 
   .save-btn-wrapper {
@@ -1597,15 +1597,15 @@ form[action="/addJournalEntry"] {
     width: 40%;
   } */
   #welcomeMsg {
-    font-size: 26px;
+    font-size: var(--fs-2xl);
   }
   .viewing-banner {
-    font-size: 15px;
+    font-size: var(--fs-base);
     padding: 9px 14px;
     letter-spacing: 1px;
   }
   .banner-arrow-btn {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
   .cal-fab {
     display: flex;
@@ -1652,7 +1652,7 @@ form[action="/addJournalEntry"] {
     bottom: 8px;
   }
   .banner-arrow-btn {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
   /* .delete-btn {
     flex: 0;
@@ -1694,7 +1694,7 @@ form[action="/addJournalEntry"] {
     bottom: 8px;
   }
   .banner-arrow-btn {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 19px);
@@ -1709,7 +1709,7 @@ form[action="/addJournalEntry"] {
 @media (min-width: 1800px) {
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 20px);
-    /* row-gap: 3px; */
+    row-gap: 2px;
     column-gap: 6px;
   }
 }
@@ -1729,18 +1729,18 @@ form[action="/addJournalEntry"] {
 }
 @media (min-width: 2250px) {
   .calendar-grid {
-    grid-template-columns: 20px repeat(12, 21px);
-    row-gap: 3px;
-    column-gap: 11px;
-  }
-}
-@media (min-width: 2550px) {
-  .calendar-grid {
     grid-template-columns: 20px repeat(12, 22px);
-    /* row-gap: 4px; */
+    row-gap: 4px;
     column-gap: 11px;
   }
 }
+/* @media (min-width: 2550px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 24px);
+    row-gap: 8px;
+    column-gap: 12px;
+  }
+} */
 @media (min-width: 2750px) {
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 26px);
@@ -1752,6 +1752,14 @@ form[action="/addJournalEntry"] {
 /* ================================
    HEIGHT-BASED QUERIES
    ================================ */
+@media (min-width: 2550px) and (min-height: 1240px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 25px);
+    row-gap: 8px;
+    column-gap: 12px;
+  }
+}
+
 @media (min-width: 769px) and (min-height: 985px) and (max-height: 1080px) {
   .notes {
     min-height: clamp(100px, 19vh, 280px);
@@ -1794,83 +1802,83 @@ form[action="/addJournalEntry"] {
 
 /* base (desktop 1470px+) */
 #welcomeMsg {
-  font-size: 30px;
+  font-size: var(--fs-3xl);
 }
 #curTime {
-  font-size: 30px;
+  font-size: var(--fs-3xl);
 }
 #curDate {
-  font-size: 16px;
+  font-size: var(--fs-base);
 }
 .user-name {
-  font-size: 28px;
+  font-size: var(--fs-3xl);
 }
 .categories {
-  font-size: 19px;
+  font-size: var(--fs-xl);
 }
 .notes {
-  font-size: 16px;
+  font-size: var(--fs-base);
 }
 .tag {
-  font-size: 12px;
+  font-size: var(--fs-xs);
 }
 
 /* tablet 769–1180px */
 @media (min-width: 769px) and (max-width: 1180px) {
   #welcomeMsg {
-    font-size: 27px;
+    font-size: var(--fs-3xl);
   }
   #curTime {
-    font-size: 27px;
+    font-size: var(--fs-3xl);
   }
   .user-name {
-    font-size: 18px;
+    font-size: var(--fs-lg);
   }
   .categories {
-    font-size: 15px;
+    font-size: var(--fs-base);
   }
   .notes {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
 }
 
 /* mobile ≤768px */
 @media (max-width: 768px) {
   #welcomeMsg {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
   #curTime {
-    font-size: 24px;
+    font-size: var(--fs-2xl);
   }
   .notes {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
 }
 
 /* small phones ≤480px */
 @media (max-width: 480px) {
   #welcomeMsg {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
   #curTime {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
   .notes {
-    font-size: 13px;
+    font-size: var(--fs-sm);
   }
 }
 
 @media (max-height: 894px) {
   #welcomeMsg {
-    font-size: 25px;
+    font-size: var(--fs-2xl);
   }
 
   #curDate {
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
 
   #curTime {
-    font-size: 25px;
+    font-size: var(--fs-2xl);
   }
 }
 
@@ -1880,41 +1888,41 @@ form[action="/addJournalEntry"] {
 .day-part-text-0 h5,
 .day-part-text-1 h5,
 .day-part-text-2 h5 {
-  font-size: 22px;
+  font-size: var(--fs-2xl);
 }
 
 .day-part-text-0 h6,
 .day-part-text-1 h6,
 .day-part-text-2 h6 {
-  font-size: 15px;
+  font-size: var(--fs-base);
 }
 
 .month-label {
-  font-size: 16px;
+  font-size: var(--fs-base);
 }
 .day-label {
-  font-size: 16px;
+  font-size: var(--fs-base);
 }
 #curYear {
-  font-size: 32px;
+  font-size: var(--fs-3xl);
 }
 .notes {
-  font-size: 16px;
+  font-size: var(--fs-base);
 }
 .tag {
-  font-size: 11px;
+  font-size: var(--fs-xs);
 }
 .ok {
-  font-size: 14px;
+  font-size: var(--fs-sm);
 }
 .user-name {
-  font-size: 26px;
+  font-size: var(--fs-2xl);
 }
 .categories {
-  font-size: 18px;
+  font-size: var(--fs-lg);
 }
 .UserStreakDays {
-  font-size: 15px;
+  font-size: var(--fs-base);
 }
 
 /* ================================
@@ -1924,36 +1932,36 @@ form[action="/addJournalEntry"] {
   .day-part-text-0 h5,
   .day-part-text-1 h5,
   .day-part-text-2 h5 {
-    font-size: 19px;
+    font-size: var(--fs-xl);
   }
   .day-part-text-0 h6,
   .day-part-text-1 h6,
   .day-part-text-2 h6 {
-    font-size: 15px;
+    font-size: var(--fs-base);
   }
   .month-label {
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
   .day-label {
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
   #curYear {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
   .notes {
-    font-size: 15px;
+    font-size: var(--fs-base);
   }
   .tag {
-    font-size: 11px;
+    font-size: var(--fs-xs);
   }
   .ok {
-    font-size: 13px;
+    font-size: var(--fs-sm);
   }
   .user-name {
-    font-size: 22px;
+    font-size: var(--fs-2xl);
   }
   .categories {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
 }
 
@@ -1964,30 +1972,30 @@ form[action="/addJournalEntry"] {
   .day-part-text-0 h5,
   .day-part-text-1 h5,
   .day-part-text-2 h5 {
-    font-size: 18px;
+    font-size: var(--fs-lg);
   }
   .day-part-text-0 h6,
   .day-part-text-1 h6,
   .day-part-text-2 h6 {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
   .notes {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
   .tag {
-    font-size: 11px;
+    font-size: var(--fs-xs);
   }
   .ok {
-    font-size: 13px;
+    font-size: var(--fs-sm);
   }
   .user-name {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
   .categories {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
   .user-name {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
 }
 
@@ -1998,34 +2006,34 @@ form[action="/addJournalEntry"] {
   .day-part-text-0 h5,
   .day-part-text-1 h5,
   .day-part-text-2 h5 {
-    font-size: 17px;
+    font-size: var(--fs-lg);
   }
   .day-part-text-0 h6,
   .day-part-text-1 h6,
   .day-part-text-2 h6 {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
   .notes {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
   .tag {
-    font-size: 10px;
+    font-size: var(--fs-2xs);
   }
   .ok {
-    font-size: 13px;
+    font-size: var(--fs-sm);
   }
   #welcomeMsg {
-    font-size: 23px;
+    font-size: var(--fs-2xl);
   }
   #curTime {
-    font-size: 22px;
+    font-size: var(--fs-2xl);
   }
   #curDate {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
 
   .user-name {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
 }
 
@@ -2036,7 +2044,7 @@ form[action="/addJournalEntry"] {
   .day-part-text-0 h5,
   .day-part-text-1 h5,
   .day-part-text-2 h5 {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
 
   .day-row {
@@ -2045,13 +2053,13 @@ form[action="/addJournalEntry"] {
   }
 
   .notes {
-    font-size: 13px;
+    font-size: var(--fs-sm);
   }
   .tag {
-    font-size: 9px;
+    font-size: var(--fs-2xs);
   }
   .ok {
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
 
   .categories {
@@ -2062,35 +2070,35 @@ form[action="/addJournalEntry"] {
     height: 24px;
   } */
   #welcomeMsg {
-    font-size: 21px;
+    font-size: var(--fs-xl);
   }
   #curTime {
-    font-size: 20px;
+    font-size: var(--fs-xl);
   }
   #curDate {
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
 }
 
 @media (max-width: 768px) {
   .categories {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
 }
 
 @media (max-width: 693px) {
   .categories {
-    font-size: 13px;
+    font-size: var(--fs-sm);
   }
 }
 
 @media (max-width: 650px) {
   .categories {
-    font-size: 13px;
+    font-size: var(--fs-sm);
   }
 
   .user-name {
-    font-size: 18px;
+    font-size: var(--fs-lg);
   }
 }
 
@@ -2112,12 +2120,12 @@ form[action="/addJournalEntry"] {
 
   .ok {
     padding: 10px 30px;
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
 
   .delete-btn {
     padding: 10px 30px;
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
 
   /* .delete-label {
@@ -2128,7 +2136,7 @@ form[action="/addJournalEntry"] {
     align-items: center;
     justify-content: center;
 
-    font-size: 18px;
+    font-size: var(--fs-lg);
   } */
 }
 
@@ -2168,19 +2176,19 @@ form[action="/addJournalEntry"] {
 
 @media (max-width: 687px) {
   .tag {
-    font-size: 8px;
+    font-size: var(--fs-3xs);
   }
 }
 
 @media (max-width: 294px) {
   #welcomeMsg {
-    font-size: 18px;
+    font-size: var(--fs-lg);
   }
   #curTime {
-    font-size: 18px;
+    font-size: var(--fs-lg);
   }
   #curDate {
-    font-size: 10px;
+    font-size: var(--fs-2xs);
   }
 }
 
@@ -2205,7 +2213,7 @@ form[action="/addJournalEntry"] {
     border: 1.5px dashed #c5c8dc;
     border-radius: 999px;
     font: inherit;
-    font-size: 10px;
+    font-size: var(--fs-2xs);
     letter-spacing: 0.04em;
     color: #6b6f8a;
   }
@@ -2271,7 +2279,7 @@ form[action="/addJournalEntry"] {
   }
 
   .ti-tag {
-    font-size: 12px;
+    font-size: var(--fs-xs);
   }
 
   .tags-toggle {
@@ -2301,7 +2309,7 @@ form[action="/addJournalEntry"] {
   }
 
   #welcomeMsg {
-    font-size: 17px;
+    font-size: var(--fs-lg);
     text-align: left;
   }
 }
@@ -2309,11 +2317,11 @@ form[action="/addJournalEntry"] {
 @media (max-width: 456px) {
   .ok {
     padding: 10px 20px;
-    font-size: 10px;
+    font-size: var(--fs-2xs);
   }
 
   .delete-btn {
     padding: 10px 20px;
-    font-size: 10px;
+    font-size: var(--fs-2xs);
   }
 }

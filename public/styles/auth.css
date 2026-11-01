@@ -28,12 +28,12 @@ body {
 }
 
 .brand-name {
-  font-size: 70px;
+  font-size: var(--fs-7xl);
   color: #fff;
 }
 
 .brand-sub {
-  font-size: 35px;
+  font-size: var(--fs-4xl);
   color: rgba(255, 255, 255, 0.6);
   font-weight: 300;
   margin-top: 10px;
@@ -62,7 +62,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: var(--fs-xl);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
   flex-shrink: 0;
@@ -70,14 +70,14 @@ body {
 
 .step-text strong {
   display: block;
-  font-size: 28px;
+  font-size: var(--fs-3xl);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 2px;
 }
 
 .step-text span {
-  font-size: 24px;
+  font-size: var(--fs-2xl);
   font-weight: 300;
   color: rgba(255, 255, 255, 0.52);
   line-height: 1.5;
@@ -97,14 +97,14 @@ body {
 }
 
 .testimonial-text {
-  font-size: 26px;
+  font-size: var(--fs-2xl);
   font-weight: 200;
   font-style: italic;
   color: rgba(255, 255, 255, 0.82);
 }
 
 .t-author {
-  font-size: 19px;
+  font-size: var(--fs-xl);
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.42);
   margin-top: 10px;
@@ -112,7 +112,7 @@ body {
 
 /* already/signup link */
 .already {
-  font-size: 26px;
+  font-size: var(--fs-2xl);
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -145,7 +145,7 @@ body {
 
 /* titles */
 .login-titles h4 {
-  font-size: 26px;
+  font-size: var(--fs-2xl);
   font-weight: 500;
   letter-spacing: 2px;
   color: #a0a4cc;
@@ -153,7 +153,7 @@ body {
 }
 
 .login-titles h1 {
-  font-size: 63px;
+  font-size: var(--fs-6xl);
   color: #1e2140;
   line-height: 1.15;
 }
@@ -182,7 +182,7 @@ body {
   padding: 10px 12px;
   border-radius: 8px;
   margin-bottom: 14px;
-  font-size: 1.1rem;
+  font-size: var(--fs-lg);
 }
 
 .form-row-2 {
@@ -199,7 +199,7 @@ body {
 }
 
 .form-label {
-  font-size: 18px;
+  font-size: var(--fs-lg);
   font-weight: 500;
   letter-spacing: 1.2px;
   text-transform: uppercase;
@@ -213,7 +213,7 @@ body {
   padding: 15px;
   border: 1.5px solid rgba(88, 112, 192, 0.15);
   border-radius: 12px;
-  font-size: 25px;
+  font-size: var(--fs-2xl);
   font-weight: 400;
   color: #1e2140;
   outline: none;
@@ -227,7 +227,7 @@ body {
 .form-input::placeholder {
   color: rgba(80, 90, 160, 0.28);
   font-style: italic;
-  font-size: 20px;
+  font-size: var(--fs-xl);
 }
 
 .form-input:focus {
@@ -257,7 +257,7 @@ body {
 }
 
 #strengthLabel {
-  font-size: 1.2rem;
+  font-size: var(--fs-xl);
 }
 
 .strength-seg.weak {
@@ -281,7 +281,7 @@ body {
 
 .password-message {
   margin-top: 6px;
-  font-size: 1.2rem;
+  font-size: var(--fs-xl);
 }
 
 .success-text {
@@ -301,7 +301,7 @@ body {
   color: #fff;
   border: none;
   border-radius: 12px;
-  font-size: 20px;
+  font-size: var(--fs-xl);
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -339,7 +339,7 @@ button:disabled {
 }
 
 .divider-text {
-  font-size: 15px;
+  font-size: var(--fs-base);
   color: #b0b4d0;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -348,7 +348,7 @@ button:disabled {
 /* signup row — login only */
 .signup-row {
   text-align: center;
-  font-size: 27px;
+  font-size: var(--fs-3xl);
   color: #8888b0;
 }
 
@@ -383,11 +383,11 @@ button:disabled {
   }
 
   .brand-name {
-    font-size: 36px;
+    font-size: var(--fs-4xl);
   }
 
   .brand-sub {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
 
   .steps {
@@ -396,23 +396,23 @@ button:disabled {
   }
 
   .step-text strong {
-    font-size: 18px;
+    font-size: var(--fs-lg);
   }
 
   .step-text span {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
 
   .testimonial-text {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
 
   .t-author {
-    font-size: 13px;
+    font-size: var(--fs-sm);
   }
 
   .already {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
 
   .form-wrapper {
@@ -422,29 +422,29 @@ button:disabled {
   }
 
   .login-titles h4 {
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
 
   .login-titles h1 {
-    font-size: 30px;
+    font-size: var(--fs-3xl);
   }
 
   .form-label {
-    font-size: 13px;
+    font-size: var(--fs-sm);
   }
 
   .form-input {
-    font-size: 16px;
+    font-size: var(--fs-base);
     height: 46px;
   }
 
   .form-input::placeholder {
-    font-size: 14px;
+    font-size: var(--fs-sm);
   }
 
   .login-btn {
     height: 50px;
-    font-size: 16px;
+    font-size: var(--fs-base);
   }
 
   .divider {
@@ -452,7 +452,7 @@ button:disabled {
   }
 
   .signup-row {
-    font-size: 15px;
+    font-size: var(--fs-base);
   }
 }
 
