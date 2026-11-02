@@ -1248,6 +1248,24 @@ form[action="/addJournalEntry"] {
     bottom: 5px;
     right: 5px;
   }
+  .day-part-text-0 h5,
+  .day-part-text-1 h5,
+  .day-part-text-2 h5 {
+    font-size: var(--fs-sm);
+  }
+  .day-row {
+    --dot-size: 10px;
+    --dot-top: 21px;
+  }
+  .categories {
+    font-size: 0px;
+  }
+  #welcomeMsg {
+    font-size: var(--fs-xl);
+  }
+  #curDate {
+    font-size: var(--fs-xs);
+  }
 }
 
 /* ================================
@@ -1440,6 +1458,25 @@ form[action="/addJournalEntry"] {
   /* .delete-btn {
     flex: 0;
   } */
+  .day-part-text-0 h5,
+  .day-part-text-1 h5,
+  .day-part-text-2 h5 {
+    font-size: var(--fs-lg);
+  }
+  .day-part-text-0 h6,
+  .day-part-text-1 h6,
+  .day-part-text-2 h6 {
+    font-size: var(--fs-sm);
+  }
+  #curDate {
+    font-size: var(--fs-sm);
+  }
+  .user-name {
+    font-size: var(--fs-xl);
+  }
+  .categories {
+    font-size: var(--fs-base);
+  }
 }
 
 /* ================================
@@ -1615,6 +1652,49 @@ form[action="/addJournalEntry"] {
   /* .delete-btn {
     flex: 0;
   } */
+  #welcomeMsg {
+    font-size: var(--fs-3xl);
+  }
+  #curTime {
+    font-size: var(--fs-3xl);
+  }
+  .user-name {
+    font-size: var(--fs-lg);
+  }
+  .categories {
+    font-size: var(--fs-base);
+  }
+  .notes {
+    font-size: var(--fs-sm);
+  }
+  .day-part-text-0 h5,
+  .day-part-text-1 h5,
+  .day-part-text-2 h5 {
+    font-size: var(--fs-lg);
+  }
+  .day-part-text-0 h6,
+  .day-part-text-1 h6,
+  .day-part-text-2 h6 {
+    font-size: var(--fs-sm);
+  }
+  .notes {
+    font-size: var(--fs-sm);
+  }
+  .tag {
+    font-size: var(--fs-xs);
+  }
+  .ok {
+    font-size: var(--fs-sm);
+  }
+  .user-name {
+    font-size: var(--fs-base);
+  }
+  .categories {
+    font-size: var(--fs-base);
+  }
+  .user-name {
+    font-size: var(--fs-xl);
+  }
 }
 
 /* ================================
@@ -1661,6 +1741,40 @@ form[action="/addJournalEntry"] {
     grid-template-columns: 20px repeat(12, 18px);
     column-gap: 3px;
     /* row-gap: 4px; */
+  }
+  .day-part-text-0 h5,
+  .day-part-text-1 h5,
+  .day-part-text-2 h5 {
+    font-size: var(--fs-xl);
+  }
+  .day-part-text-0 h6,
+  .day-part-text-1 h6,
+  .day-part-text-2 h6 {
+    font-size: var(--fs-base);
+  }
+  .month-label {
+    font-size: var(--fs-xs);
+  }
+  .day-label {
+    font-size: var(--fs-xs);
+  }
+  #curYear {
+    font-size: var(--fs-base);
+  }
+  .notes {
+    font-size: var(--fs-base);
+  }
+  .tag {
+    font-size: var(--fs-xs);
+  }
+  .ok {
+    font-size: var(--fs-sm);
+  }
+  .user-name {
+    font-size: var(--fs-2xl);
+  }
+  .categories {
+    font-size: var(--fs-base);
   }
 }
 
@@ -1823,51 +1937,6 @@ form[action="/addJournalEntry"] {
   font-size: var(--fs-xs);
 }
 
-/* tablet 769–1180px */
-@media (min-width: 769px) and (max-width: 1180px) {
-  #welcomeMsg {
-    font-size: var(--fs-3xl);
-  }
-  #curTime {
-    font-size: var(--fs-3xl);
-  }
-  .user-name {
-    font-size: var(--fs-lg);
-  }
-  .categories {
-    font-size: var(--fs-base);
-  }
-  .notes {
-    font-size: var(--fs-sm);
-  }
-}
-
-/* mobile ≤768px */
-@media (max-width: 768px) {
-  #welcomeMsg {
-    font-size: var(--fs-xl);
-  }
-  #curTime {
-    font-size: var(--fs-2xl);
-  }
-  .notes {
-    font-size: var(--fs-sm);
-  }
-}
-
-/* small phones ≤480px */
-@media (max-width: 480px) {
-  #welcomeMsg {
-    font-size: var(--fs-base);
-  }
-  #curTime {
-    font-size: var(--fs-xl);
-  }
-  .notes {
-    font-size: var(--fs-sm);
-  }
-}
-
 @media (max-height: 894px) {
   #welcomeMsg {
     font-size: var(--fs-2xl);
@@ -1923,167 +1992,6 @@ form[action="/addJournalEntry"] {
 }
 .UserStreakDays {
   font-size: var(--fs-base);
-}
-
-/* ================================
-   SMALL DESKTOP (1180–1470px)
-   ================================ */
-@media (min-width: 1180px) and (max-width: 1470px) {
-  .day-part-text-0 h5,
-  .day-part-text-1 h5,
-  .day-part-text-2 h5 {
-    font-size: var(--fs-xl);
-  }
-  .day-part-text-0 h6,
-  .day-part-text-1 h6,
-  .day-part-text-2 h6 {
-    font-size: var(--fs-base);
-  }
-  .month-label {
-    font-size: var(--fs-xs);
-  }
-  .day-label {
-    font-size: var(--fs-xs);
-  }
-  #curYear {
-    font-size: var(--fs-base);
-  }
-  .notes {
-    font-size: var(--fs-base);
-  }
-  .tag {
-    font-size: var(--fs-xs);
-  }
-  .ok {
-    font-size: var(--fs-sm);
-  }
-  .user-name {
-    font-size: var(--fs-2xl);
-  }
-  .categories {
-    font-size: var(--fs-base);
-  }
-}
-
-/* ================================
-   TABLET (769–1180px)
-   ================================ */
-@media (min-width: 769px) and (max-width: 1180px) {
-  .day-part-text-0 h5,
-  .day-part-text-1 h5,
-  .day-part-text-2 h5 {
-    font-size: var(--fs-lg);
-  }
-  .day-part-text-0 h6,
-  .day-part-text-1 h6,
-  .day-part-text-2 h6 {
-    font-size: var(--fs-sm);
-  }
-  .notes {
-    font-size: var(--fs-sm);
-  }
-  .tag {
-    font-size: var(--fs-xs);
-  }
-  .ok {
-    font-size: var(--fs-sm);
-  }
-  .user-name {
-    font-size: var(--fs-base);
-  }
-  .categories {
-    font-size: var(--fs-base);
-  }
-  .user-name {
-    font-size: var(--fs-xl);
-  }
-}
-
-/* ================================
-   MOBILE (≤768px)
-   ================================ */
-@media (max-width: 768px) {
-  .day-part-text-0 h5,
-  .day-part-text-1 h5,
-  .day-part-text-2 h5 {
-    font-size: var(--fs-lg);
-  }
-  .day-part-text-0 h6,
-  .day-part-text-1 h6,
-  .day-part-text-2 h6 {
-    font-size: var(--fs-sm);
-  }
-  .notes {
-    font-size: var(--fs-sm);
-  }
-  .tag {
-    font-size: var(--fs-2xs);
-  }
-  .ok {
-    font-size: var(--fs-sm);
-  }
-  #welcomeMsg {
-    font-size: var(--fs-2xl);
-  }
-  #curTime {
-    font-size: var(--fs-2xl);
-  }
-  #curDate {
-    font-size: var(--fs-sm);
-  }
-
-  .user-name {
-    font-size: var(--fs-xl);
-  }
-}
-
-/* ================================
-   SMALL PHONE (≤480px)
-   ================================ */
-@media (max-width: 480px) {
-  .day-part-text-0 h5,
-  .day-part-text-1 h5,
-  .day-part-text-2 h5 {
-    font-size: var(--fs-sm);
-  }
-
-  .day-row {
-    --dot-size: 10px;
-    --dot-top: 21px;
-  }
-
-  .notes {
-    font-size: var(--fs-sm);
-  }
-  .tag {
-    font-size: var(--fs-2xs);
-  }
-  .ok {
-    font-size: var(--fs-xs);
-  }
-
-  .categories {
-    font-size: 0px;
-  }
-  /* .categories .menu-image {
-    width: 24px;
-    height: 24px;
-  } */
-  #welcomeMsg {
-    font-size: var(--fs-xl);
-  }
-  #curTime {
-    font-size: var(--fs-xl);
-  }
-  #curDate {
-    font-size: var(--fs-xs);
-  }
-}
-
-@media (max-width: 768px) {
-  .categories {
-    font-size: var(--fs-base);
-  }
 }
 
 @media (max-width: 693px) {

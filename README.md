@@ -4,6 +4,8 @@ A web-based mood tracker for logging how you feel throughout the day and spottin
 
 > **Work in progress.** This is a personal project I'm actively building and refining.
 
+**Live demo:** [https://mood-tracker-p7x7.onrender.com]
+
 ## Why I built this
 
 The idea came from a personal need. I wanted to track my mood and understand whether my daily habits were affecting how I felt.

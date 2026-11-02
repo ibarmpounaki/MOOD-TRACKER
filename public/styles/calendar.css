@@ -1,0 +1,429 @@
+/* ================================
+   CALENDAR — year grid, legend, floating button, drawer
+   ================================ */
+
+/* ---------- Side panel ---------- */
+.calendar-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: auto;
+}
+
+#curYear {
+  margin: 0 0 15px 0;
+  text-align: center;
+  font-size: var(--fs-3xl);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: 20px repeat(12, 19px);
+  row-gap: 0;
+  column-gap: 6px;
+  margin: 0 0 10px 0;
+}
+
+.month-label {
+  text-align: center;
+  font-weight: bold;
+  font-size: var(--fs-sm);
+}
+
+.day-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-base);
+  color: #666;
+}
+
+/* ---------- Day cells ---------- */
+.day {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.15s;
+  position: relative;
+}
+
+.day:hover {
+  background: #d0d0d0;
+}
+
+.day.selected {
+  border: 2px solid rgb(101, 101, 101);
+}
+
+.emptyDay {
+  aspect-ratio: 1;
+  background: transparent;
+  transition: 0.15s;
+}
+
+.futureDay {
+  background: var(--mood-empty);
+  opacity: 0.45;
+  border: 1px solid var(--mood-empty);
+  box-sizing: border-box; /* same size as the filled cells */
+  pointer-events: none;
+}
+
+.today {
+  border: none;
+  color: white;
+  animation: todayPulse 1.3s infinite ease-in-out;
+}
+
+@keyframes todayPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(91, 119, 196, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(91, 119, 196, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(91, 119, 196, 0);
+  }
+}
+
+/* tooltip on hover */
+.day-popup {
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: white;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.15s;
+  z-index: 100;
+}
+
+.day:hover .day-popup {
+  opacity: 1;
+}
+
+.day-popup::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #222;
+}
+
+/* ---------- Legend ---------- */
+.calendar-legend {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-base);
+  color: #5f5b78;
+}
+
+.legend-scale,
+.legend-keys {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.legend-keys {
+  gap: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-text {
+  margin: 0 4px;
+}
+
+.legend-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.legend-today {
+  background: transparent;
+  border: 2px solid #1d1a33;
+  box-sizing: border-box;
+}
+
+/* ---------- Floating button + drawer (smaller screens) ---------- */
+.cal-fab {
+  display: none;
+  position: fixed;
+  bottom: 16px;
+  right: 19px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--brand-gradient);
+  border: none;
+  font-size: var(--fs-xl);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(88, 112, 192, 0.45);
+  z-index: 100;
+  transition: transform 0.2s;
+}
+
+.cal-fab:hover {
+  transform: scale(1.08);
+}
+
+.cal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 33, 64, 0.45);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal-overlay.open {
+  display: flex;
+}
+
+.cal-drawer {
+  background: #fff;
+  border-radius: 20px;
+  width: 80%;
+  max-width: 480px;
+  max-height: 85vh;
+  padding: 10px 16px;
+  overflow-y: auto;
+  transition: transform 0.3s cubic-bezier(0.32, 1, 0.56, 1);
+}
+
+.cal-overlay.open .cal-drawer {
+  transform: translateY(0);
+}
+
+.cal-drawer-inner {
+  overflow-x: auto;
+}
+
+/* drawer grid — small phones (≤480px) */
+.cal-drawer-inner .calendar-grid {
+  grid-template-columns: 15px repeat(12, 15px);
+  column-gap: 3px;
+  row-gap: 3px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cal-drawer-inner .month-label,
+.cal-drawer-inner .day-label {
+  font-size: var(--fs-xs);
+}
+
+.cal-drawer-inner #curYear {
+  font-size: var(--fs-lg);
+  margin: 10px 0;
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+/* below large desktop: hide side panel, show the floating button */
+@media (max-width: 1469.98px) {
+  .calendar-card {
+    visibility: hidden;
+    position: absolute;
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+  }
+  .cal-fab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .cal-fab {
+    bottom: 5px;
+    right: 5px;
+  }
+}
+
+/* side grid on big screens */
+@media (min-width: 1800px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 20px);
+    row-gap: 2px;
+    column-gap: 6px;
+  }
+}
+@media (min-width: 2000px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 19px);
+    column-gap: 11px;
+  }
+}
+@media (min-width: 2100px) {
+  .calendar-grid {
+    column-gap: 10px;
+  }
+}
+@media (min-width: 2250px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 22px);
+    row-gap: 4px;
+    column-gap: 11px;
+  }
+}
+@media (min-width: 2750px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 26px);
+    row-gap: 5px;
+    column-gap: 13px;
+  }
+}
+@media (min-width: 2550px) and (min-height: 1240px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 25px);
+    row-gap: 8px;
+    column-gap: 12px;
+  }
+}
+
+/* ---------- Drawer grid by width ---------- */
+@media (min-width: 481px) and (max-width: 768px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 18px repeat(12, 18px);
+    column-gap: 4px;
+    row-gap: 4px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: var(--fs-sm);
+  }
+  .cal-drawer-inner #curYear {
+    font-size: var(--fs-xl);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1180px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 20px repeat(12, 20px);
+    column-gap: 5px;
+    row-gap: 5px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: var(--fs-sm);
+  }
+  .cal-drawer-inner #curYear {
+    font-size: var(--fs-2xl);
+  }
+}
+
+@media (min-width: 1181px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 22px repeat(12, 22px);
+    column-gap: 5px;
+    row-gap: 5px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: var(--fs-base);
+  }
+  .cal-drawer-inner #curYear {
+    font-size: var(--fs-2xl);
+  }
+}
+
+/* ---------- Drawer grid by height ----------
+   The drawer must fit 32 rows (months + 31 days) in 85vh, so height
+   usually runs out first. These come after the width rules so a short
+   screen always wins, whatever its width. */
+@media (max-height: 1040px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 20px repeat(12, 20px);
+    column-gap: 5px;
+    row-gap: 5px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: var(--fs-sm);
+  }
+  .cal-drawer-inner #curYear {
+    font-size: var(--fs-xl);
+  }
+}
+
+@media (max-height: 900px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 17px repeat(12, 17px);
+    column-gap: 4px;
+    row-gap: 4px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: var(--fs-xs);
+  }
+  .cal-drawer-inner #curYear {
+    font-size: var(--fs-lg);
+  }
+}
+
+@media (max-height: 760px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 13px repeat(12, 13px);
+    column-gap: 7px;
+    row-gap: 3px;
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: var(--fs-2xs);
+  }
+  .cal-drawer-inner #curYear {
+    font-size: var(--fs-base);
+  }
+}
+
+@media (max-height: 600px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 10px repeat(12, 10px);
+    column-gap: 2px;
+    row-gap: 2px;
+  }
+  .cal-drawer-inner #curYear {
+    font-size: var(--fs-sm);
+  }
+}
+
+/* floor: below this the drawer scrolls instead (e.g. phones in landscape) */
+@media (max-height: 520px) {
+  .cal-drawer-inner .calendar-grid {
+    grid-template-columns: 9px repeat(12, 9px);
+  }
+  .cal-drawer-inner .month-label,
+  .cal-drawer-inner .day-label {
+    font-size: var(--fs-3xs);
+  }
+  .cal-drawer-inner #curYear {
+    font-size: var(--fs-xs);
+  }
+}
