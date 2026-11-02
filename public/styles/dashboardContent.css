@@ -1698,7 +1698,7 @@ form[action="/addJournalEntry"] {
   }
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 19px);
-    /* row-gap: 3px; */
+    row-gap: 0px;
     column-gap: 6px;
   }
 }
@@ -1898,7 +1898,7 @@ form[action="/addJournalEntry"] {
 }
 
 .month-label {
-  font-size: var(--fs-base);
+  font-size: var(--fs-sm);
 }
 .day-label {
   font-size: var(--fs-base);
@@ -2328,8 +2328,54 @@ form[action="/addJournalEntry"] {
 
 .futureDay {
   background: #e2dff3;
-  opacity: 0.35;
+  opacity: 0.45;
   border: 1px solid #e2dff3;
   box-sizing: border-box; /* keeps it the same size as the filled cells */
-  cursor: default;
+  pointer-events: none;
+}
+
+.calendar-legend {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-base);
+  color: #5f5b78;
+}
+
+.legend-scale,
+.legend-keys {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.legend-keys {
+  gap: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-text {
+  margin: 0 4px;
+}
+
+.legend-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.legend-today {
+  background: transparent;
+  border: 2px solid #1d1a33;
+  box-sizing: border-box;
 }

@@ -107,7 +107,7 @@
                                 data-year="<%= todayYear %>"
 
                                 <% <!-- if mood exists, apply its color. If not, apply default --> %>
-                                style="background: <%= moodMap[key] || '#e2dff3' %>; opacity: 0.7;"                                >
+                                style="background: <%= moodMap[key] || '#e2dff3' %>; opacity: 0.8;"                                >
                                 <% if (moodMap[key]) { %>
                                     <div class="day-popup">
                                         Mood: <%= colorsToMoods[color] %>
@@ -117,7 +117,7 @@
 
                         <% } else { %>
                             
-                            <div class="futureDay"
+                            <div class="day futureDay"
                                 data-day="<%= day %>"
                                 data-month="<%= month %>"
                                 data-year="<%= todayYear %>">
@@ -143,4 +143,27 @@
 
     </div>
 
+        <div class="calendar-legend">
+        <div class="legend-scale">
+            <span class="legend-text">Bad</span>
+            <span class="legend-box" style="background: #CDBDF3;" title="Bad"></span>
+            <span class="legend-box" style="background: #B09DEC;" title="Okay"></span>
+            <span class="legend-box" style="background: #8C72E0;" title="Good"></span>
+            <span class="legend-box" style="background: #6849CF;" title="Great"></span>
+            <span class="legend-box" style="background: #4527A8;" title="Excellent"></span>
+            <span class="legend-text">Excellent</span>
+        </div>
+
+        <div class="legend-keys">
+            <span class="legend-item">
+            <span class="legend-box" style="background: #e2dff3;"></span> Not logged
+            </span>
+            <span class="legend-item">
+            <span class="legend-box" style="background: #e2dff3; opacity: 0.55;"></span> Upcoming
+            </span>
+            <span class="legend-item">
+            <span class="legend-box legend-today"></span> Selected
+            </span>
+        </div>
+    </div>
 </section>

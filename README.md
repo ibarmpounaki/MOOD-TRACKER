@@ -31,6 +31,8 @@ Over time, you should be able to look back at your mood and habits across a day,
 
 - **Frontend:** HTML, CSS, JavaScript, EJS templates
 - **Backend:** Node.js / Express
+- **Database:** PostgreSQL
+- **Auth:** bcrypt (password hashing), express-session (sessions)
 - **Icons:** Tabler Icons
 
 ## Getting started
