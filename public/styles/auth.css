@@ -371,7 +371,7 @@ button:disabled {
   }
 
   .right-panel {
-    order: 1;
+    order: 2;
     flex: none;
     padding: 40px 24px;
   }

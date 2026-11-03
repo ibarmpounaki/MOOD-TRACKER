@@ -115,10 +115,10 @@ const testDay = document.querySelector(".day, button.today");
   const calCard = document.querySelector(".calendar-card");
 
   fab.addEventListener("click", () => {
-    console.log("fab clicked");
-    console.log("overlay element:", overlay);
+    // console.log("fab clicked");
+    // console.log("overlay element:", overlay);
     overlay.classList.add("open");
-    console.log("overlay classes:", overlay.className);
+    // console.log("overlay classes:", overlay.className);
     document.body.style.overflow = "hidden";
   });
 
@@ -126,8 +126,8 @@ const testDay = document.querySelector(".day, button.today");
     // clone the real calendar into the drawer
     const clone = calCard.cloneNode(true);
 
-    console.log("clone innerHTML length:", clone.innerHTML.length);
-    console.log("clone children:", clone.children.length);
+    // console.log("clone innerHTML length:", clone.innerHTML.length);
+    // console.log("clone children:", clone.children.length);
 
     clone.style.display = "block";
     clone.style.visibility = "visible";
@@ -145,8 +145,12 @@ const testDay = document.querySelector(".day, button.today");
     clone.querySelectorAll(".day, button.today").forEach((dayEl) => {
       dayEl.addEventListener("click", function () {
         clickDay(this.dataset.day, this.dataset.month, this.dataset.year);
-        closeOverlay();
+        // closeOverlay();
       });
+    });
+
+    overlay.querySelector(".cal-done").addEventListener("click", function () {
+      closeOverlay();
     });
 
     fab.addEventListener("click", () => {

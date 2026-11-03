@@ -259,12 +259,6 @@ function handleDayClick(dayEl) {
           periodMoodEntry?.mood_name;
         document.querySelector(`input[name='selectedcolor-${index}']`).value =
           periodMoodEntry?.mood_color;
-
-        // console.log(
-        //   "COLOR: " +
-        //     document.querySelector(`input[name='selectedcolor-${index}']`)
-        //       .value,
-        // );
       });
 
       // select the saved tags for each period (if any exist)

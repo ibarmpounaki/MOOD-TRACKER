@@ -59,6 +59,24 @@
 
     </section>
 
+    <!-- floating calendar button — mobile only -->
+    <button type="button" class="cal-fab" id="calFab" aria-label="Open calendar">
+      <i class="ti ti-calendar" aria-hidden="true"></i>
+    </button>
+    <!-- calendar overlay — mobile only -->
+    <div class="cal-overlay" id="calOverlay">
+        <div class="cal-drawer" id="calDrawer">
+          
+            <div class="cal-drawer-inner" id="calDrawerInner">
+                <!-- calendar content injected here by JS -->
+            </div>
+            
+            <div class="cal-drawer-footer">
+              <button type="button" class="cal-done" id="calClose">Done</button>
+            </div>
+        </div>
+    </div>
+
     <%-include("partials/calendar.ejs")%>
 
   </main>

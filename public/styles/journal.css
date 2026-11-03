@@ -31,6 +31,7 @@ form[action="/addJournalEntry"] {
   justify-content: space-between;
   position: sticky;
   z-index: 100;
+  border-radius: 0px 10px 0px 0px;
 }
 
 .banner-arrow-btn {
@@ -502,7 +503,7 @@ form[action="/addJournalEntry"] {
   }
   .save-btn-wrapper {
     height: 60px;
-    padding: 0;
+    /* padding: 0; */
   }
 }
 

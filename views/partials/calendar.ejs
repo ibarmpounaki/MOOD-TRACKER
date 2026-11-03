@@ -38,16 +38,14 @@
 
 <!-- Right big box -->
 <section class="card calendar-card">
-    <div>
-        <h2 id="curYear"> <%= todayYear %> </h2>
-    </div>
+    <h2 id="curYear"> <%= todayYear %> </h2>
 
     <!-- Month header row -->
     <div class="calendar-grid">
 
         <!-- top-left empty corner. in order to keep an empty position before January -->
-        <div></div>
-
+        <div class="month-label"></div>
+        
         <% const months = ["J","F","M","A","M","J","J","A","S","O","N","D"]; %>
 
         <% months.forEach(m => { %>
