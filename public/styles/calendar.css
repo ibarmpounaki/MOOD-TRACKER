@@ -141,13 +141,21 @@
 
 /* ---------- Legend ---------- */
 .calendar-legend {
-  margin-top: 16px;
+  /* margin-top: 16px; */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   font-size: var(--fs-base);
   color: #5f5b78;
+  position: sticky;
+  bottom: -20px;
+  z-index: 3;
+  margin-top: 0;
+  margin-bottom: -20px;
+  padding: 14px 0 20px;
+  background: #f0edf8;
+  width: 100%;
 }
 
 .legend-scale,
@@ -211,7 +219,6 @@
 }
 
 /* ---------- Overlay + drawer ---------- */
-
 .cal-drawer-inner .month-label {
   background: #fff;
   box-shadow: 0 -16px 0 #fff;
@@ -269,7 +276,6 @@
 
 .cal-drawer-inner #curYear {
   font-size: var(--fs-lg);
-  /* margin: 10px 0; */
   top: 0;
   margin-top: 0;
   padding-top: 0;
@@ -280,6 +286,14 @@
 .cal-drawer-inner #curYear,
 .cal-drawer-inner .month-label {
   background: #fff;
+}
+
+.cal-drawer-inner .calendar-legend {
+  bottom: 60px;
+  /* margin-bottom: 0;
+  padding-bottom: 0px; */
+  background: #fff;
+  box-shadow: 0 -10px 0 #fff;
 }
 
 /* ---------- Done button ---------- */
