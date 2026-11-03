@@ -47,6 +47,7 @@ form[action="/addJournalEntry"] {
   justify-content: center;
   flex-shrink: 0;
   transition: background 0.15s;
+  font-size: 20px;
 }
 
 .banner-arrow-btn:hover {
@@ -227,8 +228,10 @@ form[action="/addJournalEntry"] {
   resize: none;
   overflow-y: auto;
   min-height: clamp(130px, 20vh, 280px);
+  padding-bottom: 8px;
+  border-bottom: 48px solid transparent; /* space for the bar */
+  background-origin: border-box;
 }
-
 .notes-0 {
   background: linear-gradient(to left, #f5edd8 0%, #fff8e052 90%);
 }
@@ -548,10 +551,24 @@ form[action="/addJournalEntry"] {
     width: 14px;
     height: 14px;
   }
+
+  .day-part-text-0 h5,
+  .day-part-text-1 h5,
+  .day-part-text-2 h5 {
+    font-size: var(--fs-l);
+  }
+
+  .day-part-text-0 h6,
+  .day-part-text-1 h6,
+  .day-part-text-2 h6 {
+    color: #7a8fc4cc;
+    font-size: var(--fs-xs);
+    font-weight: 400;
+  }
 }
 
 /* tags become a dropdown */
-@media (max-width: 696px) {
+@media (max-width: 725px) {
   .tags-dropdown {
     position: relative;
   }
@@ -580,9 +597,9 @@ form[action="/addJournalEntry"] {
   .tags-dropdown .tags-menu {
     display: none;
     position: absolute;
-    bottom: calc(100% + 6px);
+    bottom: calc(100% + -10px);
     left: 0;
-    z-index: 20;
+    z-index: 150;
     flex-direction: column;
     gap: 4px;
     min-width: 190px;
@@ -614,7 +631,7 @@ form[action="/addJournalEntry"] {
 
 @media (max-width: 687px) {
   .tag {
-    font-size: var(--fs-3xs);
+    font-size: var(--fs-2xs);
   }
 }
 
@@ -635,8 +652,8 @@ form[action="/addJournalEntry"] {
 @media (max-width: 456px) {
   .ok,
   .delete-btn {
-    padding: 10px 20px;
-    font-size: var(--fs-2xs);
+    padding: 10px 25px;
+    font-size: var(--fs-xs);
   }
 }
 

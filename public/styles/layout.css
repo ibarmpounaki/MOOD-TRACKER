@@ -148,7 +148,7 @@
 
 .user-name {
   margin-top: 6px;
-  font-size: var(--fs-2xl);
+  font-size: var(--fs-xl);
   font-weight: 600;
   color: var(--text-name);
 }
@@ -166,7 +166,7 @@
 
 .categories {
   padding: 18px 20px;
-  font-size: var(--fs-lg);
+  font-size: var(--fs-base);
   font-weight: 600;
   color: #5870c06e;
   gap: 10px;
@@ -342,7 +342,7 @@
 }
 
 /* icons only in the menu */
-@media (max-width: 626px) {
+@media (max-width: 637px) {
   .categories {
     font-size: 0;
     margin-left: 13px;

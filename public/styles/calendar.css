@@ -22,12 +22,18 @@
   row-gap: 0;
   column-gap: 6px;
   margin: 0 0 10px 0;
+  overflow-y: auto;
 }
 
 .month-label {
   text-align: center;
   font-weight: bold;
   font-size: var(--fs-sm);
+  position: sticky;
+  top: 0;
+  z-index: 2; /* above the day squares while they scroll under */
+  background: #efecf8;
+  padding: 2px 0 4px;
 }
 
 .day-label {
@@ -179,13 +185,28 @@
   border: none;
   font-size: var(--fs-xl);
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(88, 112, 192, 0.45);
+  /* box-shadow: 0 4px 16px rgba(88, 112, 192, 0.45); */
   z-index: 100;
   transition: transform 0.2s;
+  color: rgb(88, 112, 192);
+  font-size: 26px;
+  background: #efebfc;
+  color: #4527a8;
+  border: 1px solid #d9d1f5;
+  box-shadow: 0 4px 14px rgba(69, 39, 168, 0.18);
+  overflow-y: auto;
 }
 
 .cal-fab:hover {
   transform: scale(1.08);
+}
+
+.cal-drawer .calendar-card {
+  overflow: visible;
+}
+
+.cal-drawer-inner .month-label {
+  background: #fff;
 }
 
 .cal-overlay {
@@ -228,6 +249,7 @@
   row-gap: 3px;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
 }
 
 .cal-drawer-inner .month-label,
@@ -257,6 +279,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .calendar-legend {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-size: var(--fs-sm);
+    color: #5f5b78;
+  }
+
+  .legend-box {
+    width: 12px;
+    height: 12px;
   }
 }
 
