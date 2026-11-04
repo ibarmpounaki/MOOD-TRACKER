@@ -51,6 +51,12 @@ form[action="/addJournalEntry"] {
   font-size: 20px;
 }
 
+.banner-arrow-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
 .banner-arrow-btn:hover {
   background: rgba(255, 255, 255, 0.35);
 }
@@ -367,6 +373,9 @@ form[action="/addJournalEntry"] {
 .mood.selected .mood-box {
   border: 2px solid rgb(91, 91, 91);
   transform: scale(1.12);
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 3px #1e2140;
 }
 
 .mood-popup {

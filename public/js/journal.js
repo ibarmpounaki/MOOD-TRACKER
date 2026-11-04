@@ -74,7 +74,6 @@ function showErrorToast(message) {
 }
 
 const saveBtn = document.querySelector("button.ok");
-console.log(saveBtn);
 
 document.querySelector("button.ok").addEventListener("click", function (e) {
   e.preventDefault();
@@ -97,4 +96,4 @@ document.querySelector("button.ok").addEventListener("click", function (e) {
   document.querySelector("form[action='/addJournalEntry']").submit();
 });
 
-console.log(`Width: ${window.innerWidth}px | Height: ${window.innerHeight}px`);
+// console.log(`Width: ${window.innerWidth}px | Height: ${window.innerHeight}px`);

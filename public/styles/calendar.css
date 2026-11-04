@@ -71,8 +71,10 @@
   background: #d0d0d0;
 }
 
-.day.selected {
-  border: 2px solid rgb(101, 101, 101);
+.day.selected,
+.day.selected:focus {
+  outline: 2px solid #1e2140;
+  outline-offset: 1px;
 }
 
 .emptyDay {

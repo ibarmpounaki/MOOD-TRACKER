@@ -72,9 +72,9 @@ const testDay = document.querySelector(".day, button.today");
 
     if (!cur) return;
 
-    console.log("day:", cur.dataset.day);
-    console.log("month:", cur.dataset.month);
-    console.log("year:", cur.dataset.year);
+    // console.log("day:", cur.dataset.day);
+    // console.log("month:", cur.dataset.month);
+    // console.log("year:", cur.dataset.year);
 
     const d = new Date(
       parseInt(cur.dataset.year),
