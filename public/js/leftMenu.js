@@ -8,26 +8,11 @@ document
 
     e.preventDefault();
 
-    const selectedImg = selectedLink.querySelector(".menu-image");
-    const selectedCategory = e.target.closest(".menu.categories");
-
-    // reset all images and colors
-    document.querySelectorAll(".menu-image").forEach((img) => {
-      img.src = img.src.replace("-selected", "-unselected");
+    // move the "active" highlight to the clicked item
+    document.querySelectorAll(".menu.categories").forEach((item) => {
+      item.classList.remove("active");
     });
-    document.querySelectorAll("a").forEach((a) => {
-      a.style.color = "#5870c06e";
-    });
-    document.querySelectorAll(".menu.categories").forEach((btn) => {
-      btn.classList.remove("active");
-    });
-
-    selectedCategory.classList.add("active");
-
-    if (selectedImg.src.includes("-unselected")) {
-      selectedImg.src = selectedImg.src.replace("-unselected", "-selected");
-      selectedLink.style.color = "#2e3d64";
-    }
+    selectedLink.closest(".menu.categories").classList.add("active");
 
     // toggle sections based on which link was clicked
     if (selectedLink.classList.contains("journal")) {

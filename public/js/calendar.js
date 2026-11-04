@@ -31,6 +31,8 @@ function handleDayClick(dayEl) {
 
   if (selectedDay === todayDate) {
     document.querySelector("#nextDayBtn").disabled = true;
+  } else {
+    document.querySelector("#nextDayBtn").disabled = false;
   }
 
   // if user is on stats page, switch to journal first

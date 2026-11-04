@@ -15,13 +15,13 @@
     <div class="leftMenu-divider"></div>
     <div class="menu categories first-cat active">
       <a class="journal" href="/dashboard">
-        <img class="menu-image" src="/images/journal-selected.png" />
+        <i class="ti ti-notebook menu-image" aria-hidden="true"></i>
         Journal
       </a>
     </div>
     <div class="menu categories">
       <a class="statistics" href="/statistics">
-        <img class="menu-image" src="/images/statistics-unselected.png" />
+        <i class="ti ti-chart-bar menu-image" aria-hidden="true"></i>
         Statistics
       </a>
     </div>
@@ -29,14 +29,14 @@
   <div class="categories-bottom">
     <div class="leftMenu-divider"></div>
     <div class="menu categories">
-      <a class="settings" href="/settings">
-        <img class="menu-image" src="/images/settings-unselected.png" />
+      <a class="settings disabled" aria-disabled="true">
+        <i class="ti ti-settings menu-image" aria-hidden="true"></i>
         Settings
       </a>
     </div>
     <form class="menu categories" action="/logout" method="POST">
       <button class="logout" type="submit">
-        <img class="menu-image" src="/images/logout-unselected.png" />
+        <i class="ti ti-logout menu-image" aria-hidden="true"></i>
         Logout
       </button>
     </form>
