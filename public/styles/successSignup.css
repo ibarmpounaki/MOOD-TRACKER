@@ -24,9 +24,12 @@ body {
   text-align: center;
   position: relative;
   z-index: 1;
-  height: 100vh; /* fill fullscreen */
-  padding-bottom: 100px;
+  min-height: 100vh;
+  width: 100%;
   gap: 20px; /* space between elements */
+  padding: calc(24px + env(safe-area-inset-top)) 24px
+    /* keep the content clear of the notch*/
+    calc(clamp(40px, 10vh, 100px) + env(safe-area-inset-bottom));
 }
 
 .successContent {
@@ -35,18 +38,19 @@ body {
   align-items: center;
   flex: 1; /* pushes button down */
   justify-content: center; /* centers content vertically within its space */
+  max-width: 600px;
 }
 
 /* checkmark */
 .check-wrap {
-  width: 110px;
-  height: 110px;
+  width: clamp(80px, 10vw, 110px);
+  height: clamp(80px, 10vw, 110px);
   border-radius: 50%;
   background: linear-gradient(135deg, #5870c0, #9878c8);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: clamp(20px, 3vw, 30px);
   box-shadow: 0 8px 32px rgba(88, 112, 192, 0.32);
   animation: popIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
 }
@@ -63,8 +67,8 @@ body {
 }
 
 .check-icon {
-  width: 50px;
-  height: 50px;
+  width: 45%;
+  height: 45%;
   stroke: #fff;
   stroke-width: 3;
   fill: none;
@@ -85,22 +89,22 @@ body {
 }
 
 .success-Title {
-  font-size: var(--fs-2xl);
+  font-size: clamp(14px, 1.6vw, 20px);
   font-weight: 500;
   letter-spacing: 2.5px;
   text-transform: uppercase;
   color: #a0a4cc;
-  margin-bottom: 30px;
+  margin-bottom: clamp(16px, 2.5vw, 30px);
 }
 
 .success-heading {
-  font-size: var(--fs-6xl);
+  font-size: clamp(30px, 6vw, 56px);
   color: #1e2140;
-  margin-bottom: 30px;
+  margin-bottom: clamp(16px, 2.5vw, 30px);
 }
 
 .success-sub {
-  font-size: var(--fs-4xl);
+  font-size: clamp(16px, 2.4vw, 24px);
   font-weight: 300;
   color: #8888b0;
   margin-bottom: 36px;
@@ -108,18 +112,27 @@ body {
 
 /* button */
 .login-btn {
-  width: auto;
-  padding: 12px 100px;
+  width: 100%;
+  max-width: 360px;
+  padding: 14px 24px;
   background: linear-gradient(135deg, #5870c0, #9878c8);
   color: #fff;
   border: none;
   border-radius: 12px;
-  font-size: var(--fs-xl);
+  font-size: clamp(15px, 1.4vw, 18px);
   font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 1.5px;
   cursor: pointer;
   box-shadow: 0 4px 20px rgba(88, 112, 192, 0.28);
   text-decoration: none;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+#loginBtn {
+  color: #fff;
 }
 
 .login-btn:hover {
