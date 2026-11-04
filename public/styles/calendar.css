@@ -247,7 +247,7 @@
   width: 80%;
   max-width: 480px;
   max-height: 85vh;
-  padding: 0 16px;
+  padding: 0 0px;
   overflow-y: auto;
   transition: transform 0.3s cubic-bezier(0.32, 1, 0.56, 1);
 }
@@ -326,7 +326,7 @@
    ================================ */
 
 /* below large desktop: hide side panel, show the floating button */
-@media (max-width: 1469.98px) {
+@media (max-width: 1400px) {
   .calendar-card {
     visibility: hidden;
     position: absolute;
@@ -334,6 +334,7 @@
     height: 0;
     overflow: hidden;
   }
+
   .cal-fab {
     display: flex;
     align-items: center;
@@ -364,6 +365,13 @@
 }
 
 /* side grid on big screens */
+@media (min-width: 1400px) {
+  .calendar-grid {
+    grid-template-columns: 20px repeat(12, 17px);
+    row-gap: 2px;
+    column-gap: 6px;
+  }
+}
 @media (min-width: 1800px) {
   .calendar-grid {
     grid-template-columns: 20px repeat(12, 20px);
